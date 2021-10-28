@@ -2,7 +2,7 @@
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
-const config: webpack.Configuration = {
+const config = {
     mode: 'development',
     output: {
         publicPath: '/',
@@ -49,12 +49,12 @@ const config: webpack.Configuration = {
                 exclude: /node_modules/,
             },
             {
-                test:/\.(png|jpg|gif|svg)$/,
-                use : 'file-loader'
+                test: /\.(png|jpg|gif|svg)$/,
+                use: 'file-loader',
             },
             {
-                test : /\.txt$/,
-                use : 'raw-loader'
+                test: /\.txt$/,
+                use: 'raw-loader',
             },
         ],
     },
@@ -66,15 +66,14 @@ const config: webpack.Configuration = {
             template: 'public/index.html',
         }),
         new webpack.HotModuleReplacementPlugin(),
+        new webpack.ProvidePlugin({
+            process: 'process/browser',
+        }),
     ],
     devtool: 'inline-source-map',
-    // devServer: {
-    //     contentBase: path.join(__dirname, "build"),
-    //     historyApiFallback: true,
-    //     port: 4000,
-    //     open: true,
-    //     hot: true
-    // },
+    devServer: {
+        port: 4000,
+    },
 };
 
 export default config;

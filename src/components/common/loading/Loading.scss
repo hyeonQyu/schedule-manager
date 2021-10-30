@@ -1,7 +1,7 @@
 @import "src/presets";
 
 .wrapper {
-  @include portal($loading-z-index);
+  @include screenMask($loading-z-index);
 
   .loading {
     background: url(/public/assets/gif/loading.gif);

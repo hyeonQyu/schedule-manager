@@ -2,7 +2,7 @@ $modal-z-index: 5000;
 $dialog-z-index: 10000;
 $loading-z-index: 15000;
 
-@mixin portal($z-index) {
+@mixin screenMask($z-index) {
   background: rgba(0, 0, 0, .5);
   position: fixed;
   z-index: $loading-z-index;

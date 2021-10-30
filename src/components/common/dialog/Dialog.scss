@@ -1,7 +1,7 @@
 @import "src/presets";
 
 .wrapper {
-  @include portal($dialog-z-index);
+  @include screenMask($dialog-z-index);
   font-size: 30pt;
 
   .dialog {

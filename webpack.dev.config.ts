@@ -1,6 +1,7 @@
-// import path from 'path';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import path from 'path';
+import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin';
 
 const config = {
     mode: 'development',
@@ -60,6 +61,11 @@ const config = {
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
+        plugins: [
+            new TsconfigPathsPlugin({
+                configFile: path.resolve(__dirname, './tsconfig.json'),
+            }),
+        ],
     },
     plugins: [
         new HtmlWebpackPlugin({

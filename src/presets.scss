@@ -1,5 +1,19 @@
 $modal-z-index: 5000;
 $dialog-z-index: 10000;
+$loading-z-index: 15000;
+
+@mixin portal($z-index) {
+  background: rgba(0, 0, 0, .5);
+  position: fixed;
+  z-index: $loading-z-index;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 // 아이폰11 828x1972
 // Z-플립 1080x2640

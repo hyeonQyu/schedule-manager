@@ -18,6 +18,9 @@
       "@pages/*": [
         "./pages/*"
       ],
+      "@stores/*": [
+        "./stores/*"
+      ],
       "@defines/*": [
         "./defines/*"
       ]

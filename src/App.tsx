@@ -1,18 +1,17 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './App.scss';
-import { loading } from '@components/common/loading/Loading';
-import { authService } from './firebaseService.js';
+import { Route, Switch } from 'react-router-dom';
+import Login from '@pages/login/Login';
+import ProtectedRoute from '@components/protected-route/ProtectedRoute';
+import Home from '@pages/home/Home';
 
 const App = () => {
-    loading.show();
-
-    useEffect(() => {
-        authService.onAuthStateChanged((user) => {
-            console.log(user);
-            loading.hide();
-        });
-    });
-    return <div></div>;
+    return (
+        <Switch>
+            <ProtectedRoute exact path={'/'} component={Home} />
+            <Route exact path={'/login'} component={Login} />
+        </Switch>
+    );
 };
 
 export default App;

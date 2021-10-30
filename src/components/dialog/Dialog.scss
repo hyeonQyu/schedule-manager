@@ -1,0 +1,53 @@
+@import "src/presets";
+
+.wrapper {
+  background: rgba(0, 0, 0, .5);
+  position: fixed;
+  z-index: $dialog-z-index;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30pt;
+
+  .dialog {
+    width: 70vw;
+    height: 20vh;
+    background-color: white;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    line-height: 50px;
+
+    .message {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow-y: auto;
+      padding: 30px;
+    }
+
+    .buttons {
+      height: 25%;
+      display: flex;
+
+      button {
+        width: 100%;
+        font-size: 24pt;
+
+        &.confirm {
+          color: #3998f6;
+        }
+
+        &.cancel {
+          color: #f57171;
+        }
+      }
+    }
+  }
+}

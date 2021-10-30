@@ -14,6 +14,9 @@
     "paths": {
       "@components/*": [
         "./components/*"
+      ],
+      "@defines/*": [
+        "./defines/*"
       ]
     }
   },

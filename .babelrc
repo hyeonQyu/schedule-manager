@@ -5,6 +5,7 @@
       {
         "legacy": true
       }
-    ]
+    ],
+    "@babel/plugin-transform-runtime"
   ]
 }

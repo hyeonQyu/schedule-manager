@@ -2,8 +2,8 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import classNames from 'classnames/bind';
 import style from './Loading.scss';
-import OverlayPortal from '@components/overlay-portal/OverlayPortal';
-import LoadingStore from '@components/loading/store/LoadingStore';
+import OverlayPortal from '@components/common/overlay-portal/OverlayPortal';
+import LoadingStore from '@components/common/loading/store/LoadingStore';
 
 const cx = classNames.bind(style);
 

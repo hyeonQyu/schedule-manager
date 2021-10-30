@@ -2,8 +2,8 @@ import React, { ReactNode } from 'react';
 import { observer } from 'mobx-react';
 import classNames from 'classnames/bind';
 import style from './Dialog.scss';
-import OverlayPortal from '@components/overlay-portal/OverlayPortal';
-import DialogStore from '@components/dialog/store/DialogStore';
+import OverlayPortal from '@components/common/overlay-portal/OverlayPortal';
+import DialogStore from '@components/common/dialog/store/DialogStore';
 import { EDialogType } from '@defines/defines';
 
 const cx = classNames.bind(style);

@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
-import Portals from '@components/portals/Portals';
+import Portals from '@components/common/portals/Portals';
 
 ReactDOM.render(
     <BrowserRouter>

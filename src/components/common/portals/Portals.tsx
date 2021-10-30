@@ -1,6 +1,6 @@
 import React from 'react';
-import Dialog from '@components/dialog/Dialog';
-import Loading from '@components/loading/Loading';
+import Dialog from '@components/common/dialog/Dialog';
+import Loading from '@components/common/loading/Loading';
 
 const Portals = () => {
     return (

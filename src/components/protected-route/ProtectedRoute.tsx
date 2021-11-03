@@ -8,7 +8,7 @@ const userStore = UserStore.instance;
 const ProtectedRoute = observer((props: RouteProps) => {
     const { isLoggedIn } = userStore;
 
-    return <Route {...props}>{!isLoggedIn ? <Redirect to={'/login'} /> : null}</Route>;
+    return <Route {...props}>{!isLoggedIn ? <Redirect to={'/'} /> : null}</Route>;
 });
 
 export default ProtectedRoute;

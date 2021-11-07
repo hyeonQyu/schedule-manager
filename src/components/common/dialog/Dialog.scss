@@ -2,7 +2,6 @@
 
 .wrapper {
   @include screenMask($dialog-z-index);
-  font-size: 30pt;
 
   .dialog {
     width: 74vw;

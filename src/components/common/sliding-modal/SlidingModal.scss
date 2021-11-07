@@ -27,6 +27,7 @@
     width: 99%;
     height: 96vh;
     background: white;
+    box-shadow: 0 6px 14px 2px;
 
     &.open {
       @include slideOpen(normal);

@@ -4,6 +4,7 @@ import { authService } from 'firebaseService.js';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { dialog } from '@components/common/dialog/Dialog';
 import env from 'env.js';
+import { loading } from '@components/common/loading/Loading';
 
 @autobind
 export default class UserStore {
@@ -15,12 +16,10 @@ export default class UserStore {
     private constructor() {
         UserStore._instance = this;
 
+        loading.show();
         authService.onAuthStateChanged((user) => {
-            if (user && this.isRightUser(user)) {
-                this._isLoggedIn = true;
-                return;
-            }
-            this._isLoggedIn = false;
+            this._isLoggedIn = user && this.isRightUser(user);
+            loading.hide();
         });
     }
 

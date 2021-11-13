@@ -37,7 +37,7 @@ const ScheduleAddModal = observer(() => {
     } = store;
 
     return (
-        <SlidingModal title={'일정 추가'} isOpened={true} onClickConfirm={() => {}} onClickCancel={close}>
+        <SlidingModal title={'일정 추가'} isOpened={isOpened} onClickConfirm={() => {}} onClickCancel={close}>
             <div className={cx('wrapper')}>
                 <div className={cx('part')}>
                     <h4>선택한 날짜</h4>

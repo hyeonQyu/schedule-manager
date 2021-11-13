@@ -1,0 +1,20 @@
+@import "src/presets";
+
+.wrapper {
+  background: yellowgreen;
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  .tab {
+    background: #3998f6;
+    width: 20vw;
+    height: 7vh;
+    transition: all .2s ease;
+
+    &.active {
+      opacity: 0.5;
+    }
+  }
+}

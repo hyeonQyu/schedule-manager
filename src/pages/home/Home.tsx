@@ -1,13 +1,14 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import classNames from 'classnames/bind';
-import style from './Home.scss';
-import { RouteProps } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router-dom';
+import Layout from '@components/layout/Layout';
 
-const cx = classNames.bind(style);
-
-const Home = observer((props: RouteProps) => {
-    return <div>홈</div>;
+const Home = observer((props: RouteComponentProps) => {
+    return (
+        <div>
+            <Layout {...props} />
+        </div>
+    );
 });
 
 export default Home;

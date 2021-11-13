@@ -13,10 +13,10 @@ export default class ScheduleModalStore extends ModalStore {
     @observable private _name: string = '';
 
     // 시작 일시
-    @observable private _startDatetime: Datetime = this.getInitStartDatetime(new Date());
+    @observable private _startDatetime: Datetime;
 
     // 종료 일시
-    @observable private _endDatetime: Datetime = this.getInitEndDatetime(new Date());
+    @observable private _endDatetime: Datetime;
 
     // 위치
     @observable private _location: string = '';
@@ -206,7 +206,7 @@ export default class ScheduleModalStore extends ModalStore {
 
     @action
     protected getInitEndDatetime(today: Date) {
-        return new Datetime(today.getFullYear(), today.getMonth() + 1, today.getDate(), 23, 59);
+        return new Datetime(today.getFullYear(), today.getMonth() + 1, today.getDate(), 23, 50);
     }
 
     protected getYearList() {
@@ -244,7 +244,7 @@ export default class ScheduleModalStore extends ModalStore {
 
     protected getMinutesList() {
         const arr = [];
-        for (let i = 0; i < 60; i++) {
+        for (let i = 0; i < 60; i += 10) {
             arr.push(i);
         }
         return arr;

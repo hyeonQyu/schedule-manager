@@ -1,19 +1,40 @@
 @import "src/presets";
 
+@mixin tabBackground($backgroundUrl) {
+  background-image: $backgroundUrl;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position-x: center;
+  height: 80%;
+}
+
 .wrapper {
-  background: yellowgreen;
   height: 10vh;
   display: flex;
   align-items: center;
   justify-content: space-around;
+  box-shadow: 0 8px 17px 2px rebeccapurple;
 
   .tab {
-    background: #3998f6;
-    width: 20vw;
-    height: 7vh;
+    width: 13vw;
+    height: 5vh;
 
     &.active {
-      opacity: 0.5;
+      border-bottom: 8px solid #9e5ade;
+    }
+
+    .img {
+      &.entire {
+        @include tabBackground(url(/public/assets/png/calendar.png));
+      }
+
+      &.me {
+        @include tabBackground(url(/public/assets/png/user.png));
+      }
+
+      &.other {
+        @include tabBackground(url(/public/assets/png/love.png));
+      }
     }
   }
 }

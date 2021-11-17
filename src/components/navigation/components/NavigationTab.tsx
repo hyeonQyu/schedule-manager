@@ -3,16 +3,17 @@ import { observer } from 'mobx-react';
 import classNames from 'classnames/bind';
 import style from '../Navigation.scss';
 import { RouteComponentProps } from 'react-router-dom';
+import { ENavigationType } from '@defines/defines';
 
 const cx = classNames.bind(style);
 
 export interface NavigationTabProps extends RouteComponentProps {
-    text: string;
     href: string;
+    type: ENavigationType;
 }
 
 const NavigationTab = observer((props: NavigationTabProps) => {
-    const { text, href, history } = props;
+    const { href, type, history } = props;
 
     const onClickTab = () => {
         history.push(href);
@@ -22,7 +23,7 @@ const NavigationTab = observer((props: NavigationTabProps) => {
 
     return (
         <div className={cx('tab', isActive() && 'active')} onClick={onClickTab}>
-            {text}
+            <div className={cx('img', type)} />
         </div>
     );
 });

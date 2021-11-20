@@ -3,6 +3,7 @@ import { observer } from 'mobx-react';
 import classNames from 'classnames/bind';
 import style from './ScheduleCalendar.scss';
 import ScheduleCalendarHeader from '@components/common/schedule-calendar/componenets/ScheduleCalendarHeader';
+import ScheduleCalendarDates from '@components/common/schedule-calendar/componenets/ScheduleCalendarDates';
 
 const cx = classNames.bind(style);
 
@@ -13,14 +14,15 @@ const ScheduleCalendar = observer(() => {
         <div className={cx('wrapper')}>
             <ScheduleCalendarHeader />
             <div className={cx('days')}>
-                <span>SUN</span>
-                <span>MON</span>
-                <span>TUE</span>
-                <span>WEN</span>
-                <span>THU</span>
-                <span>FRI</span>
-                <span>SAT</span>
+                <div>일</div>
+                <div>월</div>
+                <div>화</div>
+                <div>수</div>
+                <div>목</div>
+                <div>금</div>
+                <div>토</div>
             </div>
+            <ScheduleCalendarDates />
         </div>
     );
 });

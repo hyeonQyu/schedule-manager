@@ -1,14 +1,33 @@
 @import "src/presets";
 
+@mixin cell {
+  width: 100%;
+
+  color: #656565;
+
+  &:first-child {
+    color: #f57171;
+  }
+
+  &:last-child {
+    color: #3998f6;
+  }
+}
+
 .wrapper {
+  padding: 2vh 2vw 0 2vw;
+
   .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    height: 4.5vh;
 
     select {
+      color: #494949;
       background: none;
-      font-size: 6.5vw;
+      font-size: 5.5vw;
+      font-weight: bold;
       border-radius:0; /* 아이폰 사파리 보더 없애기 */
       -webkit-appearance:none; /* 화살표 없애기 for chrome*/
       -moz-appearance:none; /* 화살표 없애기 for firefox*/
@@ -21,6 +40,34 @@
   }
 
   .days {
+    margin-top: 3vh;
+    display: flex;
+    justify-content: space-between;
 
+    div {
+      text-align: center;
+      font-size: 4vw;
+      @include cell;
+    }
+  }
+
+  .dates {
+    margin-top: 1.5vh;
+
+    .row {
+      display: flex;
+      align-items: center;
+
+      div {
+        height: 12.7vh;
+        @include cell;
+
+        p {
+          font-size: 4vw;
+          text-align: right;
+          padding: 1vh 4.4vw;
+        }
+      }
+    }
   }
 }

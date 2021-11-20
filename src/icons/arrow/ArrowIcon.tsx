@@ -15,7 +15,7 @@ const ArrowIcon = (props: ArrowProps) => {
 
     return (
         <div style={style}>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22" width={'10vw'}>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22" width={'7vw'}>
                 <defs>
                     <clipPath>
                         <path fill="#00f" fill-opacity=".514" d="m-7 1024.36h34v34h-34z" />

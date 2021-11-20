@@ -18,10 +18,10 @@ const ArrowIcon = (props: ArrowProps) => {
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22" width={'7vw'}>
                 <defs>
                     <clipPath>
-                        <path fill="#00f" fill-opacity=".514" d="m-7 1024.36h34v34h-34z" />
+                        <path fill="#00f" fillOpacity=".514" d="m-7 1024.36h34v34h-34z" />
                     </clipPath>
                     <clipPath>
-                        <path fill="#aade87" fill-opacity=".472" d="m-6 1028.36h32v32h-32z" />
+                        <path fill="#aade87" fillOpacity=".472" d="m-6 1028.36h32v32h-32z" />
                     </clipPath>
                 </defs>
                 <path

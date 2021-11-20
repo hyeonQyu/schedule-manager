@@ -3,12 +3,10 @@ import { action, observable } from 'mobx';
 import Datetime from '@utils/Datetime';
 import ModalStore from '@stores/ModalStore';
 import { dialog } from '@components/common/dialog/Dialog';
+import { EYear } from '@defines/defines';
 
 @autobind
 export default class ScheduleModalStore extends ModalStore {
-    protected readonly MIN_YEAR = 1950;
-    protected readonly MAX_YEAR = 2050;
-
     // 일정 이름
     @observable private _name: string = '';
 
@@ -106,7 +104,7 @@ export default class ScheduleModalStore extends ModalStore {
 
     @action
     setStartYear(year: number) {
-        if (this.isOutOfRange(year, this.MIN_YEAR, this.MAX_YEAR)) {
+        if (this.isOutOfRange(year, EYear.MIN_YEAR, EYear.MAX_YEAR)) {
             return;
         }
         this._startDatetime.year = year;
@@ -151,7 +149,7 @@ export default class ScheduleModalStore extends ModalStore {
 
     @action
     setEndYear(year: number) {
-        if (this.isOutOfRange(year, this.MIN_YEAR, this.MAX_YEAR)) {
+        if (this.isOutOfRange(year, EYear.MIN_YEAR, EYear.MAX_YEAR)) {
             return;
         }
         this._endDatetime.year = year;
@@ -211,7 +209,7 @@ export default class ScheduleModalStore extends ModalStore {
 
     protected getYearList() {
         const arr = [];
-        for (let i = this.MIN_YEAR; i <= this.MAX_YEAR; i++) {
+        for (let i = EYear.MIN_YEAR; i <= EYear.MAX_YEAR; i++) {
             arr.push(i);
         }
         return arr;

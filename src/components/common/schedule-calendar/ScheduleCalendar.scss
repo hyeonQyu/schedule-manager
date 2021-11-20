@@ -1,0 +1,26 @@
+@import "src/presets";
+
+.wrapper {
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    select {
+      background: none;
+      font-size: 6.5vw;
+      border-radius:0; /* 아이폰 사파리 보더 없애기 */
+      -webkit-appearance:none; /* 화살표 없애기 for chrome*/
+      -moz-appearance:none; /* 화살표 없애기 for firefox*/
+      appearance: none; /* 화살표 없애기 공통*/
+
+      &:first-child {
+        margin-right: 4vw;
+      }
+    }
+  }
+
+  .days {
+
+  }
+}

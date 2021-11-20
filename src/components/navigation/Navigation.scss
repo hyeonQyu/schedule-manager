@@ -14,6 +14,12 @@
   align-items: center;
   justify-content: space-around;
   box-shadow: 0 8px 17px 2px rebeccapurple;
+  transition: all .5s ease;
+
+  &.hidden {
+    margin-top: 10vh;
+    box-shadow: none;
+  }
 
   .tab {
     width: 13vw;

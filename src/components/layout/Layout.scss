@@ -1,7 +1,8 @@
 @import "src/presets";
 
 .wrapper {
-  height: 100%;
+  height: 100vh;
+  overflow-y: hidden;
 
   .body {
     height: 90vh;

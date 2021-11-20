@@ -9,140 +9,154 @@ const ScheduleCalendarDates = observer(() => {
     return (
         <div className={cx('dates')}>
             <div className={cx('row')}>
-                <div>
+                <div className={cx('date')}>
+                    <p>1</p>
+                    <ul>
+                        <li className={cx('me')}>어쩌구어쩌구어쩌구어쩌구어쩌구</li>
+                        <li className={cx('me')}>저쩌구?</li>
+                        <li className={cx('other')}>저쩌구?</li>
+                        <li className={cx('other')}>저쩌구?</li>
+                        <li className={cx('me')}>저쩌구?</li>
+                    </ul>
+                </div>
+                <div className={cx('date')}>
+                    <p>1</p>
+                    <ul>
+                        <li className={cx('me')}>어쩌구어쩌구어쩌구어쩌구어쩌구</li>
+                        <li className={cx('me')}>저쩌구?</li>
+                        <li className={cx('other')}>저쩌구?</li>
+                        <li className={cx('other')}>저쩌구?</li>
+                        <li className={cx('me')}>저쩌구?</li>
+                    </ul>
+                </div>
+                <div className={cx('date')}>
                     <p>1</p>
                 </div>
-                <div>
-                    <p>1</p>
-                </div>
-                <div>
-                    <p>1</p>
-                </div>
-                <div>
+                <div className={cx('date')}>
                     <p>25</p>
                 </div>
-                <div>
+                <div className={cx('date')}>
                     <p>1</p>
                 </div>
-                <div>
+                <div className={cx('date')}>
                     <p>1</p>
                 </div>
-                <div>
-                    <p>1</p>
-                </div>
-            </div>
-            <div className={cx('row')}>
-                <div>
-                    <p>1</p>
-                </div>
-                <div>
-                    <p>1</p>
-                </div>
-                <div>
-                    <p>1</p>
-                </div>
-                <div>
-                    <p>1</p>
-                </div>
-                <div>
-                    <p>1</p>
-                </div>
-                <div>
-                    <p>1</p>
-                </div>
-                <div>
+                <div className={cx('date')}>
                     <p>1</p>
                 </div>
             </div>
             <div className={cx('row')}>
-                <div>
+                <div className={cx('date')}>
                     <p>1</p>
                 </div>
-                <div>
+                <div className={cx('date')}>
                     <p>1</p>
                 </div>
-                <div>
+                <div className={cx('date')}>
                     <p>1</p>
                 </div>
-                <div>
+                <div className={cx('date')}>
                     <p>1</p>
                 </div>
-                <div>
+                <div className={cx('date')}>
                     <p>1</p>
                 </div>
-                <div>
+                <div className={cx('date')}>
                     <p>1</p>
                 </div>
-                <div>
-                    <p>1</p>
-                </div>
-            </div>
-            <div className={cx('row')}>
-                <div>
-                    <p>1</p>
-                </div>
-                <div>
-                    <p>1</p>
-                </div>
-                <div>
-                    <p>1</p>
-                </div>
-                <div>
-                    <p>1</p>
-                </div>
-                <div>
-                    <p>1</p>
-                </div>
-                <div>
-                    <p>1</p>
-                </div>
-                <div>
+                <div className={cx('date')}>
                     <p>1</p>
                 </div>
             </div>
             <div className={cx('row')}>
-                <div>
+                <div className={cx('date')}>
                     <p>1</p>
                 </div>
-                <div>
+                <div className={cx('date')}>
                     <p>1</p>
                 </div>
-                <div>
+                <div className={cx('date')}>
                     <p>1</p>
                 </div>
-                <div>
+                <div className={cx('date')}>
                     <p>1</p>
                 </div>
-                <div>
+                <div className={cx('date')}>
                     <p>1</p>
                 </div>
-                <div>
+                <div className={cx('date')}>
                     <p>1</p>
                 </div>
-                <div>
+                <div className={cx('date')}>
                     <p>1</p>
                 </div>
             </div>
             <div className={cx('row')}>
-                <div>
+                <div className={cx('date')}>
                     <p>1</p>
                 </div>
-                <div>
+                <div className={cx('date')}>
                     <p>1</p>
                 </div>
-                <div>
+                <div className={cx('date')}>
                     <p>1</p>
                 </div>
-                <div>
+                <div className={cx('date')}>
                     <p>1</p>
                 </div>
-                <div>
+                <div className={cx('date')}>
                     <p>1</p>
                 </div>
-                <div>
+                <div className={cx('date')}>
                     <p>1</p>
                 </div>
-                <div>
+                <div className={cx('date')}>
+                    <p>1</p>
+                </div>
+            </div>
+            <div className={cx('row')}>
+                <div className={cx('date')}>
+                    <p>1</p>
+                </div>
+                <div className={cx('date')}>
+                    <p>1</p>
+                </div>
+                <div className={cx('date')}>
+                    <p>1</p>
+                </div>
+                <div className={cx('date')}>
+                    <p>1</p>
+                </div>
+                <div className={cx('date')}>
+                    <p>1</p>
+                </div>
+                <div className={cx('date')}>
+                    <p>1</p>
+                </div>
+                <div className={cx('date')}>
+                    <p>1</p>
+                </div>
+            </div>
+            <div className={cx('row')}>
+                <div className={cx('date')}>
+                    <p>1</p>
+                </div>
+                <div className={cx('date')}>
+                    <p>1</p>
+                </div>
+                <div className={cx('date')}>
+                    <p>1</p>
+                </div>
+                <div className={cx('date')}>
+                    <p>1</p>
+                </div>
+                <div className={cx('date')}>
+                    <p>1</p>
+                </div>
+                <div className={cx('date')}>
+                    <p>1</p>
+                </div>
+                <div className={cx('date')}>
                     <p>1</p>
                 </div>
             </div>

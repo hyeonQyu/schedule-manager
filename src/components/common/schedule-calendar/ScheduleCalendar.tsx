@@ -14,13 +14,13 @@ const ScheduleCalendar = observer(() => {
         <div className={cx('wrapper')}>
             <ScheduleCalendarHeader />
             <div className={cx('days')}>
-                <div>일</div>
-                <div>월</div>
-                <div>화</div>
-                <div>수</div>
-                <div>목</div>
-                <div>금</div>
-                <div>토</div>
+                <div className={cx('day')}>일</div>
+                <div className={cx('day')}>월</div>
+                <div className={cx('day')}>화</div>
+                <div className={cx('day')}>수</div>
+                <div className={cx('day')}>목</div>
+                <div className={cx('day')}>금</div>
+                <div className={cx('day')}>토</div>
             </div>
             <ScheduleCalendarDates />
         </div>

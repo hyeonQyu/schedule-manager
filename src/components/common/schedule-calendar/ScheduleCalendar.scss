@@ -1,7 +1,7 @@
 @import "src/presets";
 
 @mixin cell {
-  width: 100%;
+  width: 14%;
 
   color: #656565;
 
@@ -28,10 +28,7 @@
       background: none;
       font-size: 5.5vw;
       font-weight: bold;
-      border-radius:0; /* 아이폰 사파리 보더 없애기 */
-      -webkit-appearance:none; /* 화살표 없애기 for chrome*/
-      -moz-appearance:none; /* 화살표 없애기 for firefox*/
-      appearance: none; /* 화살표 없애기 공통*/
+      @include hideSelectArrow;
 
       &:first-child {
         margin-right: 4vw;
@@ -44,7 +41,7 @@
     display: flex;
     justify-content: space-between;
 
-    div {
+    .day {
       text-align: center;
       font-size: 4vw;
       @include cell;
@@ -58,14 +55,46 @@
       display: flex;
       align-items: center;
 
-      div {
+      .date {
         height: 12.7vh;
         @include cell;
+        border-bottom: 1px solid #e9e2f1;
 
         p {
+          height: 30%;
           font-size: 4vw;
           text-align: right;
           padding: 1vh 4.4vw;
+        }
+
+        ul {
+          max-width: 100%;
+          max-height: 67%;
+          overflow-y: auto;
+          border-radius: 2px;
+          padding: 0 0.4vw;
+          @include hideScrollbar;
+
+          li {
+            padding: 0 0.5vw;
+            width: 100%;
+            text-align: center;
+            font-size: 0.8vh;
+            color: whitesmoke;
+            line-height: 2vh;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow-x: hidden;
+            border-radius: 2px;
+
+            &.me {
+              background: #a34dff;
+            }
+
+            &.other {
+              background: #c482ff;
+            }
+          }
         }
       }
     }

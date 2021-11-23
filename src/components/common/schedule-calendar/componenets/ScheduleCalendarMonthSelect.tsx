@@ -8,7 +8,7 @@ const ScheduleCalendarMonthSelect = observer(() => {
     const { month, setMonth } = store;
 
     return (
-        <select defaultValue={month} onChange={(e) => setMonth(Number(e.target.value))}>
+        <select value={month} onChange={(e) => setMonth(Number(e.target.value))}>
             {(() => {
                 const monthOptions = [];
                 for (let i = 1; i <= 12; i++) {

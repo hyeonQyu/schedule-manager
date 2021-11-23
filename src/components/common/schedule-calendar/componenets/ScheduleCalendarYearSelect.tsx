@@ -9,7 +9,7 @@ const ScheduleCalendarYearSelect = observer(() => {
     const { year, setYear } = store;
 
     return (
-        <select defaultValue={year} onChange={(e) => setYear(Number(e.target.value))}>
+        <select value={year} onChange={(e) => setYear(Number(e.target.value))}>
             {(() => {
                 const yearOptions = [];
                 for (let i = EYear.MIN_YEAR; i <= EYear.MAX_YEAR; i++) {

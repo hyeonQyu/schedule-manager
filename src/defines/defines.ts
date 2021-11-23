@@ -10,8 +10,8 @@ export enum ENavigationType {
 }
 
 export enum EYear {
-    MIN_YEAR = 1950,
-    MAX_YEAR = 2050,
+    MIN_YEAR = 2019,
+    MAX_YEAR = 2030,
 }
 
 export enum EWeek {

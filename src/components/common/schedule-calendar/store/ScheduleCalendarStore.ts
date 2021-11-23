@@ -1,7 +1,8 @@
 import { autobind } from 'core-decorators';
 import { action, observable } from 'mobx';
-import { CalendarDate, EDay, EMonthType, EWeek } from '@defines/defines';
+import { CalendarDate, EDay, EMonthType, EWeek, EYear } from '@defines/defines';
 import { DateUtil } from '@utils/DateUtil';
+import { dialog } from '@components/common/dialog/Dialog';
 
 @autobind
 export default class ScheduleCalendarStore {
@@ -67,7 +68,7 @@ export default class ScheduleCalendarStore {
         const lastDay = DateUtil.getLastDay(this._year, this._month);
 
         // 이번달 마지막 날의 주
-        const lastWeek = Math.ceil((lastDate - lastDay) / EWeek.DATES_PER_WEEK) + 1;
+        const lastWeek = Math.ceil((lastDate - lastDay) / EWeek.DATES_PER_WEEK) + (firstDay > 0 ? 1 : 0);
 
         // 다음달 마지막으로 표시되는 일
         const lastDateOfNextMonth = (EWeek.MAX_WEEK - lastWeek) * EWeek.DATES_PER_WEEK + (EDay.MAX_DAY - lastDay);
@@ -95,5 +96,39 @@ export default class ScheduleCalendarStore {
         }
 
         this._dateList = dateList;
+    }
+
+    @action
+    toPrevMonth() {
+        let prevMonth = this._month - 1;
+        if (prevMonth === 0) {
+            const prevYear = this._year - 1;
+
+            if (prevYear < EYear.MIN_YEAR) {
+                dialog.alert(`${EYear.MIN_YEAR}년 이전은 조회할 수 없습니다.`);
+                return;
+            }
+
+            this._year--;
+            prevMonth = 12;
+        }
+        this.setMonth(prevMonth);
+    }
+
+    @action
+    toNextMonth() {
+        let nextMonth = this._month + 1;
+        if (nextMonth > 12) {
+            const nextYear = this._year + 1;
+
+            if (nextYear > EYear.MAX_YEAR) {
+                dialog.alert(`${EYear.MAX_YEAR}년 이후는 조회할 수 없습니다.`);
+                return;
+            }
+
+            this._year++;
+            nextMonth = 1;
+        }
+        this.setMonth(nextMonth);
     }
 }

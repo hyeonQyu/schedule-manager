@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { HTMLProps } from 'react';
 import { EArrowDirection } from '@defines/defines';
 
-export interface ArrowProps {
+export interface ArrowProps extends HTMLProps<HTMLDivElement> {
     direction: EArrowDirection;
 }
 
 const ArrowIcon = (props: ArrowProps) => {
-    const { direction } = props;
+    const { direction, ...rest } = props;
 
     const style = {
         width: 'fit-content',
@@ -14,7 +14,7 @@ const ArrowIcon = (props: ArrowProps) => {
     };
 
     return (
-        <div style={style}>
+        <div style={style} {...rest}>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22" width={'7vw'}>
                 <defs>
                     <clipPath>

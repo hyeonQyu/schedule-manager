@@ -7,8 +7,6 @@ import ScheduleCalendarDates from '@components/common/schedule-calendar/componen
 
 const cx = classNames.bind(style);
 
-export interface ScheduleCalendarProps {}
-
 const ScheduleCalendar = observer(() => {
     return (
         <div className={cx('wrapper')}>

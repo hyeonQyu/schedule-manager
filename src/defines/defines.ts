@@ -28,13 +28,8 @@ export enum EArrowDirection {
     RIGHT,
 }
 
-export enum EMonthType {
-    LAST_MONTH,
-    THIS_MONTH,
-    NEXT_MONTH,
-}
-
 export interface CalendarDate {
     date: number;
-    monthType: EMonthType;
+    month: number;
+    year: number;
 }

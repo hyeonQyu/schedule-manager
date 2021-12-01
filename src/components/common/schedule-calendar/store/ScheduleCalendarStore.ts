@@ -1,6 +1,6 @@
 import { autobind } from 'core-decorators';
 import { action, observable } from 'mobx';
-import { CalendarDate, EDay, EMonthType, EWeek, EYear } from '@defines/defines';
+import { CalendarDate, EDay, EWeek, EYear } from '@defines/defines';
 import { DateUtil } from '@utils/DateUtil';
 import { dialog } from '@components/common/dialog/Dialog';
 
@@ -8,8 +8,8 @@ import { dialog } from '@components/common/dialog/Dialog';
 export default class ScheduleCalendarStore {
     private static _instance: ScheduleCalendarStore;
 
-    @observable private _year: number = new Date().getFullYear();
-    @observable private _month: number = new Date().getMonth() + 1;
+    @observable private _curYear: number = new Date().getFullYear();
+    @observable private _curMonth: number = new Date().getMonth() + 1;
     @observable private _dateList: CalendarDate[] = [];
 
     private constructor() {
@@ -24,12 +24,12 @@ export default class ScheduleCalendarStore {
         return this._instance;
     }
 
-    get year(): number {
-        return this._year;
+    get curYear(): number {
+        return this._curYear;
     }
 
-    get month(): number {
-        return this._month;
+    get curMonth(): number {
+        return this._curMonth;
     }
 
     get dateList(): CalendarDate[] {
@@ -37,14 +37,14 @@ export default class ScheduleCalendarStore {
     }
 
     @action
-    setYear(year) {
-        this._year = year;
+    setCurYear(year) {
+        this._curYear = year;
         this.setDateList();
     }
 
     @action
-    setMonth(month) {
-        this._month = month;
+    setCurMonth(month) {
+        this._curMonth = month;
         this.setDateList();
     }
 
@@ -53,19 +53,19 @@ export default class ScheduleCalendarStore {
         const dateList: CalendarDate[] = [];
 
         // 이번달 첫번째 요일
-        const firstDay = DateUtil.getFirstDay(this._year, this._month);
+        const firstDay = DateUtil.getFirstDay(this.curYear, this.curMonth);
 
         // 지난달 마지막 일
-        const lastDateOfLastMonth = DateUtil.getLastDate(this._year, this._month - 1);
+        const lastDateOfLastMonth = DateUtil.getLastDate(this.curYear, this.curMonth - 1);
 
         // 지난달 첫번째로 표시되는 일
         const firstDateOfLastMonth = lastDateOfLastMonth - firstDay + 1;
 
         // 이번달 마지막 일
-        const lastDate = DateUtil.getLastDate(this._year, this._month);
+        const lastDate = DateUtil.getLastDate(this.curYear, this.curMonth);
 
         // 이번달 마지막 요일
-        const lastDay = DateUtil.getLastDay(this._year, this._month);
+        const lastDay = DateUtil.getLastDay(this.curYear, this.curMonth);
 
         // 이번달 마지막 날의 주
         const lastWeek = Math.ceil((lastDate - lastDay) / EWeek.DATES_PER_WEEK) + (firstDay > 0 ? 1 : 0);
@@ -74,24 +74,29 @@ export default class ScheduleCalendarStore {
         const lastDateOfNextMonth = (EWeek.MAX_WEEK - lastWeek) * EWeek.DATES_PER_WEEK + (EDay.MAX_DAY - lastDay);
 
         // 지난달
+        const lastMonthDate = DateUtil.getCalendarDate(this.curYear, this.curMonth - 1, 1);
         for (let i = firstDateOfLastMonth; i <= lastDateOfLastMonth; i++) {
             dateList.push({
                 date: i,
-                monthType: EMonthType.LAST_MONTH,
+                month: lastMonthDate.month,
+                year: lastMonthDate.year,
             });
         }
         // 이번달
         for (let i = 1; i <= lastDate; i++) {
             dateList.push({
                 date: i,
-                monthType: EMonthType.THIS_MONTH,
+                month: this.curMonth,
+                year: this.curYear,
             });
         }
         // 다음달
+        const nextMonthDate = DateUtil.getCalendarDate(this.curYear, this.curMonth + 1, 1);
         for (let i = 1; i <= lastDateOfNextMonth; i++) {
             dateList.push({
                 date: i,
-                monthType: EMonthType.NEXT_MONTH,
+                month: nextMonthDate.month,
+                year: nextMonthDate.year,
             });
         }
 
@@ -100,35 +105,35 @@ export default class ScheduleCalendarStore {
 
     @action
     toPrevMonth() {
-        let prevMonth = this._month - 1;
+        let prevMonth = this._curMonth - 1;
         if (prevMonth === 0) {
-            const prevYear = this._year - 1;
+            const prevYear = this._curYear - 1;
 
             if (prevYear < EYear.MIN_YEAR) {
                 dialog.alert(`${EYear.MIN_YEAR}년 이전은 조회할 수 없습니다.`);
                 return;
             }
 
-            this._year--;
+            this._curYear--;
             prevMonth = 12;
         }
-        this.setMonth(prevMonth);
+        this.setCurMonth(prevMonth);
     }
 
     @action
     toNextMonth() {
-        let nextMonth = this._month + 1;
+        let nextMonth = this._curMonth + 1;
         if (nextMonth > 12) {
-            const nextYear = this._year + 1;
+            const nextYear = this._curYear + 1;
 
             if (nextYear > EYear.MAX_YEAR) {
                 dialog.alert(`${EYear.MAX_YEAR}년 이후는 조회할 수 없습니다.`);
                 return;
             }
 
-            this._year++;
+            this._curYear++;
             nextMonth = 1;
         }
-        this.setMonth(nextMonth);
+        this.setCurMonth(nextMonth);
     }
 }

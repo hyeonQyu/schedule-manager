@@ -5,10 +5,10 @@ import ScheduleCalendarStore from '@components/common/schedule-calendar/store/Sc
 const store = ScheduleCalendarStore.instance;
 
 const ScheduleCalendarMonthSelect = observer(() => {
-    const { month, setMonth } = store;
+    const { curMonth, setCurMonth } = store;
 
     return (
-        <select value={month} onChange={(e) => setMonth(Number(e.target.value))}>
+        <select value={curMonth} onChange={(e) => setCurMonth(Number(e.target.value))}>
             {(() => {
                 const monthOptions = [];
                 for (let i = 1; i <= 12; i++) {

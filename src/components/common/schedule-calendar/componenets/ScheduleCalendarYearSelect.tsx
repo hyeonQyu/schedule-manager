@@ -6,10 +6,10 @@ import { EYear } from '@defines/defines';
 const store = ScheduleCalendarStore.instance;
 
 const ScheduleCalendarYearSelect = observer(() => {
-    const { year, setYear } = store;
+    const { curYear, setCurYear } = store;
 
     return (
-        <select value={year} onChange={(e) => setYear(Number(e.target.value))}>
+        <select value={curYear} onChange={(e) => setCurYear(Number(e.target.value))}>
             {(() => {
                 const yearOptions = [];
                 for (let i = EYear.MIN_YEAR; i <= EYear.MAX_YEAR; i++) {

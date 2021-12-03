@@ -3,11 +3,10 @@ import { observer } from 'mobx-react';
 import classNames from 'classnames/bind';
 import style from './Layout.scss';
 import Navigation from '@components/navigation/Navigation';
-import { RouteComponentProps } from 'react-router-dom';
 
 const cx = classNames.bind(style);
 
-export interface LayoutProps extends RouteComponentProps {
+export interface LayoutProps {
     children?: ReactNode;
 }
 
@@ -17,7 +16,7 @@ const Layout = observer((props: LayoutProps) => {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('body')}>{children}</div>
-            <Navigation {...props} />
+            <Navigation />
         </div>
     );
 });

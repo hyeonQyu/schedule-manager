@@ -2,21 +2,22 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import classNames from 'classnames/bind';
 import style from '../Navigation.scss';
-import { RouteComponentProps } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ENavigationType } from '@defines/defines';
 
 const cx = classNames.bind(style);
 
-export interface NavigationTabProps extends RouteComponentProps {
+export interface NavigationTabProps {
     href: string;
     type: ENavigationType;
 }
 
 const NavigationTab = observer((props: NavigationTabProps) => {
-    const { href, type, history } = props;
+    const { href, type } = props;
+    const navigate = useNavigate();
 
     const onClickTab = () => {
-        history.push(href);
+        navigate(href);
     };
 
     const isActive = () => location.hash.replace('#', '') === href;

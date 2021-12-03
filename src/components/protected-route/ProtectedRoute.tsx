@@ -1,14 +1,19 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { Redirect, Route, RouteProps } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import UserStore from '@stores/UserStore';
 
 const userStore = UserStore.instance;
 
-const ProtectedRoute = observer((props: RouteProps) => {
+export interface ProtectedRouteProps {
+    children: JSX.Element;
+}
+
+const ProtectedRoute = observer((props: ProtectedRouteProps) => {
+    const { children } = props;
     const { isLoggedIn } = userStore;
 
-    return <Route {...props}>{!isLoggedIn ? <Redirect to={'/'} /> : null}</Route>;
+    return isLoggedIn ? children : <Navigate to={'/'} />;
 });
 
 export default ProtectedRoute;

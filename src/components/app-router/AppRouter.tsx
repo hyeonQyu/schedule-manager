@@ -15,8 +15,22 @@ const AppRouter = observer(() => {
     return (
         <Routes>
             {isLoggedIn ? <Route path={'/'} element={<Home />} /> : <Route path={'/'} element={<Login />} />}
-            <ProtectedRoute path={'/my'} element={<MySchedule />} />
-            <ProtectedRoute path={'/other'} element={<OtherSchedule />} />
+            <Route
+                path={'/my'}
+                element={
+                    <ProtectedRoute>
+                        <MySchedule />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path={'/other'}
+                element={
+                    <ProtectedRoute>
+                        <OtherSchedule />
+                    </ProtectedRoute>
+                }
+            />
         </Routes>
     );
 });

@@ -1,12 +1,11 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { RouteComponentProps } from 'react-router-dom';
 import Layout from '@components/layout/Layout';
 import ScheduleCalendar from '@components/common/schedule-calendar/ScheduleCalendar';
 
-const Home = observer((props: RouteComponentProps) => {
+const Home = observer(() => {
     return (
-        <Layout {...props}>
+        <Layout>
             <ScheduleCalendar />
         </Layout>
     );

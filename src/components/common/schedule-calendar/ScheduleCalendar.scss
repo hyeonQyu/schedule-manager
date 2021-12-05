@@ -61,12 +61,23 @@
         border-bottom: 1px solid #e9e2f1;
         transition: all ease-in-out .3s;
 
+        &.selected {
+          background: #9e5ade;
+          color: whitesmoke;
+          border-radius: 20%;
+
+          &.disabled {
+            opacity: .3;
+          }
+        }
+
         &.size-down {
           height: 6.7vh;
         }
 
         p {
-          height: 30%;
+          //height: 30%;
+          height: fit-content;
           font-size: 4vw;
           text-align: right;
           padding: 1vh 4.4vw;

@@ -144,14 +144,6 @@ export default class ScheduleCalendarStore {
 
     @action
     selectCalendarDate(calendarDate: CalendarDate) {
-        if (!this._selectedCalendarDate) {
-            this._selectedCalendarDate = calendarDate;
-            return;
-        }
-
-        this._selectedCalendarDate = null;
-        setTimeout(() => {
-            this._selectedCalendarDate = calendarDate;
-        }, 300);
+        this._selectedCalendarDate = calendarDate;
     }
 }

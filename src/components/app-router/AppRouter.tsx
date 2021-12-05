@@ -12,9 +12,10 @@ const userStore = UserStore.instance;
 
 const AppRouter = observer(() => {
     const { isLoggedIn } = userStore;
+
     return (
         <Routes>
-            {isLoggedIn ? <Route path={'/'} element={<Home />} /> : <Route path={'/'} element={<Login />} />}
+            <Route path={'/'} element={isLoggedIn ? <Home /> : <Login />} />
             <Route
                 path={'/my'}
                 element={

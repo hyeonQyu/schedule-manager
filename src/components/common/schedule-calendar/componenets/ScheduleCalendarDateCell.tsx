@@ -15,14 +15,18 @@ export interface ScheduleCalendarDateCellProps {
 
 const ScheduleCalendarDateCell = observer((props: ScheduleCalendarDateCellProps) => {
     const { calendarDate } = props;
-    const { curMonth, selectCalendarDate, selectedCalendarDate, setCurYear, setCurMonth } = store;
+    const { curMonth, selectCalendarDate, selectedCalendarDate, setCurYear, setCurMonth, todayCalendarDate } = store;
 
     const { date, month, year } = calendarDate;
+
+    const isSameDate = (calendarDate: CalendarDate) => {
+        if (!calendarDate) return false;
+        return calendarDate.date === date && calendarDate.month === month && calendarDate.year === year;
+    };
+
     const disabled = curMonth !== month;
-    const selected = (() => {
-        if (!selectedCalendarDate) return false;
-        return selectedCalendarDate.date === date && selectedCalendarDate.month === month && selectedCalendarDate.year === year;
-    })();
+    const selected = isSameDate(selectedCalendarDate);
+    const today = isSameDate(todayCalendarDate);
 
     // 날짜 선택
     const onClickDateCell = () => {
@@ -35,7 +39,10 @@ const ScheduleCalendarDateCell = observer((props: ScheduleCalendarDateCellProps)
     };
 
     return (
-        <div className={cx('date', disabled && 'disabled', selected && 'selected', selectedCalendarDate && 'size-down')} onClick={onClickDateCell}>
+        <div
+            className={cx('date', disabled && 'disabled', selected && 'selected', today && 'today', selectedCalendarDate && 'size-down')}
+            onClick={onClickDateCell}
+        >
             <p>
                 <span>{date}</span>
             </p>

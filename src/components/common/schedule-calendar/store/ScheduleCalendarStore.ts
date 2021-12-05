@@ -8,12 +8,21 @@ import { dialog } from '@components/common/dialog/Dialog';
 export default class ScheduleCalendarStore {
     private static _instance: ScheduleCalendarStore;
 
+    @observable private _todayCalendarDate: CalendarDate;
+
     @observable private _curYear: number = new Date().getFullYear();
     @observable private _curMonth: number = new Date().getMonth() + 1;
     @observable private _dateList: CalendarDate[] = [];
     @observable private _selectedCalendarDate: CalendarDate;
 
     private constructor() {
+        const today = new Date();
+        this._todayCalendarDate = {
+            year: today.getFullYear(),
+            month: today.getMonth() + 1,
+            date: today.getDate(),
+        };
+
         this.setDateList();
         ScheduleCalendarStore._instance = this;
     }
@@ -39,6 +48,10 @@ export default class ScheduleCalendarStore {
 
     get selectedCalendarDate(): CalendarDate {
         return this._selectedCalendarDate;
+    }
+
+    get todayCalendarDate(): CalendarDate {
+        return this._todayCalendarDate;
     }
 
     @action

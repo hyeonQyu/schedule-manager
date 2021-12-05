@@ -61,6 +61,14 @@
         border-bottom: 1px solid #e9e2f1;
         transition: all ease-in-out .3s;
 
+        &.today {
+          border: 2px solid #c6b2f3;
+
+          &.disabled {
+            opacity: .3;
+          }
+        }
+
         &.selected {
           background: #9e5ade;
           color: whitesmoke;

@@ -63,20 +63,12 @@
 
         &.today {
           border: 2px solid #c6b2f3;
-
-          &.disabled {
-            opacity: .3;
-          }
         }
 
         &.selected {
           background: #9e5ade;
           color: whitesmoke;
           border-radius: 20%;
-
-          &.disabled {
-            opacity: .3;
-          }
         }
 
         &.size-down {
@@ -92,7 +84,7 @@
         }
 
         &.disabled {
-          color: #ddd8e3;
+          opacity: .3;
         }
 
         // 할 일 리스트

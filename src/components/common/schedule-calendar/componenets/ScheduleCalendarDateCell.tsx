@@ -15,13 +15,13 @@ export interface ScheduleCalendarDateCellProps {
 
 const ScheduleCalendarDateCell = observer((props: ScheduleCalendarDateCellProps) => {
     const { calendarDate } = props;
-    const { curMonth } = store;
+    const { curMonth, selectCalendarDate, selectedCalendarDate } = store;
 
     const { date, month } = calendarDate;
     const disabled = curMonth !== month;
 
     return (
-        <div className={cx('date', disabled && 'disabled')}>
+        <div className={cx('date', disabled && 'disabled', selectedCalendarDate && 'size-down')} onClick={() => selectCalendarDate(calendarDate)}>
             <p>{date}</p>
         </div>
     );

@@ -59,6 +59,11 @@
         @include cell;
         height: 12.7vh;
         border-bottom: 1px solid #e9e2f1;
+        transition: all ease-in-out .3s;
+
+        &.size-down {
+          height: 6.7vh;
+        }
 
         p {
           height: 30%;

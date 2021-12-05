@@ -28,7 +28,7 @@
     height: 96vh;
     background: white;
     box-shadow: 0 6px 14px 2px;
-    transition: all ease .5s;
+    transition: all cubic-bezier(0.86, 0, 0.07, 1) .6s;
     margin-bottom: -96vh;
 
     &.open {

@@ -11,6 +11,7 @@ export default class ScheduleCalendarStore {
     @observable private _curYear: number = new Date().getFullYear();
     @observable private _curMonth: number = new Date().getMonth() + 1;
     @observable private _dateList: CalendarDate[] = [];
+    @observable private _selectedCalendarDate: CalendarDate;
 
     private constructor() {
         this.setDateList();
@@ -34,6 +35,10 @@ export default class ScheduleCalendarStore {
 
     get dateList(): CalendarDate[] {
         return this._dateList;
+    }
+
+    get selectedCalendarDate(): CalendarDate {
+        return this._selectedCalendarDate;
     }
 
     @action
@@ -135,5 +140,18 @@ export default class ScheduleCalendarStore {
             nextMonth = 1;
         }
         this.setCurMonth(nextMonth);
+    }
+
+    @action
+    selectCalendarDate(calendarDate: CalendarDate) {
+        if (!this._selectedCalendarDate) {
+            this._selectedCalendarDate = calendarDate;
+            return;
+        }
+
+        this._selectedCalendarDate = null;
+        setTimeout(() => {
+            this._selectedCalendarDate = calendarDate;
+        }, 300);
     }
 }

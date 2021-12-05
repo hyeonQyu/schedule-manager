@@ -1,0 +1,9 @@
+.wrapper {
+  background: #e7e1e7;
+  height: 0;
+  transition: all ease-in-out .3s;
+
+  &.open {
+    height: 36.5vh;
+  }
+}

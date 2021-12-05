@@ -28,6 +28,8 @@
     height: 96vh;
     background: white;
     box-shadow: 0 6px 14px 2px;
+    transition: all ease .5s;
+    margin-bottom: -96vh;
 
     &.open {
       @include slideOpen(normal);
@@ -35,7 +37,6 @@
     }
 
     &.close {
-      @include slideOpen(reverse);
       margin-bottom: -96vh;
     }
 

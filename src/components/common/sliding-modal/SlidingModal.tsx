@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, useEffect, useState } from 'react';
+import React, { HTMLAttributes, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 import style from './SlidingModal.scss';
 import OverlayPortal from '@components/common/overlay-portal/OverlayPortal';
@@ -16,9 +16,6 @@ export interface SlidingModalProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const SlidingModal = (props: SlidingModalProps) => {
-    const [init, setInit] = useState(false);
-    const [visibleChanging, setVisibleChanging] = useState(false);
-
     const {
         isOpened = false,
         title = '',
@@ -31,25 +28,37 @@ const SlidingModal = (props: SlidingModalProps) => {
         children,
     } = props;
 
-    useEffect(() => {
-        if (visibleChanging) return;
+    const [mounted, setMounted] = useState(isOpened);
 
-        if (!init) {
-            setInit(true);
+    const slidingModalRef = useRef<HTMLDivElement>();
+
+    useEffect(() => {
+        if (isOpened) {
+            setMounted(true);
             return;
         }
-        setVisibleChanging(true);
-        setTimeout(() => {
-            setVisibleChanging(false);
-        }, 600);
+
+        const interval = setInterval(() => {
+            const element = slidingModalRef.current;
+            if (!element) {
+                clearInterval(interval);
+                return;
+            }
+            if (element.getBoundingClientRect().y >= window.innerHeight) {
+                clearInterval(interval);
+                setMounted(false);
+            }
+        }, 100);
     }, [isOpened]);
 
-    if (!isOpened && !visibleChanging) return null;
+    if (!mounted) {
+        return null;
+    }
 
     return (
         <OverlayPortal>
             <div className={cx('wrapper')}>
-                <div className={classNames(cx('sliding-modal', isOpened ? 'open' : 'close'), className)}>
+                <div className={classNames(cx('sliding-modal', isOpened ? 'open' : 'close'), className)} ref={slidingModalRef}>
                     <div className={cx('header')}>
                         <button className={cx('cancel', !onClickCancel && 'hide')} onClick={onClickCancel}>
                             {cancelText}

@@ -1,3 +1,5 @@
+import Datetime from '@utils/Datetime';
+
 export enum EDialogType {
     ALERT,
     CONFIRM,
@@ -35,3 +37,12 @@ export interface CalendarDate {
     month: number;
     year: number;
 }
+
+export interface Schedule {
+    startDatetime: Datetime;
+    endDatetime: Datetime;
+    name: string;
+    location?: string;
+}
+
+export const dayArray = ['일', '월', '화', '수', '목', '금', '토'];

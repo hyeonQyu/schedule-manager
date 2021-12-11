@@ -1,3 +1,6 @@
+import { dayArray } from '@defines/defines';
+import { NumberFormatUtil } from '@utils/NumberFormatUtil';
+
 export default class Datetime {
     private _year: number;
     private _month: number;
@@ -104,5 +107,18 @@ export default class Datetime {
             }
         }
         return false;
+    }
+
+    toString(): string {
+        const day = new Date(this.year, this.month - 1, this.date).getDay();
+        const dayString = dayArray[day];
+
+        const { withDigitLength } = NumberFormatUtil;
+        const month = withDigitLength(this.month, 2);
+        const date = withDigitLength(this.date, 2);
+        const hours = withDigitLength(this.hours, 2);
+        const minutes = withDigitLength(this.minutes, 2);
+
+        return `${this.year}.${month}.${date}(${dayString}) ${hours}:${minutes}`;
     }
 }

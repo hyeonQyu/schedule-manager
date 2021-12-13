@@ -109,11 +109,11 @@
             border-radius: 2px;
 
             &.me {
-              background: #a34dff;
+              background: $myColor;
             }
 
             &.other {
-              background: #c482ff;
+              background: $otherColor;
             }
           }
         }

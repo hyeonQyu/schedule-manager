@@ -2,6 +2,9 @@ $modal-z-index: 5000;
 $dialog-z-index: 10000;
 $loading-z-index: 15000;
 
+$myColor: #a34dff;
+$otherColor: #c482ff;
+
 @mixin screenMask($z-index) {
   background: rgba(0, 0, 0, .5);
   position: fixed;

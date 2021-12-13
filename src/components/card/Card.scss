@@ -1,0 +1,30 @@
+@import "src/presets";
+
+.wrapper {
+  width: 100%;
+  text-align: left;
+  background: white;
+  border-radius: 5px;
+  padding: 1.4vh 4vw;
+  border: 2px solid $myColor;
+  box-shadow: 0 8px 7px -7px #777;
+  transition: all .1s ease;
+
+  &:active {
+    background: #f1f1f1
+  }
+
+  .detail {
+    display: flex;
+    margin-top: 1vh;
+    justify-content: space-between;
+
+    .period {
+      font-size: 60%;
+    }
+
+    .location {
+      max-width: 20%;
+    }
+  }
+}

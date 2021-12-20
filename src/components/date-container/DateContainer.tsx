@@ -42,7 +42,7 @@ const DateContainer = observer(() => {
         <div className={cx('wrapper')}>
             <h2>✔ 2021.11.12</h2>
             <div className={cx('schedule-container')}>
-                <div className={cx('schedule-line')}></div>
+                <div className={cx('schedule-line')} />
                 <div className={cx('schedule-info')}>{showSchedule()}</div>
             </div>
         </div>

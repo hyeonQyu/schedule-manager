@@ -1,0 +1,10 @@
+@import 'src/presets';
+
+.wrapper {
+    margin-bottom: 10vw;
+
+    .days {
+        display: flex;
+        justify-content: space-around;
+    }
+}

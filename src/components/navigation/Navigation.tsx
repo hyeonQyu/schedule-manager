@@ -11,7 +11,7 @@ const Navigation = observer(() => {
     return (
         <div className={cx('wrapper')}>
             <NavigationTab href={'/'} type={ENavigationType.ENTIRE} />
-            <NavigationTab href={'/my'} type={ENavigationType.ME} />
+            <NavigationTab href={'/weekly'} type={ENavigationType.WEEKLY} />
             <NavigationTab href={'/other'} type={ENavigationType.OTHER} />
         </div>
     );

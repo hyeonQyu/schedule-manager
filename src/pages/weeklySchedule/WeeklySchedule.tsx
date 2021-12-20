@@ -3,12 +3,12 @@ import { observer } from 'mobx-react';
 import Layout from '@components/layout/Layout';
 import DateSlider from '@components/common/date-slider/DateSlider';
 import classNames from 'classnames/bind';
-import style from './MySchedule.scss';
+import style from './weeklySchedule.scss';
 import DateContainer from '@components/date-container/DateContainer';
 
 const cx = classNames.bind(style);
 
-const MySchedule = observer(() => {
+const WeeklySchedule = observer(() => {
     return (
         <Layout>
             <div className={cx('wrapper')}>
@@ -21,4 +21,4 @@ const MySchedule = observer(() => {
     );
 });
 
-export default MySchedule;
+export default WeeklySchedule;

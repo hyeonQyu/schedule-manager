@@ -5,7 +5,7 @@ import UserStore from '@stores/UserStore';
 import Login from '@pages/login/Login';
 import Home from '@pages/home/Home';
 import ProtectedRoute from '@components/protected-route/ProtectedRoute';
-import MySchedule from '@pages/mySchedule/MySchedule';
+import WeeklySchedule from '@pages/weeklySchedule/WeeklySchedule';
 import OtherSchedule from '@pages/otherSchedule/OtherSchedule';
 
 const userStore = UserStore.instance;
@@ -17,10 +17,10 @@ const AppRouter = observer(() => {
         <Routes>
             <Route path={'/'} element={isLoggedIn ? <Home /> : <Login />} />
             <Route
-                path={'/my'}
+                path={'/weekly'}
                 element={
                     <ProtectedRoute>
-                        <MySchedule />
+                        <WeeklySchedule />
                     </ProtectedRoute>
                 }
             />

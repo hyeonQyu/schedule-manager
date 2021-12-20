@@ -1,9 +1,9 @@
 import React from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import { observer } from 'mobx-react';
 import Layout from '@components/layout/Layout';
 
-const OtherSchedule = (props: RouteComponentProps) => {
-    return <Layout {...props} />;
-};
+const OtherSchedule = observer(() => {
+    return <Layout></Layout>;
+});
 
 export default OtherSchedule;

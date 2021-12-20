@@ -1,5 +1,4 @@
 // Import the functions you need from the SDKs you need
-// import * as firebase from 'firebase/app';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
@@ -25,3 +24,46 @@ const firebaseService = firebase;
 export const authService = firebase.auth();
 export const dbService = firebase.firestore();
 export default firebaseService;
+
+/**
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ * DB 관련 샘플 코드
+ */
+const sampleCode = async () => {
+    // 'users' collection 에 데이터 추가
+    const docRef = await dbService.collection('users').add({
+        first: 'Ada',
+        last: 'Lovelace',
+        born: 1815,
+    });
+
+    // 'users' collection의 데이터 가져오기
+    const { docs } = await dbService.collection('users').get();
+    console.log(
+        docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+        })),
+    );
+
+    // 'users' collection 의 데이터 변경 실시간 감지
+    dbService.collection('users').onSnapshot((snapshot) => {
+        console.log(
+            snapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+            })),
+        );
+    });
+};

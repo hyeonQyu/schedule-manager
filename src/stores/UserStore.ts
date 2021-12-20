@@ -1,11 +1,10 @@
 import { autobind } from 'core-decorators';
 import { action, observable } from 'mobx';
-import { authService } from 'firebaseService.js';
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import firebaseService, { authService } from 'firebaseService';
 import { dialog } from '@components/common/dialog/Dialog';
 import env from 'env.js';
 import { loading } from '@components/common/loading/Loading';
-import firebase from 'firebase/compat';
+import firebase from 'firebase';
 
 @autobind
 export default class UserStore {
@@ -19,6 +18,7 @@ export default class UserStore {
         UserStore._instance = this;
 
         loading.show();
+        this._isLoggedIn = true;
         authService.onAuthStateChanged((user) => {
             if (this.isRightUser(user)) {
                 this._isLoggedIn = true;
@@ -44,10 +44,10 @@ export default class UserStore {
      */
     @action
     continueWithGoogle() {
-        const provider = new GoogleAuthProvider();
+        const provider = new firebaseService.auth.GoogleAuthProvider();
         (async () => {
             try {
-                const result = await signInWithPopup(authService, provider);
+                const result = await authService.signInWithPopup(provider);
                 if (this.isRightUser(result.user)) {
                     this._isLoggedIn = true;
                 }

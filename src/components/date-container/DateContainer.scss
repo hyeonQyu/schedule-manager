@@ -1,0 +1,43 @@
+@import 'src/presets';
+
+.wrapper {
+    margin-top: 2vh;
+
+    h2 {
+        margin-bottom: 2vh;
+    }
+
+    .schedule-container {
+        display: flex;
+    }
+
+    .schedule-line {
+        margin-left: 1vw;
+        margin-right: 5vw;
+        border-left: 1.5vw dashed lightgray;
+    }
+
+    .schedule-info {
+        flex-grow: 1;
+    }
+
+    button[class*='card'] {
+        margin-top: 2vh;
+        width: 60%;
+        border-radius: 5vw;
+    }
+
+    button.my-card {
+        text-align: right;
+        float: right;
+        border-bottom-right-radius: 0;
+        background-color: #a34dff9c;
+        color: white;
+    }
+
+    button.other-card {
+        text-align: left;
+        float: left;
+        border-bottom-left-radius: 0;
+    }
+}

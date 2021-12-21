@@ -35,7 +35,7 @@
             }
 
             &.weekly {
-                @include tabBackground(url(/public/assets/png/user.png));
+                @include tabBackground(url(/public/assets/png/weekly.png));
             }
 
             &.other {

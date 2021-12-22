@@ -66,4 +66,15 @@ const sampleCode = async () => {
             })),
         );
     });
+
+    const doc = { id: 'document id' };
+    // 'users' collection 의 특정 id 값을 가진 document 삭제
+    await dbService.doc(`users/${doc.id}`).delete();
+
+    // 'users' collection 의 특정 id 값을 가진 document 수정
+    await dbService.doc(`users/${doc.id}`).update({
+        first: 'First',
+        last: 'Last',
+        born: 1800,
+    });
 };

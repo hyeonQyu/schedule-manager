@@ -36,6 +36,52 @@ export namespace DateUtil {
      */
     export function getCalendarDate(year, month, date): CalendarDate {
         const tmpDate = new Date(year, month - 1, date);
-        return { year: tmpDate.getFullYear(), month: tmpDate.getMonth() + 1, date: tmpDate.getDate() };
+        return this.dateToCalendarDate(tmpDate);
+    }
+
+    /**
+     * Date 객체를 CalendarDate 로 변환
+     * @param dateObj
+     */
+    export function dateToCalendarDate(dateObj: Date): CalendarDate {
+        return { year: dateObj.getFullYear(), month: dateObj.getMonth() + 1, date: dateObj.getDate() };
+    }
+
+    /**
+     * 오늘을 포함한 한 주를 (일 ~ 토) 배열로 반환
+     * @param calendarDate
+     */
+    export function getThisWeek(calendarDate: CalendarDate): CalendarDate[] {
+        const { year, month, date } = calendarDate;
+
+        const day = new Date(year, month - 1, date).getDay();
+        const firstDate = new Date(year, month - 1, date - day);
+
+        return Array.from(
+            Array(7).map((_, i) => {
+                const year = firstDate.getFullYear();
+                const month = firstDate.getMonth() + 1;
+                const date = firstDate.getDate();
+                return this.dateToCalendarDate(new Date(year, month, date + i));
+            }),
+        );
+    }
+
+    /**
+     * 해당 날짜로부터 1주일 전의 날짜
+     * @param calendarDate
+     */
+    export function getLastWeekDate(calendarDate: CalendarDate): CalendarDate {
+        const { year, month, date } = calendarDate;
+        return dateToCalendarDate(new Date(year, month - 1, date - 7));
+    }
+
+    /**
+     * 해당 날짜로부터 1주일 후의 날짜
+     * @param calendarDate
+     */
+    export function getNextWeekDate(calendarDate: CalendarDate): CalendarDate {
+        const { year, month, date } = calendarDate;
+        return dateToCalendarDate(new Date(year, month - 1, date + 7));
     }
 }

@@ -48,7 +48,7 @@ export namespace DateUtil {
     }
 
     /**
-     * 오늘을 포함한 한 주를 (일 ~ 토) 배열로 반환
+     * 특정 날짜를 포함한 한 주를 (일 ~ 토) 배열로 반환
      * @param calendarDate
      */
     export function getThisWeek(calendarDate: CalendarDate): CalendarDate[] {

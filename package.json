@@ -15,7 +15,7 @@
     "@types/slick-carousel": "^1.6.37",
     "babel-preset-mobx": "^2.0.0",
     "core-decorators": "^0.20.0",
-    "firebase": "^9.1.3",
+    "firebase": "^8.10.0",
     "path": "^0.12.7",
     "process": "^0.11.10",
     "react": "^17.0.2",

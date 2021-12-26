@@ -57,14 +57,12 @@ export namespace DateUtil {
         const day = new Date(year, month - 1, date).getDay();
         const firstDate = new Date(year, month - 1, date - day);
 
-        return Array.from(
-            Array(7).map((_, i) => {
-                const year = firstDate.getFullYear();
-                const month = firstDate.getMonth() + 1;
-                const date = firstDate.getDate();
-                return this.dateToCalendarDate(new Date(year, month, date + i));
-            }),
-        );
+        return Array.from(Array(7)).map((_, i) => {
+            const year = firstDate.getFullYear();
+            const month = firstDate.getMonth();
+            const date = firstDate.getDate();
+            return this.dateToCalendarDate(new Date(year, month, date + i));
+        });
     }
 
     /**

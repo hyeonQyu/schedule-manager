@@ -43,9 +43,9 @@ const ScheduleCalendarDateCell = observer((props: ScheduleCalendarDateCellProps)
             className={cx('date', disabled && 'disabled', selected && 'selected', today && 'today', selectedCalendarDate && 'size-down')}
             onClick={onClickDateCell}
         >
-            <p>
-                <span>{date}</span>
-            </p>
+            <div>
+                <div className={cx('text')}>{date}</div>
+            </div>
         </div>
     );
 });

@@ -62,25 +62,36 @@
         transition: all ease-in-out .3s;
 
         &.today {
-          border: 2px solid #c6b2f3;
+          .text {
+            background: #e4e1e8;
+          }
         }
 
         &.selected {
-          background: #9e5ade;
-          color: whitesmoke;
-          border-radius: 20%;
+          .text {
+            background: #9e5ade;
+            color: whitesmoke;
+          }
         }
 
         &.size-down {
           height: 6.7vh;
         }
 
-        p {
-          //height: 30%;
+        & > div {
           height: fit-content;
           font-size: 4vw;
-          text-align: right;
-          padding: 1vh 4.4vw;
+          padding: 1vh 0;
+          display: flex;
+          justify-content: center;
+
+          .text {
+            border-radius: 50%;
+            width: 1.7rem;
+            height: 1.7rem;
+            line-height: 1.6rem;
+            text-align: center;
+          }
         }
 
         &.disabled {

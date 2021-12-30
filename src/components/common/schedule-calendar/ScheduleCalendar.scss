@@ -1,16 +1,16 @@
 @import "src/presets";
 
 @mixin cell {
-  width: 14%;
+  width: 15%;
 
   color: #656565;
 
   &:first-child {
-    color: #f57171;
+    color: #db86fa;
   }
 
   &:last-child {
-    color: #3998f6;
+    color: #6f64ff;
   }
 }
 
@@ -45,6 +45,10 @@
       @include cell;
       text-align: center;
       font-size: 4vw;
+
+      &:first-child, &:last-child {
+        color: #656565;
+      }
     }
   }
 
@@ -95,7 +99,7 @@
         }
 
         &.disabled {
-          opacity: .3;
+          opacity: .2;
         }
 
         // 할 일 리스트

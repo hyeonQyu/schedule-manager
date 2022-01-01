@@ -38,6 +38,11 @@ export interface CalendarDate {
     year: number;
 }
 
+export interface Time {
+    hour: number;
+    minute: number;
+}
+
 export interface Schedule {
     startDatetime: Datetime;
     endDatetime: Datetime;

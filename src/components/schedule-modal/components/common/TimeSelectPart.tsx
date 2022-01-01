@@ -2,53 +2,46 @@ import React, { ChangeEvent } from 'react';
 import { observer } from 'mobx-react';
 import classNames from 'classnames/bind';
 import style from '@components/schedule-modal/ScheduleModal.scss';
+import { Time } from '@defines/defines';
 
 const cx = classNames.bind(style);
 
 export interface TimeSelectPartProps {
     title: string;
-    hours: number;
-    minutes: number;
-    hoursList: number[];
-    minutesList: number[];
-    onChangeHours: (hours: number) => void;
-    onChangeMinutes: (minutes: number) => void;
+    hour: number;
+    minute: number;
+    hourList: number[];
+    minuteList: number[];
+    onChangeTime: (time: Time) => void;
 }
 
 const TimeSelectPart = observer((props: TimeSelectPartProps) => {
-    const { title, hours, minutes, hoursList, minutesList, onChangeHours, onChangeMinutes } = props;
+    const { title, hour, minute, hourList, minuteList, onChangeTime } = props;
 
     const onChange = (e: ChangeEvent<HTMLSelectElement>, callback: (value: number) => void) => {
         callback(Number(e.target.value));
     };
 
+    const onChangeHour = (hour) => onChangeTime({ hour, minute });
+    const onChangeMinute = (minute) => onChangeTime({ hour, minute });
+
     return (
         <div className={cx('part')}>
             <h4>{title}</h4>
             <div className={cx('datetime')}>
-                <select defaultValue={hours} onChange={(e) => onChange(e, onChangeHours)}>
-                    {[
-                        <option key={`${title}_hours`} value={-1}>
-                            시
-                        </option>,
-                        ...hoursList.map((hours) => (
-                            <option key={hours} value={hours}>
-                                {hours}
-                            </option>
-                        )),
-                    ]}
+                <select value={hour} onChange={(e) => onChange(e, onChangeHour)}>
+                    {hourList.map((hour) => (
+                        <option key={hour} value={hour}>
+                            {hour}
+                        </option>
+                    ))}
                 </select>
-                <select defaultValue={minutes} onChange={(e) => onChange(e, onChangeMinutes)}>
-                    {[
-                        <option key={`${title}_minutes`} value={-1}>
-                            분
-                        </option>,
-                        ...minutesList.map((minutes) => (
-                            <option key={minutes} value={minutes}>
-                                {minutes}
-                            </option>
-                        )),
-                    ]}
+                <select value={minute} onChange={(e) => onChange(e, onChangeMinute)}>
+                    {minuteList.map((minute) => (
+                        <option key={minute} value={minute}>
+                            {minute}
+                        </option>
+                    ))}
                 </select>
             </div>
         </div>

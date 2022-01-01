@@ -21,6 +21,10 @@ export default class ScheduleModalStore extends ModalStore {
     // 위치
     @observable private _location: string = '';
 
+    get selectedDate(): CalendarDate {
+        return this._selectedDate;
+    }
+
     get name(): string {
         return this._name;
     }

@@ -15,7 +15,6 @@ const WeeklySchedule = observer(() => {
                 <h1>Weekly Schedule</h1>
                 <DateSlider />
                 <DateContainer />
-                <DateContainer />
             </div>
         </Layout>
     );

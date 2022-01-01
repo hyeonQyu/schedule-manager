@@ -4,10 +4,17 @@ import classNames from 'classnames/bind';
 import style from './DateContainer.scss';
 import Card from '@components/card/Card';
 import Datetime from '@utils/Datetime';
+import { DateUtil } from '@utils/DateUtil';
 
 const cx = classNames.bind(style);
 
 const DateContainer = observer(() => {
+    const today = new Date();
+    const date = today.getDate();
+    const month = today.getMonth() + 1;
+    const year = today.getFullYear();
+    const thisWeekArr = DateUtil.getThisWeek({ year, month, date });
+
     const showSchedule = () => {
         const myCardArr = [],
             otherCardArr = [];
@@ -40,11 +47,19 @@ const DateContainer = observer(() => {
     };
     return (
         <div className={cx('wrapper')}>
-            <h2>✔ 2021.11.12</h2>
-            <div className={cx('schedule-container')}>
-                <div className={cx('schedule-line')} />
-                <div className={cx('schedule-info')}>{showSchedule()}</div>
-            </div>
+            {thisWeekArr.map((value) => {
+                return (
+                    <>
+                        <h2>
+                            ✔ {value.year}.{value.month}.{value.date}
+                        </h2>
+                        <div className={cx('schedule-container')}>
+                            <div className={cx('schedule-line')} />
+                            <div className={cx('schedule-info')}>{showSchedule()}</div>
+                        </div>
+                    </>
+                );
+            })}
         </div>
     );
 });

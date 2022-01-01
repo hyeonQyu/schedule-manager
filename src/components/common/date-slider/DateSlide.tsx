@@ -1,22 +1,26 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 import style from './DateSlide.scss';
-import { EWeek } from '@defines/defines';
+import { observer } from 'mobx-react-lite';
+import { WeekProps } from '@defines/defines';
 
 const cx = classNames.bind(style);
 
-const DateSlide = () => {
+export interface DateSlideProps extends WeekProps {}
+
+const DateSlide = observer((props: DateSlideProps) => {
+    const { thisWeekArr } = props;
     return (
         <div className={cx('wrapper')}>
-            {Array.from(Array(EWeek.DATES_PER_WEEK), (e, i) => {
-                return (
-                    <div className={cx('dates')} key={i}>
-                        {i}
+            <div className={cx('dates-container')}>
+                {thisWeekArr.map((value, i) => (
+                    <div className={cx('dates')} key={`date-${i}`}>
+                        {value.date}
                     </div>
-                );
-            })}
+                ))}
+            </div>
         </div>
     );
-};
+});
 
 export default DateSlide;

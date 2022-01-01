@@ -1,24 +1,20 @@
 import React from 'react';
-import Slider from 'react-slick';
 import classNames from 'classnames/bind';
 import style from './DateSlider.scss';
 import DateSlide from './DateSlide';
-import { dayArray, EWeek } from '@defines/defines';
+import { observer } from 'mobx-react';
+import { dayArray } from '@defines/defines';
+import { WeekProps } from '@defines/defines';
 
 const cx = classNames.bind(style);
 
-const DateSlider = () => {
-    const settings = {
-        infinite: false,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        arrow: false,
-        dots: true,
-    };
+export interface DateSliderProps extends WeekProps {}
 
+const DateSlider = observer((props: DateSliderProps) => {
+    const { thisWeekArr } = props;
     return (
         <div className={cx('wrapper')}>
+            {/* 요일 */}
             <div className={cx('days')}>
                 {dayArray.map((day) => (
                     <div key={day} className={cx('day')}>
@@ -26,13 +22,10 @@ const DateSlider = () => {
                     </div>
                 ))}
             </div>
-            <Slider {...settings}>
-                {Array.from(Array(EWeek.MAX_WEEK), (e, i) => {
-                    return <DateSlide key={i} />;
-                })}
-            </Slider>
+            {/* 일주일 슬라이더 */}
+            <DateSlide thisWeekArr={thisWeekArr} />
         </div>
     );
-};
+});
 
 export default DateSlider;

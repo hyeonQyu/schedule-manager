@@ -4,17 +4,14 @@ import classNames from 'classnames/bind';
 import style from './DateContainer.scss';
 import Card from '@components/card/Card';
 import Datetime from '@utils/Datetime';
-import { DateUtil } from '@utils/DateUtil';
+import { WeekProps } from '@defines/defines';
 
 const cx = classNames.bind(style);
 
-const DateContainer = observer(() => {
-    const today = new Date();
-    const date = today.getDate();
-    const month = today.getMonth() + 1;
-    const year = today.getFullYear();
-    const thisWeekArr = DateUtil.getThisWeek({ year, month, date });
+export interface DateContainerProps extends WeekProps {}
 
+const DateContainer = observer((props: DateContainerProps) => {
+    const { thisWeekArr } = props;
     const showSchedule = () => {
         const myCardArr = [],
             otherCardArr = [];

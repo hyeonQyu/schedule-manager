@@ -46,3 +46,7 @@ export interface Schedule {
 }
 
 export const dayArray = ['일', '월', '화', '수', '목', '금', '토'];
+
+export interface WeekProps {
+    thisWeekArr: CalendarDate[];
+}

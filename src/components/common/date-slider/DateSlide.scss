@@ -1,11 +1,14 @@
 @import 'src/presets';
 
 .wrapper {
-    display: flex;
-    justify-content: space-around;
-    padding: 2vh 0;
+    .dates-container {
+        display: flex;
+    }
 
     .dates {
+        width: calc(100% / 7);
+        width: -webkit-calc(100% / 7);
+        width: -moz-calc(100% / 7);
         text-align: center;
     }
 }

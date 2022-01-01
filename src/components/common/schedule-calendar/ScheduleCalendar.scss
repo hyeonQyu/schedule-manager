@@ -1,7 +1,9 @@
 @import "src/presets";
 
 @mixin cell {
-  width: 15%;
+  width: -webkit-calc(100% / 7);
+  width: -moz-calc(100% / 7);
+  width: calc(100% / 7);
 
   color: #656565;
 

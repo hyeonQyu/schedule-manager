@@ -4,14 +4,10 @@ import style from './DateSlider.scss';
 import DateSlide from './DateSlide';
 import { observer } from 'mobx-react';
 import { dayArray } from '@defines/defines';
-import { WeekProps } from '@defines/defines';
 
 const cx = classNames.bind(style);
 
-export interface DateSliderProps extends WeekProps {}
-
-const DateSlider = observer((props: DateSliderProps) => {
-    const { thisWeekArr } = props;
+const DateSlider = observer(() => {
     return (
         <div className={cx('wrapper')}>
             {/* 요일 */}
@@ -23,7 +19,7 @@ const DateSlider = observer((props: DateSliderProps) => {
                 ))}
             </div>
             {/* 일주일 슬라이더 */}
-            <DateSlide thisWeekArr={thisWeekArr} />
+            <DateSlide />
         </div>
     );
 });

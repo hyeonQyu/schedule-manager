@@ -2,14 +2,15 @@ import React from 'react';
 import classNames from 'classnames/bind';
 import style from './DateSlide.scss';
 import { observer } from 'mobx-react-lite';
-import { WeekProps } from '@defines/defines';
+import WeeklyScheduleStore from '@stores/WeeklyScheduleStore';
 
 const cx = classNames.bind(style);
 
-export interface DateSlideProps extends WeekProps {}
+const store = WeeklyScheduleStore.instance;
 
-const DateSlide = observer((props: DateSlideProps) => {
-    const { thisWeekArr } = props;
+const DateSlide = observer(() => {
+    const { thisWeekArr } = store;
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('dates-container')}>

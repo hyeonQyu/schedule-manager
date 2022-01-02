@@ -37,4 +37,10 @@ export default class ScheduleAddModalStore extends ScheduleModalStore {
             minute: 0,
         });
     }
+
+    @action
+    protected confirm() {
+        // TODO: isDate 인 경우 나, 상대방 모두 같은 일정을 갖도록 함
+        // TODO: unableToMeet 인 경우 해당하는 날짜에 대한 모든 일정 unableToMeet 업데이트
+    }
 }

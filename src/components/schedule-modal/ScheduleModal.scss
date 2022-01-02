@@ -5,6 +5,13 @@
   .part {
     padding: 1.8vh 3.5vw;
 
+    .schedule-status {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 70%;
+    }
+
     h4 {
       margin-bottom: 2vh;
     }

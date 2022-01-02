@@ -21,6 +21,12 @@ export default class ScheduleModalStore extends ModalStore {
     // 위치
     @observable private _location: string = '';
 
+    // 데이트 여부
+    @observable private _isDate: boolean = false;
+
+    // 못 만나는 날 여부
+    @observable private _unableToMeet: boolean = false;
+
     get selectedDate(): CalendarDate {
         return this._selectedDate;
     }
@@ -39,6 +45,14 @@ export default class ScheduleModalStore extends ModalStore {
 
     get location(): string {
         return this._location;
+    }
+
+    get isDate(): boolean {
+        return this._isDate;
+    }
+
+    get unableToMeet(): boolean {
+        return this._unableToMeet;
     }
 
     get startHourList(): number[] {
@@ -87,9 +101,22 @@ export default class ScheduleModalStore extends ModalStore {
     }
 
     @action
+    toggleIsDate() {
+        this._isDate = !this.isDate;
+    }
+
+    @action
+    toggleUnableToMeet() {
+        this._unableToMeet = !this.unableToMeet;
+    }
+
+    @action
     protected init(selectedDate: CalendarDate) {
         this._selectedDate = selectedDate;
     }
+
+    @action
+    protected confirm() {}
 
     private getStartHourList() {
         return ScheduleModalStore.getValueList(0, 23, 1);

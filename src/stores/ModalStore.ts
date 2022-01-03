@@ -10,9 +10,10 @@ export default class ModalStore {
     }
 
     @action
-    open() {
+    open(initObj?: any, openCallback?: () => void) {
         this._isOpened = true;
-        this.init();
+        this.init(initObj);
+        openCallback && openCallback();
     }
 
     @action
@@ -20,5 +21,5 @@ export default class ModalStore {
         this._isOpened = false;
     }
 
-    protected init() {}
+    protected init(initObj?: any) {}
 }

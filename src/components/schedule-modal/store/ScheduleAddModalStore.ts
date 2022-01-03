@@ -1,18 +1,14 @@
 import { autobind } from 'core-decorators';
-import { action, observable } from 'mobx';
-import Datetime from '@utils/Datetime';
+import { action } from 'mobx';
 import ScheduleModalStore from '@components/schedule-modal/store/ScheduleModalStore';
 
 @autobind
 export default class ScheduleAddModalStore extends ScheduleModalStore {
     private static _instance: ScheduleAddModalStore;
 
-    @observable private _selectedDatetime: Datetime;
-
     private constructor() {
         super();
         ScheduleAddModalStore._instance = this;
-        this.init();
     }
 
     static get instance() {
@@ -22,16 +18,23 @@ export default class ScheduleAddModalStore extends ScheduleModalStore {
         return this._instance;
     }
 
+    /**
+     * 모달이 새로 열릴때마다 초기화 실행
+     * @param calendarDate
+     * @protected
+     */
     @action
-    setSelectedDatetime(selectedDatetime: Datetime) {
-        this._selectedDatetime = selectedDatetime;
-    }
+    protected init(calendarDate) {
+        super.init(calendarDate);
 
-    @action
-    protected init() {
-        const today = new Date();
+        this.setEndTime({
+            hour: 23,
+            minute: 50,
+        });
 
-        this.setStartDatetime(this.getInitStartDatetime(today));
-        this.setEndDatetime(this.getInitEndDatetime(today));
+        this.setStartTime({
+            hour: 0,
+            minute: 0,
+        });
     }
 }

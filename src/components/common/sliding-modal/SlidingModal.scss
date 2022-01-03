@@ -44,6 +44,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      height: 6%;
 
       button {
         padding: 1.4vh 2.8vw;
@@ -72,6 +73,8 @@
 
     .body {
       padding-top: 2vh;
+      height: 94%;
+      overflow-y: auto;
     }
   }
 }

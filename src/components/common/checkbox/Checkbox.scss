@@ -1,0 +1,27 @@
+.wrapper {
+  display: flex;
+
+  .checkbox {
+    border-radius: .2rem;
+    border: 2px solid #615d6c;
+    transition: all .2s ease;
+    margin-right: .3rem;
+
+    &.checked {
+      background: #9e5ade;
+      border: none;
+      position: relative;
+
+      &:before {
+        content: '';
+        position: absolute;
+        width: 70%;
+        height: 70%;
+        left: 15%;
+        top: 15%;
+        background: url(/public/assets/png/checkbox.png);
+        background-size: contain;
+      }
+    }
+  }
+}

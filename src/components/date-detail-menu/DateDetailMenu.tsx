@@ -6,6 +6,7 @@ import ScheduleCalendarStore from '@components/common/schedule-calendar/store/Sc
 import ArrowIcon from '@icons/arrow/ArrowIcon';
 import { EArrowDirection } from '@defines/defines';
 import Card from '@components/card/Card';
+import ScheduleAddButton from '@components/date-detail-menu/components/ScheduleAddButton';
 
 const cx = classNames.bind(style);
 
@@ -59,6 +60,8 @@ const DateDetailMenu = observer(() => {
                                 }}
                             />
                         </div>
+
+                        <ScheduleAddButton />
                     </div>
                 </>
             )}

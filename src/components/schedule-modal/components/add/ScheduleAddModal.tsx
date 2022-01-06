@@ -11,7 +11,6 @@ import Checkbox from '@components/common/checkbox/Checkbox';
 const cx = classNames.bind(style);
 
 const store = ScheduleAddModalStore.instance;
-store.open({ year: 2022, month: 1, date: 2 });
 
 const ScheduleAddModal = observer(() => {
     const {
@@ -31,6 +30,8 @@ const ScheduleAddModal = observer(() => {
         toggleIsDate,
         toggleUnableToMeet,
     } = store;
+
+    if (!selectedDate) return null;
 
     const { year, month, date } = selectedDate;
     const day = new Date(year, month - 1, date).getDay();

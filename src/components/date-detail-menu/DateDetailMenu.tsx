@@ -6,13 +6,11 @@ import ScheduleCalendarStore from '@components/common/schedule-calendar/store/Sc
 import ArrowIcon from '@icons/arrow/ArrowIcon';
 import { EArrowDirection } from '@defines/defines';
 import Card from '@components/card/Card';
-import Datetime from '@utils/Datetime';
+import ScheduleAddButton from '@components/date-detail-menu/components/ScheduleAddButton';
 
 const cx = classNames.bind(style);
 
 const calendarStore = ScheduleCalendarStore.instance;
-
-export interface DateDetailMenuProps {}
 
 const DateDetailMenu = observer(() => {
     const { selectCalendarDate, selectedCalendarDate } = calendarStore;
@@ -31,47 +29,39 @@ const DateDetailMenu = observer(() => {
                         <div className={cx('card-wrapper')}>
                             <Card
                                 schedule={{
-                                    startDatetime: new Datetime(2021, 11, 12, 10, 0),
-                                    endDatetime: new Datetime(2021, 11, 12, 10, 50),
+                                    scheduleDate: { year: 2021, month: 11, date: 24 },
+                                    startTime: { hour: 10, minute: 0 },
+                                    endTime: { hour: 13, minute: 20 },
                                     name: '뭐하기',
                                 }}
                             />
                             <Card
                                 schedule={{
-                                    startDatetime: new Datetime(2021, 11, 12, 10, 0),
-                                    endDatetime: new Datetime(2021, 11, 12, 10, 50),
+                                    scheduleDate: { year: 2021, month: 11, date: 24 },
+                                    startTime: { hour: 10, minute: 0 },
+                                    endTime: { hour: 13, minute: 20 },
                                     name: '뭐하기',
                                 }}
                             />
                             <Card
                                 schedule={{
-                                    startDatetime: new Datetime(2021, 11, 12, 10, 0),
-                                    endDatetime: new Datetime(2021, 11, 12, 10, 50),
+                                    scheduleDate: { year: 2021, month: 11, date: 24 },
+                                    startTime: { hour: 10, minute: 0 },
+                                    endTime: { hour: 13, minute: 20 },
                                     name: '뭐하기',
                                 }}
                             />
                             <Card
                                 schedule={{
-                                    startDatetime: new Datetime(2021, 11, 12, 10, 0),
-                                    endDatetime: new Datetime(2021, 11, 12, 10, 50),
-                                    name: '뭐하기',
-                                }}
-                            />
-                            <Card
-                                schedule={{
-                                    startDatetime: new Datetime(2021, 11, 12, 10, 0),
-                                    endDatetime: new Datetime(2021, 11, 12, 10, 50),
-                                    name: '뭐하기',
-                                }}
-                            />
-                            <Card
-                                schedule={{
-                                    startDatetime: new Datetime(2021, 11, 12, 10, 0),
-                                    endDatetime: new Datetime(2021, 11, 12, 10, 50),
+                                    scheduleDate: { year: 2021, month: 11, date: 24 },
+                                    startTime: { hour: 10, minute: 0 },
+                                    endTime: { hour: 13, minute: 20 },
                                     name: '뭐하기',
                                 }}
                             />
                         </div>
+
+                        <ScheduleAddButton />
                     </div>
                 </>
             )}

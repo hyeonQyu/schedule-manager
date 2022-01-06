@@ -1,5 +1,3 @@
-import Datetime from '@utils/Datetime';
-
 export enum EDialogType {
     ALERT,
     CONFIRM,
@@ -44,8 +42,9 @@ export interface Time {
 }
 
 export interface Schedule {
-    startDatetime: Datetime;
-    endDatetime: Datetime;
+    scheduleDate: CalendarDate;
+    startTime: Time;
+    endTime: Time;
     name: string;
     location?: string;
 }

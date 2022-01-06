@@ -13,10 +13,10 @@ export default class ScheduleModalStore extends ModalStore {
     @observable private _name: string = '';
 
     // 시작 시간
-    @observable private _startTime: Time;
+    @observable private _startTime: Time = { hour: 0, minute: 0 };
 
     // 종료 시간
-    @observable private _endTime: Time;
+    @observable private _endTime: Time = { hour: 23, minute: 50 };
 
     // 위치
     @observable private _location: string = '';

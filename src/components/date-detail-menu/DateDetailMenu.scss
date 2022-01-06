@@ -17,6 +17,7 @@
   .body {
     height: 90%;
     padding: 1vh 0;
+    position: relative;
 
     .card-wrapper {
       height: 100%;
@@ -26,6 +27,42 @@
 
       > *:not(:first-child) {
         margin-top: 2vh;
+      }
+    }
+
+    .button--add {
+      position: absolute;
+      width: 5vh;
+      height: 5vh;
+      right: 2%;
+      bottom: 6%;
+      background: #9e5ade;
+      border-radius: 50%;
+      box-shadow: 0 0 12px -2px #777;
+      transition: all .1s ease;
+      animation: rotate .5s ease;
+
+      &:before {
+        content: "";
+        position: absolute;
+        left: 25%;
+        top: 25%;
+        width: 50%;
+        height: 50%;
+        background-image: url(/public/assets/png/plus.png);
+        background-size: contain;
+      }
+
+      &:active {
+        box-shadow: 0 0 12px 0 #836dff;
+      }
+
+      @keyframes rotate {
+        0% {
+          transform: rotate(-100deg);
+          right: 7%;
+          bottom: -7%;
+        }
       }
     }
   }

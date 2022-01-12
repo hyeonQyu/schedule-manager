@@ -57,6 +57,9 @@ const sampleCode = async () => {
         })),
     );
 
+    // 'users' collection의 특정 데이터 가져오기, where문은 중첩 사용 가능
+    const { docs2 } = await dbService.collection('users').where('id', '==', 'me').get();
+
     // 'users' collection 의 데이터 변경 실시간 감지
     dbService.collection('users').onSnapshot((snapshot) => {
         console.log(

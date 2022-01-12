@@ -1,3 +1,6 @@
+import firebase from 'firebase';
+import WhereFilterOp = firebase.firestore.WhereFilterOp;
+
 export enum EDialogType {
     ALERT,
     CONFIRM,
@@ -47,6 +50,17 @@ export interface Schedule {
     endTime: Time;
     name: string;
     location?: string;
+    isDate?: boolean;
+    unableToMeet?: boolean;
+}
+
+export interface WhereCondition {
+    /** 조건을 비교할 field 이름 */
+    fieldPath: string;
+    /** 비교연산자 */
+    opStr: WhereFilterOp;
+    /** 조건을 만족하는 값 */
+    value: string;
 }
 
 export const dayArray = ['일', '월', '화', '수', '목', '금', '토'];

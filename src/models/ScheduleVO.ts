@@ -1,3 +1,10 @@
-import { Schedule } from '@defines/defines';
-
-export interface ScheduleVO extends Schedule {}
+export interface ScheduleVO {
+    owner: string;
+    scheduleDate: string;
+    startTime: string;
+    endTime: string;
+    name: string;
+    location?: string;
+    isDate?: boolean;
+    unableToMeet?: boolean;
+}

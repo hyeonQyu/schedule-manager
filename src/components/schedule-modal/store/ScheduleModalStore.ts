@@ -101,13 +101,23 @@ export default class ScheduleModalStore extends ModalStore {
     }
 
     @action
+    setIsDate(isDate: boolean) {
+        this._isDate = isDate;
+    }
+
+    @action
+    setUnableToMeet(unableToMeet: boolean) {
+        this._unableToMeet = unableToMeet;
+    }
+
+    @action
     toggleIsDate() {
-        this._isDate = !this.isDate;
+        this.setIsDate(!this.isDate);
     }
 
     @action
     toggleUnableToMeet() {
-        this._unableToMeet = !this.unableToMeet;
+        this.setUnableToMeet(!this.unableToMeet);
     }
 
     @action
@@ -115,8 +125,24 @@ export default class ScheduleModalStore extends ModalStore {
         this._selectedDate = selectedDate;
     }
 
+    /**
+     * 데이터 저장 시 유효성 체크
+     * @protected
+     */
     @action
-    protected confirm() {}
+    protected isValid(): boolean {
+        if (!this.name) {
+            dialog.alert('일정 정보를 입력하세요.');
+            return false;
+        }
+    }
+
+    /**
+     * 완료 (저장)
+     * @protected
+     */
+    @action
+    async confirm() {}
 
     private getStartHourList() {
         return ScheduleModalStore.getValueList(0, 23, 1);

@@ -39,9 +39,6 @@
       "@collections/*": [
         "./collections/*"
       ],
-      "@/*": [
-        "./*"
-      ]
     }
   },
   "include": [

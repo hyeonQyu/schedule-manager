@@ -1,5 +1,4 @@
-import firebase from 'firebase';
-import WhereFilterOp = firebase.firestore.WhereFilterOp;
+import { WhereFilterOp } from '@defines/firebaseDefines';
 
 export enum EDialogType {
     ALERT,

@@ -1,6 +1,10 @@
 import { autobind } from 'core-decorators';
 import { action } from 'mobx';
 import ScheduleModalStore from '@components/schedule-modal/store/ScheduleModalStore';
+import UserStore from '@stores/UserStore';
+import { FormatUtil } from '@utils/FormatUtil';
+import { dialog } from '@components/common/dialog/Dialog';
+import { HomeRequest } from '@requests/home/HomeRequest';
 
 @autobind
 export default class ScheduleAddModalStore extends ScheduleModalStore {
@@ -27,11 +31,14 @@ export default class ScheduleAddModalStore extends ScheduleModalStore {
     protected init(calendarDate) {
         super.init(calendarDate);
 
+        this.setName('');
+        this.setLocation('');
+        this.setIsDate(false);
+        this.setUnableToMeet(false);
         this.setEndTime({
             hour: 23,
             minute: 50,
         });
-
         this.setStartTime({
             hour: 0,
             minute: 0,
@@ -39,8 +46,23 @@ export default class ScheduleAddModalStore extends ScheduleModalStore {
     }
 
     @action
-    protected confirm() {
-        // TODO: isDate 인 경우 나, 상대방 모두 같은 일정을 갖도록 함
-        // TODO: unableToMeet 인 경우 해당하는 날짜에 대한 모든 일정 unableToMeet 업데이트
+    async confirm() {
+        if (this.isValid()) {
+            return;
+        }
+
+        const { selectedDate, name, startTime, endTime, location, isDate, unableToMeet } = this;
+        await HomeRequest.addSchedule({
+            owner: UserStore.instance.user.email,
+            scheduleDate: FormatUtil.calendarDateToString(selectedDate),
+            name,
+            startTime: FormatUtil.timeToString(startTime),
+            endTime: FormatUtil.timeToString(endTime),
+            location,
+            isDate,
+            unableToMeet,
+        });
+
+        dialog.alert('저장했습니다.', this.close);
     }
 }

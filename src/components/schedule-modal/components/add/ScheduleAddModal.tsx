@@ -16,11 +16,16 @@ const ScheduleAddModal = observer(() => {
     const {
         isOpened,
         close,
+        confirm,
         selectedDate,
+        name,
         startTime,
         endTime,
+        location,
+        setName,
         setStartTime,
         setEndTime,
+        setLocation,
         startHourList,
         startMinuteList,
         endHourList,
@@ -37,7 +42,7 @@ const ScheduleAddModal = observer(() => {
     const day = new Date(year, month - 1, date).getDay();
 
     return (
-        <SlidingModal title={'일정 추가'} isOpened={isOpened} onClickConfirm={() => {}} onClickCancel={close}>
+        <SlidingModal title={'일정 추가'} isOpened={isOpened} onClickConfirm={confirm} onClickCancel={close}>
             <div className={cx('wrapper')}>
                 <div className={cx('part')}>
                     <h4>선택한 날짜</h4>
@@ -48,7 +53,7 @@ const ScheduleAddModal = observer(() => {
 
                 <div className={cx('part')}>
                     <h4>일정</h4>
-                    <input placeholder={'일정의 이름을 입력하세요.'} />
+                    <input placeholder={'일정의 이름을 입력하세요.'} value={name} onChange={(e) => setName(e.target.value)} />
                 </div>
 
                 <TimeSelectPart
@@ -71,7 +76,7 @@ const ScheduleAddModal = observer(() => {
 
                 <div className={cx('part')}>
                     <h4>위치</h4>
-                    <input placeholder={'위치를 입력하세요.'} />
+                    <input placeholder={'위치를 입력하세요.'} value={location} onChange={(e) => setLocation(e.target.value)} />
                 </div>
 
                 <div className={cx('part')}>

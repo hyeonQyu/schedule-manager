@@ -39,6 +39,10 @@ export default class UserStore {
         return this._isLoggedIn;
     }
 
+    get user(): firebase.User {
+        return this._user;
+    }
+
     /**
      * 구글 계정으로 로그인
      */

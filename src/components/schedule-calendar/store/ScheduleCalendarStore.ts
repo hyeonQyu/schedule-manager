@@ -25,7 +25,7 @@ export default class ScheduleCalendarStore {
             date: today.getDate(),
         };
 
-        (async () => await this.setDateList())();
+        (async () => await this.loadDateList())();
 
         ScheduleCalendarStore._instance = this;
     }
@@ -64,17 +64,17 @@ export default class ScheduleCalendarStore {
     @action
     setCurYear(year) {
         this._curYear = year;
-        (async () => await this.setDateList())();
+        (async () => await this.loadDateList())();
     }
 
     @action
     setCurMonth(month) {
         this._curMonth = month;
-        (async () => await this.setDateList())();
+        (async () => await this.loadDateList())();
     }
 
     @action
-    async setDateList(): Promise<void> {
+    async loadDateList(): Promise<void> {
         const dateList: DateInfo[] = [];
 
         // 이번달 첫번째 요일

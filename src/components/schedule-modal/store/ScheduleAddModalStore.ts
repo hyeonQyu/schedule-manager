@@ -68,7 +68,7 @@ export default class ScheduleAddModalStore extends ScheduleModalStore {
 
         dialog.alert('저장했습니다.', () => {
             (async () => {
-                await this._scheduleCalendarStore.setDateList();
+                await this._scheduleCalendarStore.loadDateList();
                 this._scheduleCalendarStore.selectCalendarDate(null);
                 this.close();
             })();

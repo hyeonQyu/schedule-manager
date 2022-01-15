@@ -29,7 +29,7 @@ const DateDetailMenu = observer(() => {
                         <div className={cx('card-wrapper')}>
                             {selectedDateScheduleList.map((schedule) => {
                                 const { owner, name, createdDatetime } = schedule;
-                                return <Card key={`${owner}_${name}_${createdDatetime.toLocaleString()}`} schedule={schedule} />;
+                                return <Card key={`${owner}_${name}_${createdDatetime?.toLocaleString()}`} schedule={schedule} />;
                             })}
                         </div>
 

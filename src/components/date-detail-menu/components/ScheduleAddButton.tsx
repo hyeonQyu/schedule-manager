@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import classNames from 'classnames/bind';
 import style from '../DateDetailMenu.scss';
 import ScheduleAddModalStore from '@components/schedule-modal/store/ScheduleAddModalStore';
-import ScheduleCalendarStore from '@components/common/schedule-calendar/store/ScheduleCalendarStore';
+import ScheduleCalendarStore from '@components/schedule-calendar/store/ScheduleCalendarStore';
 
 const cx = classNames.bind(style);
 

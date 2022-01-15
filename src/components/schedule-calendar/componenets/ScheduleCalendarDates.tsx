@@ -2,9 +2,9 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import classNames from 'classnames/bind';
 import style from '../ScheduleCalendar.scss';
-import ScheduleCalendarStore from '@components/common/schedule-calendar/store/ScheduleCalendarStore';
+import ScheduleCalendarStore from '@components/schedule-calendar/store/ScheduleCalendarStore';
 import { EWeek } from '@defines/defines';
-import ScheduleCalendarDateCell from '@components/common/schedule-calendar/componenets/ScheduleCalendarDateCell';
+import ScheduleCalendarDateCell from '@components/schedule-calendar/componenets/ScheduleCalendarDateCell';
 
 const cx = classNames.bind(style);
 

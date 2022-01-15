@@ -59,7 +59,7 @@ export interface WhereCondition {
     /** 비교연산자 */
     opStr: WhereFilterOp;
     /** 조건을 만족하는 값 */
-    value: string;
+    value: any;
 }
 
 export const dayArray = ['일', '월', '화', '수', '목', '금', '토'];

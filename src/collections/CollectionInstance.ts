@@ -17,7 +17,7 @@ export default class CollectionInstance<T> {
      * @param vo
      */
     async add(vo: T): Promise<firebase.firestore.DocumentReference<DocumentData>> {
-        return await dbService.collection(this._id).add(vo);
+        return dbService.collection(this._id).add(vo);
     }
 
     /**
@@ -37,8 +37,17 @@ export default class CollectionInstance<T> {
      * @param whereConditionList
      * @param vo
      */
-    async update(whereConditionList: WhereCondition[] = [], vo: Partial<T>): Promise<void> {
+    async updateByWhereConditions(vo: Partial<T>, whereConditionList: WhereCondition[] = []): Promise<void> {
         const { docs } = await this.get(whereConditionList);
+        await this.updateByDocs(vo, docs);
+    }
+
+    /**
+     * 컬렉션에서 특정 문서 데이터 수정
+     * @param vo
+     * @param docs
+     */
+    async updateByDocs(vo: Partial<T>, docs: firebase.firestore.QueryDocumentSnapshot<firebase.firestore.DocumentData>[] = []) {
         await Promise.all(
             docs.map((doc) => {
                 dbService.doc(`${this._id}/${doc.id}`).update(vo);

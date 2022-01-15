@@ -4,10 +4,12 @@ import classNames from 'classnames/bind';
 import style from '@components/schedule-calendar/ScheduleCalendar.scss';
 import { CalendarDate } from '@defines/defines';
 import ScheduleCalendarStore from '@components/schedule-calendar/store/ScheduleCalendarStore';
+import UserStore from '@stores/UserStore';
 
 const cx = classNames.bind(style);
 
 const store = ScheduleCalendarStore.instance;
+const userStore = UserStore.instance;
 
 export interface ScheduleCalendarDateCellProps {
     calendarDate: CalendarDate;
@@ -15,9 +17,10 @@ export interface ScheduleCalendarDateCellProps {
 
 const ScheduleCalendarDateCell = observer((props: ScheduleCalendarDateCellProps) => {
     const { calendarDate } = props;
+
     const { curMonth, selectCalendarDate, selectedCalendarDate, setCurYear, setCurMonth, todayCalendarDate } = store;
 
-    const { date, month, year } = calendarDate;
+    const { date, month, year, scheduleList } = calendarDate;
 
     const isSameDate = (calendarDate: CalendarDate) => {
         if (!calendarDate) return false;
@@ -46,6 +49,16 @@ const ScheduleCalendarDateCell = observer((props: ScheduleCalendarDateCellProps)
             <div>
                 <div className={cx('text')}>{date}</div>
             </div>
+            <ul className={cx(selectedCalendarDate && 'reduced')}>
+                {scheduleList?.map(({ name, owner }, i) => {
+                    const isMine = owner === userStore.user.email;
+                    return (
+                        <li key={i} className={cx(isMine ? 'me' : 'other')}>
+                            {name}
+                        </li>
+                    );
+                })}
+            </ul>
         </div>
     );
 });

@@ -36,6 +36,7 @@ export interface CalendarDate {
     date: number;
     month: number;
     year: number;
+    scheduleList?: Schedule[];
 }
 
 export interface Time {

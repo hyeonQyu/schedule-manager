@@ -9,6 +9,8 @@ export namespace FormatUtil {
      * @param calendarDate
      */
     export function calendarDateToString(calendarDate: CalendarDate): string {
+        if (!calendarDate) return '';
+
         const { year, month, date } = calendarDate;
         return `${year}.${withDigitLength(month, 2)}.${withDigitLength(date, 2)}`;
     }

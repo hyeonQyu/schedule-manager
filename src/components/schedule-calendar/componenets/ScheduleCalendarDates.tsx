@@ -12,6 +12,7 @@ const store = ScheduleCalendarStore.instance;
 
 const ScheduleCalendarDates = observer(() => {
     const { dateList } = store;
+    if (dateList?.length === 0) return null;
 
     return (
         <div className={cx('dates')}>

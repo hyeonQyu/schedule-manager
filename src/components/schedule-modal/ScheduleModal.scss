@@ -12,6 +12,31 @@
       width: 70%;
     }
 
+    .schedule-star {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 4.2vh;
+
+      button {
+        width: 48%;
+        height: 100%;
+        border-radius: 5px;
+        font-size: 4.5vw;
+
+        &.save {
+          color: white;
+          background-color: #9e5ade;
+        }
+
+        &.load {
+          color: #9e5ade;
+          background-color: white;
+          border: 1px solid #9e5ade;
+        }
+      }
+    }
+
     h4 {
       margin-bottom: 2vh;
     }

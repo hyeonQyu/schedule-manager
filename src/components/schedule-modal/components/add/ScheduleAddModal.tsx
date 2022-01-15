@@ -90,6 +90,14 @@ const ScheduleAddModal = observer(() => {
                         </Checkbox>
                     </div>
                 </div>
+
+                <div className={cx('part')}>
+                    <h4>자주 사용하는 일정으로 등록</h4>
+                    <div className={cx('schedule-star')}>
+                        <button className={cx('save')}>일정 저장</button>
+                        <button className={cx('load')}>일정 불러오기</button>
+                    </div>
+                </div>
             </div>
         </SlidingModal>
     );

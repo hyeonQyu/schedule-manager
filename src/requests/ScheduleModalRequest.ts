@@ -1,5 +1,5 @@
 import { Collections } from '@collections/Collections';
-import env from '../../env';
+import env from '../env';
 import firebase from 'firebase/app';
 import UserStore from '@stores/UserStore';
 import { ScheduleVO } from '@models/ScheduleVO';

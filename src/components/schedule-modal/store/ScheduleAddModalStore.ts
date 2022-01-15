@@ -4,7 +4,7 @@ import ScheduleModalStore from '@components/schedule-modal/store/ScheduleModalSt
 import UserStore from '@stores/UserStore';
 import { FormatUtil } from '@utils/FormatUtil';
 import { dialog } from '@components/common/dialog/Dialog';
-import { ScheduleModalRequest } from '@requests/home/ScheduleModalRequest';
+import { ScheduleModalRequest } from '@requests/ScheduleModalRequest';
 
 @autobind
 export default class ScheduleAddModalStore extends ScheduleModalStore {

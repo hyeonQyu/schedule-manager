@@ -2,13 +2,14 @@ import { autobind } from 'core-decorators';
 import { action } from 'mobx';
 import ScheduleModalStore from '@components/schedule-modal/store/ScheduleModalStore';
 import UserStore from '@stores/UserStore';
-import { FormatUtil } from '@utils/FormatUtil';
 import { dialog } from '@components/common/dialog/Dialog';
 import { ScheduleModalRequest } from '@requests/ScheduleModalRequest';
+import ScheduleCalendarStore from '@components/schedule-calendar/store/ScheduleCalendarStore';
 
 @autobind
 export default class ScheduleAddModalStore extends ScheduleModalStore {
     private static _instance: ScheduleAddModalStore;
+    private _scheduleCalendarStore = ScheduleCalendarStore.instance;
 
     private constructor() {
         super();
@@ -65,6 +66,12 @@ export default class ScheduleAddModalStore extends ScheduleModalStore {
             unableToMeet,
         });
 
-        dialog.alert('저장했습니다.', this.close);
+        dialog.alert('저장했습니다.', () => {
+            (async () => {
+                await this._scheduleCalendarStore.setDateList();
+                this._scheduleCalendarStore.selectCalendarDate(null);
+                this.close();
+            })();
+        });
     }
 }

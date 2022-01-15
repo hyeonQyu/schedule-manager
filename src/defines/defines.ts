@@ -44,6 +44,7 @@ export interface Time {
 }
 
 export interface Schedule {
+    owner: string;
     scheduleDate: CalendarDate;
     startTime: Time;
     endTime: Time;

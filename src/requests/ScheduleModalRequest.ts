@@ -4,7 +4,7 @@ import firebase from 'firebase/app';
 import UserStore from '@stores/UserStore';
 import { ScheduleVO } from '@models/ScheduleVO';
 import { loading } from '@components/common/loading/Loading';
-import { CalendarDate } from '@defines/defines';
+import { CalendarDate, Schedule } from '@defines/defines';
 import { FormatUtil } from '@utils/FormatUtil';
 import { DocumentData } from '@defines/firebaseDefines';
 import { DateInfoVO } from '@models/DateInfoVO';
@@ -15,8 +15,21 @@ export namespace ScheduleModalRequest {
     /**
      * 일정 추가
      */
-    export async function addSchedule(scheduleVO: ScheduleVO) {
+    export async function addSchedule(schedule: Schedule) {
         loading.show();
+        const scheduleVO = (() => {
+            const { owner, scheduleDate, name, startTime, endTime, location, isDate, unableToMeet } = schedule;
+            return {
+                owner,
+                scheduleDate: FormatUtil.calendarDateToString(scheduleDate),
+                name,
+                startTime: FormatUtil.timeToString(startTime),
+                endTime: FormatUtil.timeToString(endTime),
+                location,
+                isDate,
+                unableToMeet,
+            };
+        })();
 
         const { isDate } = scheduleVO;
 

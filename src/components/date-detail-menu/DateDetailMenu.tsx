@@ -2,7 +2,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import classNames from 'classnames/bind';
 import style from './DateDetailMenu.scss';
-import ScheduleCalendarStore from '@components/common/schedule-calendar/store/ScheduleCalendarStore';
+import ScheduleCalendarStore from '@components/schedule-calendar/store/ScheduleCalendarStore';
 import ArrowIcon from '@icons/arrow/ArrowIcon';
 import { EArrowDirection } from '@defines/defines';
 import Card from '@components/card/Card';

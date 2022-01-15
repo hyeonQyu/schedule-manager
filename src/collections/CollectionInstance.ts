@@ -6,7 +6,7 @@ import firebase from 'firebase';
 
 @autobind
 export default class CollectionInstance<T> {
-    private _id: string;
+    private readonly _id: string;
 
     constructor(id: string) {
         this._id = id;
@@ -25,11 +25,16 @@ export default class CollectionInstance<T> {
      * @param whereConditionList 데이터 조회를 위한 조건 배열
      */
     async get(whereConditionList: WhereCondition[] = []): Promise<firebase.firestore.QuerySnapshot<DocumentData>> {
-        return whereConditionList
-            .reduce((accumulator, { fieldPath, opStr, value }) => {
-                return accumulator.where(fieldPath, opStr, value);
-            }, dbService.collection(this._id))
-            .get();
+        return (await this.getQueryReference(whereConditionList)).get();
+    }
+
+    /**
+     * 컬렉션 데이터 정렬 조건으로 조회
+     * @param orderByFieldPath
+     * @param whereConditionList
+     */
+    async getOrderBy(orderByFieldPath: string | firebase.firestore.FieldPath, whereConditionList: WhereCondition[] = []) {
+        return (await this.getQueryReference(whereConditionList)).orderBy(orderByFieldPath).get();
     }
 
     /**
@@ -56,4 +61,17 @@ export default class CollectionInstance<T> {
     }
 
     // TODO: 삭제 구현
+
+    /**
+     * where 조건으로 필터링한 DocumentData 의 레퍼런스 반환
+     * @param whereConditionList
+     * @private
+     */
+    private async getQueryReference(
+        whereConditionList: WhereCondition[] = [],
+    ): Promise<firebase.firestore.CollectionReference<firebase.firestore.DocumentData> | firebase.firestore.Query<firebase.firestore.DocumentData>> {
+        return whereConditionList.reduce((accumulator, { fieldPath, opStr, value }) => {
+            return accumulator.where(fieldPath, opStr, value);
+        }, dbService.collection(this._id));
+    }
 }

@@ -4,7 +4,7 @@ import ScheduleModalStore from '@components/schedule-modal/store/ScheduleModalSt
 import UserStore from '@stores/UserStore';
 import { FormatUtil } from '@utils/FormatUtil';
 import { dialog } from '@components/common/dialog/Dialog';
-import { ScheduleModalRequest } from '@requests/home/ScheduleModalRequest';
+import { ScheduleModalRequest } from '@requests/ScheduleModalRequest';
 
 @autobind
 export default class ScheduleAddModalStore extends ScheduleModalStore {
@@ -56,10 +56,10 @@ export default class ScheduleAddModalStore extends ScheduleModalStore {
         const { selectedDate, name, startTime, endTime, location, isDate, unableToMeet } = this;
         await ScheduleModalRequest.addSchedule({
             owner: UserStore.instance.user.email,
-            scheduleDate: FormatUtil.calendarDateToString(selectedDate),
+            scheduleDate: selectedDate,
             name,
-            startTime: FormatUtil.timeToString(startTime),
-            endTime: FormatUtil.timeToString(endTime),
+            startTime,
+            endTime,
             location,
             isDate,
             unableToMeet,

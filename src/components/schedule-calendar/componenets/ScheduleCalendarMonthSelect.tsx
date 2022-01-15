@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import ScheduleCalendarStore from '@components/common/schedule-calendar/store/ScheduleCalendarStore';
+import ScheduleCalendarStore from '@components/schedule-calendar/store/ScheduleCalendarStore';
 
 const store = ScheduleCalendarStore.instance;
 

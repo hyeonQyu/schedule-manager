@@ -43,7 +43,13 @@ export interface Time {
     minute: number;
 }
 
+export interface DateInfo {
+    calendarDate: CalendarDate;
+    scheduleList?: Schedule[];
+}
+
 export interface Schedule {
+    owner: string;
     scheduleDate: CalendarDate;
     startTime: Time;
     endTime: Time;

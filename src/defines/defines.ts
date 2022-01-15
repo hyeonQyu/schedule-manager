@@ -36,12 +36,16 @@ export interface CalendarDate {
     date: number;
     month: number;
     year: number;
-    scheduleList?: Schedule[];
 }
 
 export interface Time {
     hour: number;
     minute: number;
+}
+
+export interface DateInfo {
+    calendarDate: CalendarDate;
+    scheduleList?: Schedule[];
 }
 
 export interface Schedule {

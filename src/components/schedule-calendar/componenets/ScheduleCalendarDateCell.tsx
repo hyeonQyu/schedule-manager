@@ -2,7 +2,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import classNames from 'classnames/bind';
 import style from '@components/schedule-calendar/ScheduleCalendar.scss';
-import { CalendarDate } from '@defines/defines';
+import { CalendarDate, DateInfo } from '@defines/defines';
 import ScheduleCalendarStore from '@components/schedule-calendar/store/ScheduleCalendarStore';
 import UserStore from '@stores/UserStore';
 
@@ -12,15 +12,15 @@ const store = ScheduleCalendarStore.instance;
 const userStore = UserStore.instance;
 
 export interface ScheduleCalendarDateCellProps {
-    calendarDate: CalendarDate;
+    dateInfo: DateInfo;
 }
 
 const ScheduleCalendarDateCell = observer((props: ScheduleCalendarDateCellProps) => {
-    const { calendarDate } = props;
+    const { dateInfo } = props;
+    const { calendarDate, scheduleList } = dateInfo;
+    const { date, month, year } = calendarDate;
 
     const { curMonth, selectCalendarDate, selectedCalendarDate, setCurYear, setCurMonth, todayCalendarDate } = store;
-
-    const { date, month, year, scheduleList } = calendarDate;
 
     const isSameDate = (calendarDate: CalendarDate) => {
         if (!calendarDate) return false;

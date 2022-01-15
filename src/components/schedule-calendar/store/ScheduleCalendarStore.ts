@@ -1,6 +1,6 @@
 import { autobind } from 'core-decorators';
 import { action, observable } from 'mobx';
-import { CalendarDate, EDay, EWeek, EYear } from '@defines/defines';
+import { CalendarDate, DateInfo, EDay, EWeek, EYear } from '@defines/defines';
 import { DateUtil } from '@utils/DateUtil';
 import { dialog } from '@components/common/dialog/Dialog';
 import { ScheduleCalendarRequest } from '@requests/ScheduleCalendarRequest';
@@ -13,7 +13,7 @@ export default class ScheduleCalendarStore {
 
     @observable private _curYear: number = new Date().getFullYear();
     @observable private _curMonth: number = new Date().getMonth() + 1;
-    @observable private _dateList: CalendarDate[] = [];
+    @observable private _dateList: DateInfo[] = [];
     @observable private _selectedCalendarDate: CalendarDate;
 
     private constructor() {
@@ -44,7 +44,7 @@ export default class ScheduleCalendarStore {
         return this._curMonth;
     }
 
-    get dateList(): CalendarDate[] {
+    get dateList(): DateInfo[] {
         return this._dateList;
     }
 
@@ -70,7 +70,7 @@ export default class ScheduleCalendarStore {
 
     @action
     async setDateList(): Promise<void> {
-        const dateList: CalendarDate[] = [];
+        const dateList: DateInfo[] = [];
 
         // 이번달 첫번째 요일
         const firstDay = DateUtil.getFirstDay(this.curYear, this.curMonth);
@@ -101,9 +101,11 @@ export default class ScheduleCalendarStore {
             const lastMonthDate = DateUtil.getCalendarDate(this.curYear, this.curMonth - 1, 1);
             for (let i = firstDateOfLastMonth; i <= lastDateOfLastMonth; i++) {
                 dateList.push({
-                    date: i,
-                    month: lastMonthDate.month,
-                    year: lastMonthDate.year,
+                    calendarDate: {
+                        date: i,
+                        month: lastMonthDate.month,
+                        year: lastMonthDate.year,
+                    },
                 });
             }
 
@@ -111,9 +113,11 @@ export default class ScheduleCalendarStore {
             let scheduleListIndex = 0;
             for (let i = 1; i <= lastDate; i++) {
                 dateList.push({
-                    date: i,
-                    month: this.curMonth,
-                    year: this.curYear,
+                    calendarDate: {
+                        date: i,
+                        month: this.curMonth,
+                        year: this.curYear,
+                    },
                     scheduleList: (() => {
                         if (scheduleList.length === scheduleListIndex || scheduleList[scheduleListIndex].scheduleDate.date > i) {
                             return null;
@@ -135,9 +139,11 @@ export default class ScheduleCalendarStore {
             const nextMonthDate = DateUtil.getCalendarDate(this.curYear, this.curMonth + 1, 1);
             for (let i = 1; i <= lastDateOfNextMonth; i++) {
                 dateList.push({
-                    date: i,
-                    month: nextMonthDate.month,
-                    year: nextMonthDate.year,
+                    calendarDate: {
+                        date: i,
+                        month: nextMonthDate.month,
+                        year: nextMonthDate.year,
+                    },
                 });
             }
 

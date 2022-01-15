@@ -25,7 +25,7 @@ const ScheduleCalendarDates = observer(() => {
                     for (let j = 0; j < EWeek.DATES_PER_WEEK; j++) {
                         const index = i * EWeek.DATES_PER_WEEK + j;
                         // 한 주에 7일 채워넣기
-                        dateCellList.push(<ScheduleCalendarDateCell key={index} calendarDate={dateList[index]} />);
+                        dateCellList.push(<ScheduleCalendarDateCell key={index} dateInfo={dateList[index]} />);
                     }
 
                     // 한 달에 6주 채워넣기

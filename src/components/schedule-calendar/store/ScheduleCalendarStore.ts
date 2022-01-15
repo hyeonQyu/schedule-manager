@@ -1,6 +1,6 @@
 import { autobind } from 'core-decorators';
 import { action, observable } from 'mobx';
-import { CalendarDate, DateInfo, EDay, EWeek, EYear } from '@defines/defines';
+import { CalendarDate, DateInfo, EDay, EWeek, EYear, Schedule } from '@defines/defines';
 import { DateUtil } from '@utils/DateUtil';
 import { dialog } from '@components/common/dialog/Dialog';
 import { ScheduleCalendarRequest } from '@requests/ScheduleCalendarRequest';
@@ -15,6 +15,7 @@ export default class ScheduleCalendarStore {
     @observable private _curMonth: number = new Date().getMonth() + 1;
     @observable private _dateList: DateInfo[] = [];
     @observable private _selectedCalendarDate: CalendarDate;
+    @observable private _selectedDateScheduleList: Schedule[] = [];
 
     private constructor() {
         const today = new Date();
@@ -50,6 +51,10 @@ export default class ScheduleCalendarStore {
 
     get selectedCalendarDate(): CalendarDate {
         return this._selectedCalendarDate;
+    }
+
+    get selectedDateScheduleList(): Schedule[] {
+        return this._selectedDateScheduleList;
     }
 
     get todayCalendarDate(): CalendarDate {
@@ -94,7 +99,7 @@ export default class ScheduleCalendarStore {
         const lastDateOfNextMonth = (EWeek.MAX_WEEK - lastWeek) * EWeek.DATES_PER_WEEK + (EDay.MAX_DAY - lastDay);
 
         // 이번 달 일정 조회
-        const scheduleList = await ScheduleCalendarRequest.getThisMonthSchedules(this.curYear, this.curMonth, lastDate);
+        const scheduleList = await ScheduleCalendarRequest.getSchedulesOfMonth(this.curYear, this.curMonth, lastDate);
 
         action(() => {
             // 지난달
@@ -166,6 +171,7 @@ export default class ScheduleCalendarStore {
             prevMonth = 12;
         }
         this.setCurMonth(prevMonth);
+        this.selectCalendarDate(null);
     }
 
     @action
@@ -183,10 +189,24 @@ export default class ScheduleCalendarStore {
             nextMonth = 1;
         }
         this.setCurMonth(nextMonth);
+        this.selectCalendarDate(null);
     }
 
     @action
     selectCalendarDate(calendarDate: CalendarDate) {
-        this._selectedCalendarDate = calendarDate;
+        if (!calendarDate) {
+            this._selectedCalendarDate = calendarDate;
+            return;
+        }
+
+        (async () => {
+            const { year, month, date } = calendarDate;
+            const scheduleList = await ScheduleCalendarRequest.getSchedulesOfDate(year, month, date);
+
+            action(() => {
+                this._selectedDateScheduleList = scheduleList;
+                this._selectedCalendarDate = calendarDate;
+            })();
+        })();
     }
 }

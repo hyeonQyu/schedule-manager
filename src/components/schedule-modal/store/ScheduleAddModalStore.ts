@@ -4,7 +4,7 @@ import ScheduleModalStore from '@components/schedule-modal/store/ScheduleModalSt
 import UserStore from '@stores/UserStore';
 import { FormatUtil } from '@utils/FormatUtil';
 import { dialog } from '@components/common/dialog/Dialog';
-import { HomeRequest } from '@requests/home/HomeRequest';
+import { ScheduleModalRequest } from '@requests/home/ScheduleModalRequest';
 
 @autobind
 export default class ScheduleAddModalStore extends ScheduleModalStore {
@@ -31,10 +31,12 @@ export default class ScheduleAddModalStore extends ScheduleModalStore {
     protected init(calendarDate) {
         super.init(calendarDate);
 
+        (async () => this.setUnableToMeet(await ScheduleModalRequest.getUnableToMeetOfDate(calendarDate)))();
+
         this.setName('');
         this.setLocation('');
+
         this.setIsDate(false);
-        this.setUnableToMeet(false);
         this.setEndTime({
             hour: 23,
             minute: 50,
@@ -47,12 +49,12 @@ export default class ScheduleAddModalStore extends ScheduleModalStore {
 
     @action
     async confirm() {
-        if (this.isValid()) {
+        if (!this.isValid()) {
             return;
         }
 
         const { selectedDate, name, startTime, endTime, location, isDate, unableToMeet } = this;
-        await HomeRequest.addSchedule({
+        await ScheduleModalRequest.addSchedule({
             owner: UserStore.instance.user.email,
             scheduleDate: FormatUtil.calendarDateToString(selectedDate),
             name,

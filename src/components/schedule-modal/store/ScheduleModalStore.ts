@@ -135,6 +135,13 @@ export default class ScheduleModalStore extends ModalStore {
             dialog.alert('일정 정보를 입력하세요.');
             return false;
         }
+
+        if (this.isDate && this.unableToMeet) {
+            dialog.alert('데이트 일정이면서 못 만나는 날일 수 없습니다.');
+            return false;
+        }
+
+        return true;
     }
 
     /**

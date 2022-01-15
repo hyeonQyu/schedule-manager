@@ -53,6 +53,24 @@ export namespace ScheduleModalRequest {
     }
 
     /**
+     * 자주 사용하는 일정으로 등록
+     * @param schedule
+     */
+    export async function registerStarSchedule(schedule: Partial<Schedule>) {
+        const { name, startTime, endTime, location } = schedule;
+
+        loading.show();
+        await Collections.starSchedule.add({
+            author: userStore.user.email,
+            name,
+            startTime: FormatUtil.timeToString(startTime),
+            endTime: FormatUtil.timeToString(endTime),
+            location,
+        });
+        loading.hide();
+    }
+
+    /**
      * 날짜 정보를 불러옴
      * @param date
      * @private

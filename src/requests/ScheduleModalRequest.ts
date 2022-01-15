@@ -28,7 +28,7 @@ export namespace ScheduleModalRequest {
                 location,
                 isDate,
                 unableToMeet,
-                createdDate: new Date(),
+                createdDatetime: new Date(),
             };
         })();
 

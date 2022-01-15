@@ -13,7 +13,7 @@ const cx = classNames.bind(style);
 const calendarStore = ScheduleCalendarStore.instance;
 
 const DateDetailMenu = observer(() => {
-    const { selectCalendarDate, selectedCalendarDate } = calendarStore;
+    const { selectCalendarDate, selectedCalendarDate, selectedDateScheduleList } = calendarStore;
 
     const close = () => selectCalendarDate(null);
 
@@ -27,38 +27,9 @@ const DateDetailMenu = observer(() => {
 
                     <div className={cx('body')}>
                         <div className={cx('card-wrapper')}>
-                            <Card
-                                schedule={{
-                                    scheduleDate: { year: 2021, month: 11, date: 24 },
-                                    startTime: { hour: 10, minute: 0 },
-                                    endTime: { hour: 13, minute: 20 },
-                                    name: '뭐하기',
-                                }}
-                            />
-                            <Card
-                                schedule={{
-                                    scheduleDate: { year: 2021, month: 11, date: 24 },
-                                    startTime: { hour: 10, minute: 0 },
-                                    endTime: { hour: 13, minute: 20 },
-                                    name: '뭐하기',
-                                }}
-                            />
-                            <Card
-                                schedule={{
-                                    scheduleDate: { year: 2021, month: 11, date: 24 },
-                                    startTime: { hour: 10, minute: 0 },
-                                    endTime: { hour: 13, minute: 20 },
-                                    name: '뭐하기',
-                                }}
-                            />
-                            <Card
-                                schedule={{
-                                    scheduleDate: { year: 2021, month: 11, date: 24 },
-                                    startTime: { hour: 10, minute: 0 },
-                                    endTime: { hour: 13, minute: 20 },
-                                    name: '뭐하기',
-                                }}
-                            />
+                            {selectedDateScheduleList.map((schedule) => (
+                                <Card key={`${schedule.owner}_${schedule.name}`} schedule={schedule} />
+                            ))}
                         </div>
 
                         <ScheduleAddButton />

@@ -49,7 +49,7 @@ export namespace ScheduleCalendarRequest {
     function getScheduleListFromScheduleVODocs(docs: firebase.firestore.QueryDocumentSnapshot<DocumentData>[]): Schedule[] {
         return docs.map((doc) => {
             const vo = doc.data() as ScheduleVO;
-            const { owner, scheduleDate, name, startTime, endTime, location, isDate, unableToMeet } = vo;
+            const { owner, scheduleDate, name, startTime, endTime, location, isDate, unableToMeet, createdDatetime } = vo;
             return {
                 owner,
                 scheduleDate: FormatUtil.stringToCalendarDate(scheduleDate),
@@ -59,6 +59,7 @@ export namespace ScheduleCalendarRequest {
                 location,
                 isDate,
                 unableToMeet,
+                createdDatetime,
             };
         });
     }

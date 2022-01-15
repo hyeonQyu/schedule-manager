@@ -28,6 +28,7 @@ export namespace ScheduleModalRequest {
                 location,
                 isDate,
                 unableToMeet,
+                createdDate: new Date(),
             };
         })();
 
@@ -66,6 +67,7 @@ export namespace ScheduleModalRequest {
             startTime: FormatUtil.timeToString(startTime),
             endTime: FormatUtil.timeToString(endTime),
             location,
+            createdDatetime: new Date(),
         });
         loading.hide();
     }

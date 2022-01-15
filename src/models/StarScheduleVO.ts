@@ -4,4 +4,5 @@ export interface StarScheduleVO {
     startTime: string;
     endTime: string;
     location: string;
+    createdDatetime: Date;
 }

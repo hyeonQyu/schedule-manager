@@ -57,6 +57,7 @@ export interface Schedule {
     location?: string;
     isDate?: boolean;
     unableToMeet?: boolean;
+    createdDatetime?: Date;
 }
 
 export interface WhereCondition {

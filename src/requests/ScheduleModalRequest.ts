@@ -4,10 +4,11 @@ import firebase from 'firebase/app';
 import UserStore from '@stores/UserStore';
 import { ScheduleVO } from '@models/ScheduleVO';
 import { loading } from '@components/common/loading/Loading';
-import { CalendarDate, Schedule } from '@defines/defines';
+import { CalendarDate, Schedule, StarSchedule } from '@defines/defines';
 import { FormatUtil } from '@utils/FormatUtil';
 import { DocumentData } from '@defines/firebaseDefines';
 import { DateInfoVO } from '@models/DateInfoVO';
+import { StarScheduleVO } from '@models/StarScheduleVO';
 
 export namespace ScheduleModalRequest {
     const userStore = UserStore.instance;
@@ -28,6 +29,7 @@ export namespace ScheduleModalRequest {
                 location,
                 isDate,
                 unableToMeet,
+                createdDatetime: new Date(),
             };
         })();
 
@@ -50,6 +52,42 @@ export namespace ScheduleModalRequest {
         const { docs } = await getDateInfoByDate(FormatUtil.calendarDateToString(date));
         if (docs.length === 0) return false;
         return (docs[0].data() as DateInfoVO).unableToMeet;
+    }
+
+    /**
+     * 자주 사용하는 일정으로 등록
+     * @param schedule
+     */
+    export async function registerStarSchedule(schedule: StarSchedule) {
+        const { name, startTime, endTime, location } = schedule;
+
+        loading.show();
+        await Collections.starSchedule.add({
+            author: userStore.user.email,
+            name,
+            startTime: FormatUtil.timeToString(startTime),
+            endTime: FormatUtil.timeToString(endTime),
+            location,
+            createdDatetime: new Date(),
+        });
+        loading.hide();
+    }
+
+    /**
+     * 자주 사용하는 일정 목록 불러오기
+     */
+    export async function getStarSchedules(): Promise<StarSchedule[]> {
+        loading.show();
+        const { docs } = await Collections.starSchedule.getOrderBy({ fieldPath: 'createdDatetime', directionStr: 'desc' }, [
+            {
+                fieldPath: 'author',
+                opStr: '==',
+                value: userStore.user.email,
+            },
+        ]);
+        loading.hide();
+
+        return getStarScheduleListFromStarScheduleVODocs(docs);
     }
 
     /**
@@ -109,5 +147,25 @@ export namespace ScheduleModalRequest {
             ...scheduleVO,
             owner: env.MAIL_ACCOUNTS.filter((email) => email !== userStore.user.email)[0],
         };
+    }
+
+    /**
+     * VO 객체를 프론트에서 사용하는 타입의 객체로 변환
+     * @param docs
+     * @private
+     */
+    function getStarScheduleListFromStarScheduleVODocs(docs: firebase.firestore.QueryDocumentSnapshot<DocumentData>[]): StarSchedule[] {
+        return docs.map((doc) => {
+            const vo = doc.data() as StarScheduleVO;
+            const { author, name, startTime, endTime, location, createdDatetime } = vo;
+            return {
+                author,
+                name,
+                startTime: FormatUtil.stringToTime(startTime),
+                endTime: FormatUtil.stringToTime(endTime),
+                location,
+                createdDatetime,
+            };
+        });
     }
 }

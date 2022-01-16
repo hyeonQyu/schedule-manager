@@ -36,5 +36,11 @@ $otherColor: #c482ff;
   appearance: none; /* 화살표 없애기 공통*/
 }
 
+@mixin shortening {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 // 아이폰11 414x896
 // Z-플립 540x1320

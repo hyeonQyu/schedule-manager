@@ -2,7 +2,7 @@ import { autobind } from 'core-decorators';
 import { action, observable } from 'mobx';
 import ModalStore from '@stores/ModalStore';
 import { dialog } from '@components/common/dialog/Dialog';
-import { CalendarDate, Time } from '@defines/defines';
+import { CalendarDate, StarSchedule, Time } from '@defines/defines';
 
 @autobind
 export default class ScheduleModalStore extends ModalStore {
@@ -26,6 +26,12 @@ export default class ScheduleModalStore extends ModalStore {
 
     // 못 만나는 날 여부
     @observable private _unableToMeet: boolean = false;
+
+    // 자주 사용하는 일정 불러오기 창 열림 여부
+    @observable private _isStarScheduleOpened: boolean = false;
+
+    // 자주 사용하는 일정 목록
+    @observable private _starScheduleList: StarSchedule[] = [];
 
     get selectedDate(): CalendarDate {
         return this._selectedDate;
@@ -53,6 +59,14 @@ export default class ScheduleModalStore extends ModalStore {
 
     get unableToMeet(): boolean {
         return this._unableToMeet;
+    }
+
+    get isStarScheduleOpened(): boolean {
+        return this._isStarScheduleOpened;
+    }
+
+    get starScheduleList(): StarSchedule[] {
+        return this._starScheduleList;
     }
 
     get startHourList(): number[] {
@@ -118,6 +132,16 @@ export default class ScheduleModalStore extends ModalStore {
     @action
     toggleUnableToMeet() {
         this.setUnableToMeet(!this.unableToMeet);
+    }
+
+    @action
+    setIsStarScheduleOpened(isOpened: boolean) {
+        this._isStarScheduleOpened = isOpened;
+    }
+
+    @action
+    setStarScheduleList(list: StarSchedule[]) {
+        this._starScheduleList = list;
     }
 
     @action

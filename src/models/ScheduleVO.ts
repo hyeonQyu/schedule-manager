@@ -7,4 +7,5 @@ export interface ScheduleVO {
     location?: string;
     isDate?: boolean;
     unableToMeet?: boolean;
+    createdDatetime: Date;
 }

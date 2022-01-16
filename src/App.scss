@@ -4,7 +4,7 @@
     margin: 0;
     padding: 0;
     border: 0;
-    font-size: 5vw;
+    font-size: unset;
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
   }
@@ -38,6 +38,7 @@
     width: 100%;
     height: 100%;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 5vw;
   }
 
   .main {

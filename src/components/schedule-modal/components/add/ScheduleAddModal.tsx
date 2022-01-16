@@ -11,18 +11,30 @@ import ScheduleTimePart from '@components/schedule-modal/components/common/part/
 import ScheduleLocationPart from '@components/schedule-modal/components/common/part/ScheduleLocationPart';
 import ScheduleStatusPart from '@components/schedule-modal/components/common/part/ScheduleStatusPart';
 import ScheduleAddStarSchedulePart from '@components/schedule-modal/components/common/part/ScheduleAddStarSchedulePart';
+import ArrowIcon from '@icons/arrow/ArrowIcon';
+import { EArrowDirection } from '@defines/defines';
 
 const cx = classNames.bind(style);
 
 const store = ScheduleAddModalStore.instance;
 
 const ScheduleAddModal = observer(() => {
-    const { isOpened, close, confirm, selectedDate } = store;
+    const { isOpened, close, confirm, selectedDate, isStarScheduleOpened } = store;
 
     if (!selectedDate) return null;
 
+    const confirmNode = !isStarScheduleOpened && '완료';
+    const cancelNode = isStarScheduleOpened ? <ArrowIcon direction={EArrowDirection.LEFT} /> : '닫기';
+
     return (
-        <SlidingModal title={'일정 추가'} isOpened={isOpened} onClickConfirm={confirm} onClickCancel={close}>
+        <SlidingModal
+            title={'일정 추가'}
+            isOpened={isOpened}
+            onClickConfirm={confirm}
+            onClickCancel={close}
+            confirmNode={confirmNode}
+            cancelNode={cancelNode}
+        >
             <div className={cx('wrapper')}>
                 <div className={cx('new-schedule')}>
                     {/*선택한 날짜*/}

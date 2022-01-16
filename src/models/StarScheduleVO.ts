@@ -1,8 +1,5 @@
-export interface StarScheduleVO {
+import { ScheduleVO } from '@models/ScheduleVO';
+
+export interface StarScheduleVO extends Pick<ScheduleVO, 'name' | 'startTime' | 'endTime' | 'location' | 'createdDatetime'> {
     author: string;
-    name: string;
-    startTime: string;
-    endTime: string;
-    location: string;
-    createdDatetime: Date;
 }

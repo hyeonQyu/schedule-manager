@@ -10,7 +10,7 @@ const cx = classNames.bind(style);
 const store = ScheduleAddModalStore.instance;
 
 const StarScheduleSelectPart = observer(() => {
-    const { isStarScheduleOpened, starScheduleList } = store;
+    const { isStarScheduleOpened, starScheduleList, selectStarSchedule } = store;
 
     return (
         <div className={cx('star-schedule-select', isStarScheduleOpened && 'opened')}>
@@ -18,7 +18,13 @@ const StarScheduleSelectPart = observer(() => {
                 <h4>자주 사용하는 일정</h4>
                 <ul className={cx('star-schedule-list')}>
                     {starScheduleList.map((starSchedule) => {
-                        return <StarScheduleCard key={starSchedule.createdDatetime.toLocaleString()} starSchedule={starSchedule} />;
+                        return (
+                            <StarScheduleCard
+                                key={starSchedule.createdDatetime.toLocaleString()}
+                                starSchedule={starSchedule}
+                                onClick={() => selectStarSchedule(starSchedule)}
+                            />
+                        );
                     })}
                 </ul>
             </div>

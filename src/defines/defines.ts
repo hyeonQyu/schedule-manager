@@ -1,4 +1,5 @@
-import { WhereFilterOp } from '@defines/firebaseDefines';
+import { OrderByDirection, WhereFilterOp } from '@defines/firebaseDefines';
+import firebase from 'firebase/app';
 
 export enum EDialogType {
     ALERT,
@@ -60,6 +61,8 @@ export interface Schedule {
     createdDatetime?: Date;
 }
 
+export type StarSchedule = Pick<Schedule, 'name' | 'startTime' | 'endTime' | 'location' | 'createdDatetime'>;
+
 export interface WhereCondition {
     /** 조건을 비교할 field 이름 */
     fieldPath: string;
@@ -67,6 +70,13 @@ export interface WhereCondition {
     opStr: WhereFilterOp;
     /** 조건을 만족하는 값 */
     value: any;
+}
+
+export interface OrderByParams {
+    /** 정렬할 필드 이름 */
+    fieldPath: string | firebase.firestore.FieldPath;
+    /** 정렬 방향 */
+    directionStr?: OrderByDirection;
 }
 
 export const dayArray = ['일', '월', '화', '수', '목', '금', '토'];

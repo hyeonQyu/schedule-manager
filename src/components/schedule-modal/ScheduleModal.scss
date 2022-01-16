@@ -1,9 +1,70 @@
 @import "src/presets";
 
 .wrapper {
+  position: relative;
+  height: 100%;
+  overflow-x: hidden;
+
+  > div {
+    width: 100%;
+    position: absolute;
+  }
+
+  .new-schedule {
+  }
+
+  .star-schedule-select {
+    left: 100%;
+    min-height: 100%;
+    background-color: white;
+    transition: all cubic-bezier(0.86, 0, 0.07, 1) .5s;
+
+    &.opened {
+      left: 0;
+    }
+
+    .star-schedule-list {
+      max-height: 80vh;
+      overflow-x: auto;
+
+      .star-schedule {
+        padding: 1.2vh 2vw;
+        transition: all ease .15s;
+        border-radius: 1vw;
+
+        &:active {
+          background-color: #f7f1f9;
+        }
+
+        .name {
+          font-size: 90%;
+        }
+
+        .detail {
+          @include shortening;
+          font-size: 64%;
+          margin-top: 1vh;
+          color: #83798b;
+
+          > span:not(:first-child) {
+            margin-left: 3vw;
+          }
+        }
+      }
+    }
+  }
 
   .part {
     padding: 1.8vh 3.5vw;
+
+    &.part__schedule-star {
+      padding-left: 0;
+      padding-right: 0;
+
+      > * {
+        padding: 0 3.5vw;
+      }
+    }
 
     .schedule-status {
       display: flex;

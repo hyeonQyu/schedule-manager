@@ -5,6 +5,7 @@ import UserStore from '@stores/UserStore';
 import { dialog } from '@components/common/dialog/Dialog';
 import { ScheduleModalRequest } from '@requests/ScheduleModalRequest';
 import ScheduleCalendarStore from '@components/schedule-calendar/store/ScheduleCalendarStore';
+import { StarSchedule } from '@defines/defines';
 
 @autobind
 export default class ScheduleAddModalStore extends ScheduleModalStore {
@@ -46,11 +47,23 @@ export default class ScheduleAddModalStore extends ScheduleModalStore {
             hour: 0,
             minute: 0,
         });
+
+        this.setIsStarScheduleOpened(false);
+        this.setStarScheduleList([]);
+    }
+
+    @action
+    close() {
+        if (this.isStarScheduleOpened) {
+            this.setIsStarScheduleOpened(false);
+            return;
+        }
+        super.close();
     }
 
     @action
     async confirm() {
-        if (!this.isValid()) {
+        if (!this.isStarScheduleOpened || !this.isValid()) {
             return;
         }
 
@@ -75,6 +88,9 @@ export default class ScheduleAddModalStore extends ScheduleModalStore {
         });
     }
 
+    /**
+     * 자주 사용하는 일정 저장 버튼 클릭
+     */
     saveStarSchedule() {
         if (!this.name) {
             dialog.alert('자주 쓰는 일정으로 등록하기 위해 일정 이름을 입력해야 합니다.');
@@ -93,5 +109,27 @@ export default class ScheduleAddModalStore extends ScheduleModalStore {
                 dialog.alert('자주 사용하는 일정이 등록되었습니다.');
             })();
         });
+    }
+
+    /**
+     * 자주 사용하는 일정 불러오기 버튼 클릭
+     */
+    openLoadStarSchedule() {
+        (async () => {
+            this.setStarScheduleList(await ScheduleModalRequest.getStarSchedules());
+            this.setIsStarScheduleOpened(true);
+        })();
+    }
+
+    /**
+     * 자주 사용하는 일정 선택하여 불러오기
+     */
+    selectStarSchedule(starSchedule: StarSchedule) {
+        const { name, startTime, endTime, location } = starSchedule;
+        this.setName(name);
+        this.setStartTime(startTime);
+        this.setEndTime(endTime);
+        this.setLocation(location);
+        this.setIsStarScheduleOpened(false);
     }
 }

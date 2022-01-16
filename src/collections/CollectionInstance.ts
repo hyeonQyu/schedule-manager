@@ -1,5 +1,5 @@
 import { autobind } from 'core-decorators';
-import { WhereCondition } from '@defines/defines';
+import { OrderByParams, WhereCondition } from '@defines/defines';
 import { dbService } from '../firebaseService';
 import { DocumentData } from '@defines/firebaseDefines';
 import firebase from 'firebase';
@@ -30,11 +30,12 @@ export default class CollectionInstance<T> {
 
     /**
      * 컬렉션 데이터 정렬 조건으로 조회
-     * @param orderByFieldPath
+     * @param orderByParam
      * @param whereConditionList
      */
-    async getOrderBy(orderByFieldPath: string | firebase.firestore.FieldPath, whereConditionList: WhereCondition[] = []) {
-        return (await this.getQueryReference(whereConditionList)).orderBy(orderByFieldPath).get();
+    async getOrderBy(orderByParam: OrderByParams, whereConditionList: WhereCondition[] = []) {
+        const { fieldPath, directionStr = 'asc' } = orderByParam;
+        return (await this.getQueryReference(whereConditionList)).orderBy(fieldPath, directionStr).get();
     }
 
     /**

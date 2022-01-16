@@ -15,7 +15,7 @@ export namespace ScheduleCalendarRequest {
      */
     export async function getSchedulesOfMonth(year: number, month: number, lastDate: number): Promise<Schedule[]> {
         loading.show();
-        const { docs } = await Collections.schedule.getOrderBy('scheduleDate', [
+        const { docs } = await Collections.schedule.getOrderBy({ fieldPath: 'scheduleDate' }, [
             {
                 fieldPath: 'scheduleDate',
                 opStr: '>=',

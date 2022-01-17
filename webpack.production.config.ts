@@ -2,11 +2,14 @@ import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import path from 'path';
 import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 
 const config = {
     mode: 'production',
     output: {
-        publicPath: '/',
+        publicPath: './',
+        filename: 'bundle.[hash].js',
+        sourceMapFilename: 'bundle.[hash].js.map',
     },
     entry: './src/index.tsx',
     module: {
@@ -70,10 +73,16 @@ const config = {
     plugins: [
         new HtmlWebpackPlugin({
             template: 'public/index.html',
+            minify: {
+                collapseWhitespace: true,
+                removeComments: true,
+            },
         }),
-        new webpack.HotModuleReplacementPlugin(),
         new webpack.ProvidePlugin({
             process: 'process/browser',
+        }),
+        new CleanWebpackPlugin({
+            cleanAfterEveryBuildPatterns: ['dist'],
         }),
     ],
     devtool: 'inline-source-map',

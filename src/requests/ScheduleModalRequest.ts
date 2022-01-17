@@ -1,7 +1,7 @@
 import { Collections } from '@collections/Collections';
 import env from '../env';
 import firebase from 'firebase/app';
-import UserStore from '@stores/UserStore';
+import UserStore from '@stores/userStore';
 import { ScheduleVO } from '@models/ScheduleVO';
 import { loading } from '@components/common/loading/Loading';
 import { CalendarDate, Schedule, StarSchedule } from '@defines/defines';
@@ -63,7 +63,7 @@ export namespace ScheduleModalRequest {
 
         loading.show();
         await Collections.starSchedule.add({
-            author: userStore.user.email,
+            author: userStore.userEmail,
             name,
             startTime: FormatUtil.timeToString(startTime),
             endTime: FormatUtil.timeToString(endTime),
@@ -82,7 +82,7 @@ export namespace ScheduleModalRequest {
             {
                 fieldPath: 'author',
                 opStr: '==',
-                value: userStore.user.email,
+                value: userStore.userEmail,
             },
         ]);
         loading.hide();
@@ -145,7 +145,7 @@ export namespace ScheduleModalRequest {
     function getClonedDateSchedule(scheduleVO: ScheduleVO): ScheduleVO {
         return {
             ...scheduleVO,
-            owner: env.MAIL_ACCOUNTS.filter((email) => email !== userStore.user.email)[0],
+            owner: env.MAIL_ACCOUNTS.filter((email) => email !== userStore.userEmail)[0],
         };
     }
 

@@ -51,7 +51,7 @@ const ScheduleCalendarDateCell = observer((props: ScheduleCalendarDateCellProps)
             </div>
             <ul className={cx(selectedCalendarDate && 'reduced')}>
                 {scheduleList?.map(({ name, owner }, i) => {
-                    const isMine = owner === userStore.user.email;
+                    const isMine = owner === userStore.userEmail;
                     return (
                         <li key={i} className={cx(isMine ? 'me' : 'other')}>
                             {name}

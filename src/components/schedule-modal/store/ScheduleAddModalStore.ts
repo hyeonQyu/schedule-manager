@@ -10,6 +10,7 @@ import { StarSchedule } from '@defines/defines';
 @autobind
 export default class ScheduleAddModalStore extends ScheduleModalStore {
     private static _instance: ScheduleAddModalStore;
+    private _userStore = UserStore.instance;
     private _scheduleCalendarStore = ScheduleCalendarStore.instance;
 
     private constructor() {
@@ -69,7 +70,7 @@ export default class ScheduleAddModalStore extends ScheduleModalStore {
 
         const { selectedDate, name, startTime, endTime, location, isDate, unableToMeet } = this;
         await ScheduleModalRequest.addSchedule({
-            owner: UserStore.instance.user.email,
+            owner: this._userStore.userEmail,
             scheduleDate: selectedDate,
             name,
             startTime,

@@ -48,5 +48,5 @@ Thumbs.db
 *.wmv
 
 .next/
-.env
-src/env.js
+#.env
+#src/env.js

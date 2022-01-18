@@ -1,7 +1,6 @@
 import { Collections } from '@collections/Collections';
-import env from '../env';
 import firebase from 'firebase/app';
-import UserStore from '@stores/userStore';
+import UserStore from '@stores/UserStore';
 import { ScheduleVO } from '@models/ScheduleVO';
 import { loading } from '@components/common/loading/Loading';
 import { CalendarDate, Schedule, StarSchedule } from '@defines/defines';
@@ -145,7 +144,7 @@ export namespace ScheduleModalRequest {
     function getClonedDateSchedule(scheduleVO: ScheduleVO): ScheduleVO {
         return {
             ...scheduleVO,
-            owner: env.MAIL_ACCOUNTS.filter((email) => email !== userStore.userEmail)[0],
+            owner: userStore.mailAccounts.filter((email) => email !== userStore.userEmail)[0],
         };
     }
 

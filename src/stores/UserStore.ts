@@ -2,7 +2,6 @@ import { autobind } from 'core-decorators';
 import { action, observable } from 'mobx';
 import firebaseService, { authService } from 'firebaseService';
 import { dialog } from '@components/common/dialog/Dialog';
-import env from 'env.js';
 import { loading } from '@components/common/loading/Loading';
 
 @autobind
@@ -40,6 +39,10 @@ export default class UserStore {
         return this._userEmail;
     }
 
+    get mailAccounts() {
+        return ['dhk0561@gmail.com', 'bjy2020os@gmail.com'];
+    }
+
     /**
      * 구글 계정으로 로그인
      */
@@ -65,11 +68,11 @@ export default class UserStore {
         if (!user) return false;
 
         const { email } = user;
-        for (let i = 0; i < env.MAIL_ACCOUNTS.length; i++) {
-            if (email === env.MAIL_ACCOUNTS[i]) {
-                return true;
-            }
+
+        if (this.mailAccounts.some((mail) => email === mail)) {
+            return true;
         }
+
         dialog.alert('허용된 계정이 아닙니다.');
         return false;
     }

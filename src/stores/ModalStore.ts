@@ -14,11 +14,13 @@ export default class ModalStore {
         this._isOpened = true;
         this.init(initObj);
         openCallback && openCallback();
+        document.body.style.overflow = 'hidden';
     }
 
     @action
     close() {
         this._isOpened = false;
+        document.body.style.overflow = 'unset';
     }
 
     protected init(initObj?: any) {}

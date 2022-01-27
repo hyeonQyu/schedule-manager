@@ -2,8 +2,8 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import classNames from 'classnames/bind';
 import style from './ScheduleCalendar.scss';
-import ScheduleCalendarHeader from '@components/common/schedule-calendar/componenets/ScheduleCalendarHeader';
-import ScheduleCalendarDates from '@components/common/schedule-calendar/componenets/ScheduleCalendarDates';
+import ScheduleCalendarHeader from '@components/schedule-calendar/componenets/ScheduleCalendarHeader';
+import ScheduleCalendarDates from '@components/schedule-calendar/componenets/ScheduleCalendarDates';
 import { dayArray } from '@defines/defines';
 
 const cx = classNames.bind(style);

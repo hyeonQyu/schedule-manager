@@ -29,7 +29,16 @@
       ],
       "@utils/*": [
         "./utils/*"
-      ]
+      ],
+      "@requests/*": [
+        "./requests/*"
+      ],
+      "@models/*": [
+        "./models/*"
+      ],
+      "@collections/*": [
+        "./collections/*"
+      ],
     }
   },
   "include": [

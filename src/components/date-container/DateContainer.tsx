@@ -3,15 +3,10 @@ import { observer } from 'mobx-react';
 import classNames from 'classnames/bind';
 import style from './DateContainer.scss';
 import Card from '@components/card/Card';
-import Datetime from '@utils/Datetime';
-import WeeklyScheduleStore from '@stores/WeeklyScheduleStore';
 
 const cx = classNames.bind(style);
 
-const store = WeeklyScheduleStore.instance;
-
 const DateContainer = observer(() => {
-    const { thisWeekArr } = store;
     const showSchedule = () => {
         const myCardArr = [],
             otherCardArr = [];
@@ -21,8 +16,9 @@ const DateContainer = observer(() => {
                     className={cx('my-card')}
                     key={`my-card-${i}`}
                     schedule={{
-                        startDatetime: new Datetime(2021, 11, 12, 10, 0),
-                        endDatetime: new Datetime(2021, 11, 12, 10, 50),
+                        scheduleDate: { year: 2021, month: 11, date: 24 },
+                        startTime: { hour: 10, minute: 0 },
+                        endTime: { hour: 13, minute: 20 },
                         name: 'schedule',
                     }}
                 />,
@@ -32,31 +28,23 @@ const DateContainer = observer(() => {
                     className={cx('other-card')}
                     key={`other-card-${i}`}
                     schedule={{
-                        startDatetime: new Datetime(2021, 11, 12, 10, 0),
-                        endDatetime: new Datetime(2021, 11, 12, 10, 50),
+                        scheduleDate: { year: 2021, month: 11, date: 24 },
+                        startTime: { hour: 10, minute: 0 },
+                        endTime: { hour: 13, minute: 20 },
                         name: 'schedule',
                     }}
                 />,
             );
         }
-        const resultArr = [...myCardArr, ...otherCardArr];
-        return resultArr;
+        return [...myCardArr, ...otherCardArr];
     };
     return (
         <div className={cx('wrapper')}>
-            {thisWeekArr.map(({ year, month, date }) => {
-                return (
-                    <div key={`${year}.${month}.${date}`}>
-                        <h2>
-                            ✔ {year}.{month}.{date}
-                        </h2>
-                        <div className={cx('schedule-container')}>
-                            <div className={cx('schedule-line')} />
-                            <div className={cx('schedule-info')}>{showSchedule()}</div>
-                        </div>
-                    </div>
-                );
-            })}
+            <h2>✔ 2021.11.12</h2>
+            <div className={cx('schedule-container')}>
+                <div className={cx('schedule-line')} />
+                <div className={cx('schedule-info')}>{showSchedule()}</div>
+            </div>
         </div>
     );
 });

@@ -1,84 +1,88 @@
 import { autobind } from 'core-decorators';
 import { action, observable } from 'mobx';
-import Datetime from '@utils/Datetime';
 import ModalStore from '@stores/ModalStore';
 import { dialog } from '@components/common/dialog/Dialog';
-import { EYear } from '@defines/defines';
+import { CalendarDate, StarSchedule, Time } from '@defines/defines';
 
 @autobind
 export default class ScheduleModalStore extends ModalStore {
+    // 일정을 추가, 수정하려는 날짜
+    @observable private _selectedDate: CalendarDate;
+
     // 일정 이름
     @observable private _name: string = '';
 
-    // 시작 일시
-    @observable private _startDatetime: Datetime;
+    // 시작 시간
+    @observable private _startTime: Time = { hour: 0, minute: 0 };
 
-    // 종료 일시
-    @observable private _endDatetime: Datetime;
+    // 종료 시간
+    @observable private _endTime: Time = { hour: 23, minute: 50 };
 
     // 위치
     @observable private _location: string = '';
 
-    // 시작 월에 따른 일
-    @observable private _startDateList: number[] = [];
+    // 데이트 여부
+    @observable private _isDate: boolean = false;
 
-    // 종료 월에 따른 일
-    @observable private _endDateList: number[] = [];
+    // 못 만나는 날 여부
+    @observable private _unableToMeet: boolean = false;
 
-    // 시작 연도 선택에 따른 월
-    @observable private _startMonthList: number[] = [];
+    // 자주 사용하는 일정 불러오기 창 열림 여부
+    @observable private _isStarScheduleOpened: boolean = false;
 
-    // 종료 연도 선택에 따른 월
-    @observable private _endMonthList: number[] = [];
+    // 자주 사용하는 일정 목록
+    @observable private _starScheduleList: StarSchedule[] = [];
 
-    private _yearList: number[] = this.getYearList();
-
-    private _hoursList: number[] = this.getHoursList();
-
-    private _minutesList: number[] = this.getMinutesList();
+    get selectedDate(): CalendarDate {
+        return this._selectedDate;
+    }
 
     get name(): string {
         return this._name;
     }
 
-    get startDatetime(): Datetime {
-        return this._startDatetime;
+    get startTime(): Time {
+        return this._startTime;
     }
 
-    get endDatetime(): Datetime {
-        return this._endDatetime;
+    get endTime(): Time {
+        return this._endTime;
     }
 
     get location(): string {
         return this._location;
     }
 
-    get startDateList(): number[] {
-        return this._startDateList;
+    get isDate(): boolean {
+        return this._isDate;
     }
 
-    get endDateList(): number[] {
-        return this._endDateList;
+    get unableToMeet(): boolean {
+        return this._unableToMeet;
     }
 
-    get startMonthList(): number[] {
-        return this._startMonthList;
+    get isStarScheduleOpened(): boolean {
+        return this._isStarScheduleOpened;
     }
 
-    get endMonthList(): number[] {
-        return this._endMonthList;
+    get starScheduleList(): StarSchedule[] {
+        return this._starScheduleList;
     }
 
-    get yearList(): number[] {
-        return this._yearList;
+    get startHourList(): number[] {
+        return this.getStartHourList();
     }
 
-    get hoursList(): number[] {
-        return this._hoursList;
+    get endHourList(): number[] {
+        return this.getEndHourList();
     }
 
-    get minutesList(): number[] {
-        return this._minutesList;
+    get startMinuteList(): number[] {
+        return this.getStartMinuteList();
+    }
+
+    get endMinuteList(): number[] {
+        return this.getEndMinuteList();
     }
 
     @action
@@ -87,109 +91,22 @@ export default class ScheduleModalStore extends ModalStore {
     }
 
     @action
-    setStartDatetime(datetime: Datetime) {
-        const { year, month } = datetime;
-        this._startDatetime = datetime;
-        this._startMonthList = this.getMonthList();
-        this._startDateList = this.getDateList(year, month);
-    }
-
-    @action
-    setEndDatetime(datetime: Datetime) {
-        const { year, month } = datetime;
-        this._endDatetime = datetime;
-        this._endMonthList = this.getMonthList();
-        this._endDateList = this.getDateList(year, month);
-    }
-
-    @action
-    setStartYear(year: number) {
-        if (this.isOutOfRange(year, EYear.MIN_YEAR, EYear.MAX_YEAR)) {
+    setStartTime(time: Time) {
+        const { hour, minute } = time;
+        if (ScheduleModalStore.isOutOfRange(hour, 0, 23) || ScheduleModalStore.isOutOfRange(minute, 0, 59)) {
             return;
         }
-        this._startDatetime.year = year;
-
-        if (this._startMonthList.length < 2) {
-            this._startMonthList = this.getMonthList();
-        }
+        this._startTime = time;
+        this.setEndTimeIfInvalid();
     }
 
     @action
-    setStartMonth(month: number) {
-        if (this.isOutOfRange(month, 1, 12)) {
+    setEndTime(time: Time) {
+        const { hour, minute } = time;
+        if (ScheduleModalStore.isOutOfRange(hour, 0, 23) || ScheduleModalStore.isOutOfRange(minute, 0, 59)) {
             return;
         }
-        this._startDatetime.month = month;
-        this._startDateList = this.getDateList(this._startDatetime.year, month);
-    }
-
-    @action
-    setStartDate(date: number) {
-        if (this.isOutOfRange(date, 1, this._startDateList[this._startDateList.length - 1])) {
-            return;
-        }
-        this._startDatetime.date = date;
-    }
-
-    @action
-    setStartHours(hours: number) {
-        if (this.isOutOfRange(hours, 0, 23)) {
-            return;
-        }
-        this._startDatetime.hours = hours;
-    }
-
-    @action
-    setStartMinutes(minutes: number) {
-        if (this.isOutOfRange(minutes, 0, 59)) {
-            return;
-        }
-        this._startDatetime.minutes = minutes;
-    }
-
-    @action
-    setEndYear(year: number) {
-        if (this.isOutOfRange(year, EYear.MIN_YEAR, EYear.MAX_YEAR)) {
-            return;
-        }
-        this._endDatetime.year = year;
-
-        if (this._endMonthList.length < 2) {
-            this._endMonthList = this.getMonthList();
-        }
-    }
-
-    @action
-    setEndMonth(month: number) {
-        if (this.isOutOfRange(month, 1, 12)) {
-            return;
-        }
-        this._endDatetime.month = month;
-        this._endDateList = this.getDateList(this._endDatetime.year, month);
-    }
-
-    @action
-    setEndDate(date: number) {
-        if (this.isOutOfRange(date, 1, this._endDateList[this._endDateList.length - 1])) {
-            return;
-        }
-        this._endDatetime.date = date;
-    }
-
-    @action
-    setEndHours(hours: number) {
-        if (this.isOutOfRange(hours, 0, 23)) {
-            return;
-        }
-        this._endDatetime.hours = hours;
-    }
-
-    @action
-    setEndMinutes(minutes: number) {
-        if (this.isOutOfRange(minutes, 0, 59)) {
-            return;
-        }
-        this._endDatetime.minutes = minutes;
+        this._endTime = time;
     }
 
     @action
@@ -198,61 +115,124 @@ export default class ScheduleModalStore extends ModalStore {
     }
 
     @action
-    protected getInitStartDatetime(today: Date) {
-        return new Datetime(today.getFullYear(), today.getMonth() + 1, today.getDate(), 0, 0);
+    setIsDate(isDate: boolean) {
+        this._isDate = isDate;
     }
 
     @action
-    protected getInitEndDatetime(today: Date) {
-        return new Datetime(today.getFullYear(), today.getMonth() + 1, today.getDate(), 23, 50);
+    setUnableToMeet(unableToMeet: boolean) {
+        this._unableToMeet = unableToMeet;
     }
 
-    protected getYearList() {
+    @action
+    toggleIsDate() {
+        this.setIsDate(!this.isDate);
+    }
+
+    @action
+    toggleUnableToMeet() {
+        this.setUnableToMeet(!this.unableToMeet);
+    }
+
+    @action
+    setIsStarScheduleOpened(isOpened: boolean) {
+        this._isStarScheduleOpened = isOpened;
+    }
+
+    @action
+    setStarScheduleList(list: StarSchedule[]) {
+        this._starScheduleList = list;
+    }
+
+    @action
+    protected init(selectedDate: CalendarDate) {
+        this._selectedDate = selectedDate;
+    }
+
+    /**
+     * 데이터 저장 시 유효성 체크
+     * @protected
+     */
+    @action
+    protected isValid(): boolean {
+        if (!this.name) {
+            dialog.alert('일정 정보를 입력하세요.');
+            return false;
+        }
+
+        if (this.isDate && this.unableToMeet) {
+            dialog.alert('데이트 일정이면서 못 만나는 날일 수 없습니다.');
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * 완료 (저장)
+     * @protected
+     */
+    @action
+    async confirm() {}
+
+    private getStartHourList() {
+        return ScheduleModalStore.getValueList(0, 23, 1);
+    }
+
+    private getEndHourList() {
+        return ScheduleModalStore.getValueList(this.startTime.hour, 23, 1);
+    }
+
+    private getStartMinuteList() {
+        return ScheduleModalStore.getValueList(0, 50, 10);
+    }
+
+    private getEndMinuteList() {
+        const minMinute = this.startTime.hour === this.endTime.hour ? this.startTime.minute : 0;
+        return ScheduleModalStore.getValueList(minMinute, 50, 10);
+    }
+
+    private static getValueList(min: number, max: number, interval: number): number[] {
         const arr = [];
-        for (let i = EYear.MIN_YEAR; i <= EYear.MAX_YEAR; i++) {
+        for (let i = min; i <= max; i += interval) {
             arr.push(i);
         }
         return arr;
     }
 
-    protected getMonthList() {
-        const arr = [];
-        for (let i = 1; i < 13; i++) {
-            arr.push(i);
-        }
-        return arr;
-    }
-
-    protected getDateList(year: number, month: number) {
-        const lastDate = new Date(year, month, 0).getDate();
-        const arr = [];
-        for (let i = 1; i <= lastDate; i++) {
-            arr.push(i);
-        }
-        return arr;
-    }
-
-    protected getHoursList() {
-        const arr = [];
-        for (let i = 0; i < 24; i++) {
-            arr.push(i);
-        }
-        return arr;
-    }
-
-    protected getMinutesList() {
-        const arr = [];
-        for (let i = 0; i < 60; i += 10) {
-            arr.push(i);
-        }
-        return arr;
-    }
-
-    protected isOutOfRange(value: number, min: number, max: number) {
+    private static isOutOfRange(value: number, min: number, max: number) {
         if (value < min || value > max) {
             dialog.alert('허용된 범위 밖입니다.');
             return true;
         }
         return false;
+    }
+
+    /**
+     * 시작 시간 변경 시 종료 시간이 시작 시간보다 앞서 있으면 종료 시간 변경
+     * @private
+     */
+    private setEndTimeIfInvalid() {
+        const { hour, minute } = this.startTime;
+
+        let endHour = this.endTime.hour;
+        let endMinute = this.endTime.minute;
+
+        if (this.isEndTimeEarlierThanStartTime()) {
+            if (hour > endHour) {
+                endHour = hour;
+            }
+            if (hour === endHour && minute > endMinute) {
+                endMinute = minute;
+            }
+        }
+        this.setEndTime({ hour: endHour, minute: endMinute });
+    }
+
+    /**
+     * 종료 시간이 시작 시간보다 앞섰는지 검사
+     */
+    private isEndTimeEarlierThanStartTime() {
+        return this.startTime.hour > this.endTime.hour || (this.startTime.hour === this.endTime.hour && this._startTime.minute > this.endTime.minute);
     }
 }

@@ -4,15 +4,17 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "webpack serve --config webpack.dev.config.ts",
-    "build": "webpack --config webpack.production.config.ts"
+    "start": "webpack serve --config webpack.dev.config.ts --env mode=dev",
+    "build": "webpack --config webpack.production.config.ts --env mode=prod"
   },
   "dependencies": {
     "@types/react-beautiful-dnd": "^13.1.1",
     "@types/react-custom-scrollbars": "^4.0.8",
     "@types/react-router-dom": "^5.3.2",
     "babel-preset-mobx": "^2.0.0",
+    "clean-webpack-plugin": "^4.0.0",
     "core-decorators": "^0.20.0",
+    "dotenv": "^14.2.0",
     "firebase": "^8.10.0",
     "path": "^0.12.7",
     "process": "^0.11.10",

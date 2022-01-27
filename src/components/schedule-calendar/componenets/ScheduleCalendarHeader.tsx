@@ -2,11 +2,11 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import classNames from 'classnames/bind';
 import style from '../ScheduleCalendar.scss';
-import ScheduleCalendarYearSelect from '@components/common/schedule-calendar/componenets/ScheduleCalendarYearSelect';
-import ScheduleCalendarMonthSelect from '@components/common/schedule-calendar/componenets/ScheduleCalendarMonthSelect';
+import ScheduleCalendarYearSelect from '@components/schedule-calendar/componenets/ScheduleCalendarYearSelect';
+import ScheduleCalendarMonthSelect from '@components/schedule-calendar/componenets/ScheduleCalendarMonthSelect';
 import ArrowIcon from '@icons/arrow/ArrowIcon';
 import { EArrowDirection } from '@defines/defines';
-import ScheduleCalendarStore from '@components/common/schedule-calendar/store/ScheduleCalendarStore';
+import ScheduleCalendarStore from '@components/schedule-calendar/store/ScheduleCalendarStore';
 
 const cx = classNames.bind(style);
 

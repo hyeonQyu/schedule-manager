@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, useEffect, useRef, useState } from 'react';
+import React, { HTMLAttributes, ReactNode, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 import style from './SlidingModal.scss';
 import OverlayPortal from '@components/common/overlay-portal/OverlayPortal';
@@ -10,8 +10,8 @@ export interface SlidingModalProps extends HTMLAttributes<HTMLDivElement> {
     title?: string;
     onClickConfirm?: () => void;
     onClickCancel?: () => void;
-    confirmText?: string;
-    cancelText?: string;
+    confirmNode?: ReactNode;
+    cancelNode?: ReactNode;
     confirmDisabled?: boolean;
 }
 
@@ -21,8 +21,8 @@ const SlidingModal = (props: SlidingModalProps) => {
         title = '',
         onClickConfirm,
         onClickCancel,
-        confirmText = '완료',
-        cancelText = '닫기',
+        confirmNode = '완료',
+        cancelNode = '닫기',
         confirmDisabled = false,
         className,
         children,
@@ -61,11 +61,11 @@ const SlidingModal = (props: SlidingModalProps) => {
                 <div className={classNames(cx('sliding-modal', isOpened ? 'open' : 'close'), className)} ref={slidingModalRef}>
                     <div className={cx('header')}>
                         <button className={cx('cancel', !onClickCancel && 'hide')} onClick={onClickCancel}>
-                            {cancelText}
+                            {cancelNode}
                         </button>
                         <h2>{title}</h2>
                         <button className={cx('confirm', !onClickConfirm && 'hide')} onClick={onClickConfirm} disabled={confirmDisabled}>
-                            {confirmText}
+                            {confirmNode}
                         </button>
                     </div>
                     <div className={cx('body')}>{children}</div>

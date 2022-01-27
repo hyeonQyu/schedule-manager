@@ -1,23 +1,26 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import classNames from 'classnames/bind';
-import style from '@components/common/schedule-calendar/ScheduleCalendar.scss';
-import { CalendarDate } from '@defines/defines';
-import ScheduleCalendarStore from '@components/common/schedule-calendar/store/ScheduleCalendarStore';
+import style from '@components/schedule-calendar/ScheduleCalendar.scss';
+import { CalendarDate, DateInfo } from '@defines/defines';
+import ScheduleCalendarStore from '@components/schedule-calendar/store/ScheduleCalendarStore';
+import UserStore from '@stores/UserStore';
 
 const cx = classNames.bind(style);
 
 const store = ScheduleCalendarStore.instance;
+const userStore = UserStore.instance;
 
 export interface ScheduleCalendarDateCellProps {
-    calendarDate: CalendarDate;
+    dateInfo: DateInfo;
 }
 
 const ScheduleCalendarDateCell = observer((props: ScheduleCalendarDateCellProps) => {
-    const { calendarDate } = props;
-    const { curMonth, selectCalendarDate, selectedCalendarDate, setCurYear, setCurMonth, todayCalendarDate } = store;
-
+    const { dateInfo } = props;
+    const { calendarDate, scheduleList } = dateInfo;
     const { date, month, year } = calendarDate;
+
+    const { curMonth, selectCalendarDate, selectedCalendarDate, setCurYear, setCurMonth, todayCalendarDate } = store;
 
     const isSameDate = (calendarDate: CalendarDate) => {
         if (!calendarDate) return false;
@@ -46,6 +49,16 @@ const ScheduleCalendarDateCell = observer((props: ScheduleCalendarDateCellProps)
             <div>
                 <div className={cx('text')}>{date}</div>
             </div>
+            <ul className={cx(selectedCalendarDate && 'reduced')}>
+                {scheduleList?.map(({ name, owner }, i) => {
+                    const isMine = owner === userStore.userEmail;
+                    return (
+                        <li key={i} className={cx(isMine ? 'me' : 'other')}>
+                            {name}
+                        </li>
+                    );
+                })}
+            </ul>
         </div>
     );
 });

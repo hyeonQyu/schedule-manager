@@ -1,4 +1,5 @@
-import Datetime from '@utils/Datetime';
+import { OrderByDirection, WhereFilterOp } from '@defines/firebaseDefines';
+import firebase from 'firebase/app';
 
 export enum EDialogType {
     ALERT,
@@ -38,11 +39,44 @@ export interface CalendarDate {
     year: number;
 }
 
+export interface Time {
+    hour: number;
+    minute: number;
+}
+
+export interface DateInfo {
+    calendarDate: CalendarDate;
+    scheduleList?: Schedule[];
+}
+
 export interface Schedule {
-    startDatetime: Datetime;
-    endDatetime: Datetime;
+    owner: string;
+    scheduleDate: CalendarDate;
+    startTime: Time;
+    endTime: Time;
     name: string;
     location?: string;
+    isDate?: boolean;
+    unableToMeet?: boolean;
+    createdDatetime?: Date;
+}
+
+export type StarSchedule = Pick<Schedule, 'name' | 'startTime' | 'endTime' | 'location' | 'createdDatetime'>;
+
+export interface WhereCondition {
+    /** 조건을 비교할 field 이름 */
+    fieldPath: string;
+    /** 비교연산자 */
+    opStr: WhereFilterOp;
+    /** 조건을 만족하는 값 */
+    value: any;
+}
+
+export interface OrderByParams {
+    /** 정렬할 필드 이름 */
+    fieldPath: string | firebase.firestore.FieldPath;
+    /** 정렬 방향 */
+    directionStr?: OrderByDirection;
 }
 
 export const dayArray = ['일', '월', '화', '수', '목', '금', '토'];

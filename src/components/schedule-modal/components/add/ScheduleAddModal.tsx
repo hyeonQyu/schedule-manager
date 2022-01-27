@@ -4,102 +4,60 @@ import classNames from 'classnames/bind';
 import style from '@components/schedule-modal/ScheduleModal.scss';
 import SlidingModal from '@components/common/sliding-modal/SlidingModal';
 import ScheduleAddModalStore from '@components/schedule-modal/store/ScheduleAddModalStore';
-import DateSelectPart from '@components/schedule-modal/components/common/DateSelectPart';
-import TimeSelectPart from '@components/schedule-modal/components/common/TimeSelectPart';
+import StarScheduleSelectPart from '@components/schedule-modal/components/common/star-schedule/StarScheduleSelectPart';
+import ScheduleSelectedDatePart from '@components/schedule-modal/components/common/part/SelectedDatePart';
+import ScheduleNamePart from '@components/schedule-modal/components/common/part/ScheduleNamePart';
+import ScheduleTimePart from '@components/schedule-modal/components/common/part/ScheduleTimePart';
+import ScheduleLocationPart from '@components/schedule-modal/components/common/part/ScheduleLocationPart';
+import ScheduleStatusPart from '@components/schedule-modal/components/common/part/ScheduleStatusPart';
+import ScheduleAddStarSchedulePart from '@components/schedule-modal/components/common/part/ScheduleAddStarSchedulePart';
+import ArrowIcon from '@icons/arrow/ArrowIcon';
+import { EArrowDirection } from '@defines/defines';
 
 const cx = classNames.bind(style);
 
 const store = ScheduleAddModalStore.instance;
 
 const ScheduleAddModal = observer(() => {
-    const {
-        isOpened,
-        close,
-        startDatetime,
-        endDatetime,
-        yearList,
-        startMonthList,
-        endMonthList,
-        startDateList,
-        endDateList,
-        setStartYear,
-        setStartMonth,
-        setStartDate,
-        setStartHours,
-        setStartMinutes,
-        setEndYear,
-        setEndMonth,
-        setEndDate,
-        setEndHours,
-        setEndMinutes,
-        hoursList,
-        minutesList,
-    } = store;
+    const { isOpened, close, confirm, selectedDate, isStarScheduleOpened } = store;
+
+    if (!selectedDate) return null;
+
+    const confirmNode = !isStarScheduleOpened && '완료';
+    const cancelNode = isStarScheduleOpened ? <ArrowIcon direction={EArrowDirection.LEFT} /> : '닫기';
 
     return (
-        <SlidingModal title={'일정 추가'} isOpened={isOpened} onClickConfirm={() => {}} onClickCancel={close}>
+        <SlidingModal
+            title={'일정 추가'}
+            isOpened={isOpened}
+            onClickConfirm={confirm}
+            onClickCancel={close}
+            confirmNode={confirmNode}
+            cancelNode={cancelNode}
+        >
             <div className={cx('wrapper')}>
-                <div className={cx('part')}>
-                    <h4>선택한 날짜</h4>
-                    <p>2021. 11. 12 (수)</p>
+                <div className={cx('new-schedule')}>
+                    {/*선택한 날짜*/}
+                    <ScheduleSelectedDatePart />
+
+                    {/*일정 이름*/}
+                    <ScheduleNamePart />
+
+                    {/*시작 및 종료 시간*/}
+                    <ScheduleTimePart />
+
+                    {/*장소*/}
+                    <ScheduleLocationPart />
+
+                    {/*일정 상태*/}
+                    <ScheduleStatusPart />
+
+                    {/*자주 사용하는 일정으로 등록*/}
+                    <ScheduleAddStarSchedulePart />
                 </div>
 
-                <div className={cx('part')}>
-                    <h4>일정</h4>
-                    <input placeholder={'일정의 이름을 입력하세요.'} />
-                </div>
-
-                <DateSelectPart
-                    title={'시작 일'}
-                    year={startDatetime.year}
-                    month={startDatetime.month}
-                    date={startDatetime.date}
-                    yearList={yearList}
-                    monthList={startMonthList}
-                    dateList={startDateList}
-                    onChangeYear={setStartYear}
-                    onChangeMonth={setStartMonth}
-                    onChangeDate={setStartDate}
-                    disabled
-                />
-
-                <TimeSelectPart
-                    title={'시작 시간'}
-                    hours={startDatetime.hours}
-                    minutes={startDatetime.minutes}
-                    hoursList={hoursList}
-                    minutesList={minutesList}
-                    onChangeHours={setStartHours}
-                    onChangeMinutes={setStartMinutes}
-                />
-
-                <DateSelectPart
-                    title={'종료 일'}
-                    year={endDatetime.year}
-                    month={endDatetime.month}
-                    date={endDatetime.date}
-                    yearList={yearList}
-                    monthList={endMonthList}
-                    dateList={endDateList}
-                    onChangeYear={setEndYear}
-                    onChangeMonth={setEndMonth}
-                    onChangeDate={setEndDate}
-                />
-
-                <TimeSelectPart
-                    title={'종료 시간'}
-                    hours={endDatetime.hours}
-                    minutes={endDatetime.minutes}
-                    hoursList={hoursList}
-                    minutesList={minutesList}
-                    onChangeHours={setEndHours}
-                    onChangeMinutes={setEndMinutes}
-                />
-
-                <div className={cx('part')}>
-                    <h4>위치</h4>
-                    <input placeholder={'위치를 입력하세요.'} />
-                </div>
+                {/*자주 사용하는 일정 불러오기*/}
+                <StarScheduleSelectPart />
             </div>
         </SlidingModal>
     );

@@ -9,10 +9,7 @@ import WeeklyScheduleStore from '@stores/WeeklyScheduleStore';
 
 const cx = classNames.bind(style);
 
-const store = WeeklyScheduleStore.instance;
-
 const WeeklySchedule = observer(() => {
-    const { thisWeekArr } = store;
     return (
         <Layout>
             <div className={cx('wrapper')}>

@@ -9,13 +9,13 @@ const cx = classNames.bind(style);
 const store = WeeklyScheduleStore.instance;
 
 const DateSlide = observer(() => {
-    const { thisWeekArr } = store;
+    const { thisWeekArray } = store;
 
     return (
         <div className={cx('wrapper')}>
             <div className={cx('dates-container')}>
-                {thisWeekArr.map((value, i) => (
-                    <div className={cx('dates')} key={`date-${i}`}>
+                {thisWeekArray.map((value) => (
+                    <div className={cx('dates')} key={value.date}>
                         {value.date}
                     </div>
                 ))}

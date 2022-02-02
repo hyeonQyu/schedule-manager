@@ -5,10 +5,11 @@ import { ScheduleVO } from '@models/ScheduleVO';
 import { loading } from '@components/common/loading/Loading';
 import firebase from 'firebase/app';
 import { DocumentData } from '@defines/firebaseDefines';
+import { DateUtil } from '@utils/DateUtil';
 
 export namespace ScheduleCalendarRequest {
     /**
-     * 이번 달 일정 목록 조회
+     * 특정 달 일정 목록 조회
      * @param year
      * @param month
      * @param lastDate
@@ -32,6 +33,41 @@ export namespace ScheduleCalendarRequest {
         return getScheduleListFromScheduleVODocs(docs);
     }
 
+    /**
+     * 특정 주 일정 목록 조회
+     * @param year
+     * @param month
+     * @param date
+     */
+    export async function getSchedulesOfWeek(year: number, month: number, date: number): Promise<Schedule[]> {
+        loading.show();
+        const dateList = DateUtil.getThisWeek({ year, month, date });
+        const firstDate = dateList[0];
+        const lastDate = dateList[6];
+
+        const { docs } = await Collections.schedule.getOrderBy({ fieldPath: 'scheduleDate' }, [
+            {
+                fieldPath: 'scheduleDate',
+                opStr: '>=',
+                value: FormatUtil.calendarDateToString({ year: firstDate.year, month: firstDate.month, date: firstDate.date }),
+            },
+            {
+                fieldPath: 'scheduleDate',
+                opStr: '<=',
+                value: FormatUtil.calendarDateToString({ year: lastDate.year, month: lastDate.month, date: lastDate.date }),
+            },
+        ]);
+        loading.hide();
+
+        return getScheduleListFromScheduleVODocs(docs);
+    }
+
+    /**
+     * 특정 날 일정 목록 조회
+     * @param year
+     * @param month
+     * @param date
+     */
     export async function getSchedulesOfDate(year: number, month: number, date: number): Promise<Schedule[]> {
         loading.show();
         const { docs } = await Collections.schedule.get([

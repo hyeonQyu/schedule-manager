@@ -1,7 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import classNames from 'classnames/bind';
-import style from './DateContainer.scss';
+import style from './WeeklyScheduleContainer.scss';
 import Card from '@components/card/Card';
 import WeeklyScheduleStore from '@stores/WeeklyScheduleStore';
 import UserStore from '@stores/UserStore';
@@ -12,7 +12,7 @@ const cx = classNames.bind(style);
 const weekStore = WeeklyScheduleStore.instance;
 const userStore = UserStore.instance;
 
-const DateContainer = observer(() => {
+const WeeklyScheduleContainer = observer(() => {
     const { thisWeekArray, thisWeekSchedule } = weekStore;
 
     const showSchedule = (year, month, date) => {
@@ -58,4 +58,4 @@ const DateContainer = observer(() => {
     );
 });
 
-export default DateContainer;
+export default WeeklyScheduleContainer;

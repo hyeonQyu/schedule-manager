@@ -21,20 +21,20 @@ const DateContainer = observer(() => {
             thisWeekSchedule &&
                 thisWeekSchedule.map((schedule) => {
                     if (year === schedule.scheduleDate.year && month === schedule.scheduleDate.month && date === schedule.scheduleDate.date)
-                    return cardArray.push(
-                        <Card
-                            className={schedule.owner === userStore.userEmail ? cx('my-card') : cx('other-card')}
-                            key={schedule.name}
-                            schedule={{
-                                owner: schedule.owner,
-                                scheduleDate: schedule.scheduleDate,
-                                startTime: schedule.startTime,
-                                endTime: schedule.endTime,
-                                name: schedule.name,
-                            }}
-                        />,
-                    )
-            })
+                        return cardArray.push(
+                            <Card
+                                className={schedule.owner === userStore.userEmail ? cx('my-card') : cx('other-card')}
+                                key={schedule.name}
+                                schedule={{
+                                    owner: schedule.owner,
+                                    scheduleDate: schedule.scheduleDate,
+                                    startTime: schedule.startTime,
+                                    endTime: schedule.endTime,
+                                    name: schedule.name,
+                                }}
+                            />,
+                        );
+                });
         }
         return cardArray;
     };
@@ -43,11 +43,15 @@ const DateContainer = observer(() => {
         <div className={cx('wrapper')}>
             {thisWeekArray.map(({ year, month, date }) => (
                 <div key={`${year}.${month}.${date}`}>
-                    <h2>✔ {`${year}.${month}.${date} (${dayArray[new Date(year, month - 1, date).getDay()]})`}</h2>
-                    <div className={cx('schedule-container')}>
-                        <div className={cx('schedule-line')} />
-                        <div className={cx('schedule-info')}>{showSchedule(year, month, date)}</div>
-                    </div>
+                    {showSchedule(year, month, date).length !== 0 && (
+                        <>
+                            <h2>✔ {`${year}.${month}.${date} (${dayArray[new Date(year, month - 1, date).getDay()]})`}</h2>
+                            <div className={cx('schedule-container')}>
+                                <div className={cx('schedule-line')} />
+                                <div className={cx('schedule-info')}>{showSchedule(year, month, date)}</div>
+                            </div>
+                        </>
+                    )}
                 </div>
             ))}
         </div>

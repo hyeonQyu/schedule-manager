@@ -10,12 +10,13 @@ const store = WeeklyScheduleStore.instance;
 
 const DateSlide = observer(() => {
     const { thisWeekArray } = store;
+    const todayDate = new Date().getDate();
 
     return (
         <div className={cx('wrapper')}>
             <div className={cx('dates-container')}>
                 {thisWeekArray.map((value) => (
-                    <div className={cx('dates')} key={value.date}>
+                    <div className={todayDate === value.date ? cx('today') : cx('dates')} key={value.date}>
                         {value.date}
                     </div>
                 ))}

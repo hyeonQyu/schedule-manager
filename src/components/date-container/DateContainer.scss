@@ -41,4 +41,8 @@
         float: left;
         border-bottom-left-radius: 0;
     }
+
+    button.other-card:active {
+        background: none;
+    }
 }

@@ -3,48 +3,71 @@ import { observer } from 'mobx-react';
 import classNames from 'classnames/bind';
 import style from './DateContainer.scss';
 import Card from '@components/card/Card';
+import WeeklyScheduleStore from '@stores/WeeklyScheduleStore';
+import UserStore from '@stores/UserStore';
 
 const cx = classNames.bind(style);
 
+const weekStore = WeeklyScheduleStore.instance;
+const userStore = UserStore.instance;
+
 const DateContainer = observer(() => {
+    const { thisWeekArray, thisWeekSchedule } = weekStore;
+
+    const sortSchedule = (a, b) => {
+        const dateA = new Date(a.scheduleDate).getTime();
+        const dateB = new Date(b.scheduleDate).getTime();
+        return dateA > dateB ? -1 : 1;
+    }
+
     const showSchedule = () => {
-        const myCardArr = [],
-            otherCardArr = [];
-        for (let i = 0; i < 2; i++) {
-            myCardArr.push(
-                <Card
-                    className={cx('my-card')}
-                    key={`my-card-${i}`}
-                    schedule={{
-                        scheduleDate: { year: 2021, month: 11, date: 24 },
-                        startTime: { hour: 10, minute: 0 },
-                        endTime: { hour: 13, minute: 20 },
-                        name: 'schedule',
-                    }}
-                />,
-            );
-            otherCardArr.push(
-                <Card
-                    className={cx('other-card')}
-                    key={`other-card-${i}`}
-                    schedule={{
-                        scheduleDate: { year: 2021, month: 11, date: 24 },
-                        startTime: { hour: 10, minute: 0 },
-                        endTime: { hour: 13, minute: 20 },
-                        name: 'schedule',
-                    }}
-                />,
-            );
+        const cardArray = [];
+        {
+            thisWeekSchedule &&
+                thisWeekSchedule.map((schedule) =>
+                    schedule.owner === userStore.userEmail
+                        ? cardArray.push(
+                            <Card
+                                className={cx('my-card')}
+                                key={schedule.name}
+                                schedule={{
+                                    owner: schedule.owner,
+                                    scheduleDate: schedule.scheduleDate,
+                                    startTime: schedule.startTime,
+                                    endTime: schedule.endTime,
+                                    name: schedule.name,
+                                }}
+                            />,
+                        )
+                        : cardArray.push(
+                            <Card
+                                className={cx('other-card')}
+                                key={schedule.name}
+                                schedule={{
+                                    owner: schedule.owner,
+                                    scheduleDate: schedule.scheduleDate,
+                                    startTime: schedule.startTime,
+                                    endTime: schedule.endTime,
+                                    name: schedule.name,
+                                }}
+                            />,
+                        ),
+                );
         }
-        return [...myCardArr, ...otherCardArr];
+        return cardArray.sort(sortSchedule);
     };
+
     return (
         <div className={cx('wrapper')}>
-            <h2>✔ 2021.11.12</h2>
-            <div className={cx('schedule-container')}>
-                <div className={cx('schedule-line')} />
-                <div className={cx('schedule-info')}>{showSchedule()}</div>
-            </div>
+            {thisWeekArray.map((thisWeek) => (
+                <div key={`${thisWeek.year}.${thisWeek.month}.${thisWeek.date}`}>
+                    <h2>✔ {`${thisWeek.year}.${thisWeek.month}.${thisWeek.date}`}</h2>
+                    <div className={cx('schedule-container')}>
+                        <div className={cx('schedule-line')} />
+                        <div className={cx('schedule-info')}>{showSchedule()}</div>
+                    </div>
+                </div>
+            ))}
         </div>
     );
 });

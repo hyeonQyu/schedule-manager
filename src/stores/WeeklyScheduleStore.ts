@@ -1,20 +1,25 @@
 import { autobind } from 'core-decorators';
 import { action, observable } from 'mobx';
-import { CalendarDate } from '@defines/defines';
+import { CalendarDate, Schedule } from '@defines/defines';
 import { DateUtil } from '@utils/DateUtil';
+import { ScheduleCalendarRequest } from '@requests/ScheduleCalendarRequest';
 
 @autobind
 export default class WeeklyScheduleStore {
     private static _instance: WeeklyScheduleStore;
 
-    @observable private _thisWeekArr: CalendarDate[];
+    @observable private _thisWeekArray: CalendarDate[];
+    @observable private _thisWeekSchedule: Schedule[];
 
     private constructor() {
         const today = new Date();
         const date = today.getDate();
         const month = today.getMonth() + 1;
         const year = today.getFullYear();
-        this.setThisWeekArr(DateUtil.getThisWeek({ year, month, date }));
+        this.setThisWeekArray(DateUtil.getThisWeek({ year, month, date }));
+        (async() => {
+            this.setThisWeekSchedule(await ScheduleCalendarRequest.getSchedulesOfWeek(year, month, date));
+        })();
         WeeklyScheduleStore._instance = this;
     }
 
@@ -25,12 +30,21 @@ export default class WeeklyScheduleStore {
         return this._instance;
     }
 
-    get thisWeekArr(): CalendarDate[] {
-        return this._thisWeekArr;
+    get thisWeekArray(): CalendarDate[] {
+        return this._thisWeekArray;
+    }
+
+    get thisWeekSchedule(): Schedule[] {
+        return this._thisWeekSchedule;
     }
 
     @action
-    setThisWeekArr(thisWeekArr: CalendarDate[]) {
-        this._thisWeekArr = thisWeekArr;
+    setThisWeekArray(thisWeekArray: CalendarDate[]) {
+        this._thisWeekArray = thisWeekArray;
+    }
+
+    @action
+    setThisWeekSchedule(thisWeekSchedule: Schedule[]) {
+        this._thisWeekSchedule = thisWeekSchedule;
     }
 }

@@ -15,12 +15,13 @@ const userStore = UserStore.instance;
 const DateContainer = observer(() => {
     const { thisWeekArray, thisWeekSchedule } = weekStore;
 
-    const showSchedule = () => {
+    const showSchedule = (year, month, date) => {
         const cardArray = [];
         {
             thisWeekSchedule &&
-                thisWeekSchedule.map((schedule) =>
-                    cardArray.push(
+                thisWeekSchedule.map((schedule) => {
+                    if (year === schedule.scheduleDate.year && month === schedule.scheduleDate.month && date === schedule.scheduleDate.date)
+                    return cardArray.push(
                         <Card
                             className={schedule.owner === userStore.userEmail ? cx('my-card') : cx('other-card')}
                             key={schedule.name}
@@ -32,8 +33,8 @@ const DateContainer = observer(() => {
                                 name: schedule.name,
                             }}
                         />,
-                    ),
-                );
+                    )
+            })
         }
         return cardArray;
     };
@@ -45,7 +46,7 @@ const DateContainer = observer(() => {
                     <h2>✔ {`${year}.${month}.${date} (${dayArray[new Date(year, month - 1, date).getDay()]})`}</h2>
                     <div className={cx('schedule-container')}>
                         <div className={cx('schedule-line')} />
-                        <div className={cx('schedule-info')}>{showSchedule()}</div>
+                        <div className={cx('schedule-info')}>{showSchedule(year, month, date)}</div>
                     </div>
                 </div>
             ))}

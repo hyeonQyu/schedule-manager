@@ -1,4 +1,4 @@
-import { dayArray } from '@defines/defines';
+import { dayList } from '@defines/defines';
 import { NumberFormatUtil } from '@utils/NumberFormatUtil';
 
 export default class Datetime {
@@ -111,7 +111,7 @@ export default class Datetime {
 
     toString(): string {
         const day = new Date(this.year, this.month - 1, this.date).getDay();
-        const dayString = dayArray[day];
+        const dayString = dayList[day];
 
         const { withDigitLength } = NumberFormatUtil;
         const month = withDigitLength(this.month, 2);

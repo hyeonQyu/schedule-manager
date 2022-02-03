@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import classNames from 'classnames/bind';
 import style from '../../../ScheduleModal.scss';
 import ScheduleAddModalStore from '@components/schedule-modal/store/ScheduleAddModalStore';
-import { dayArray } from '@defines/defines';
+import { dayList } from '@defines/defines';
 
 const cx = classNames.bind(style);
 
@@ -18,7 +18,7 @@ const SelectedDatePart = observer(() => {
         <div className={cx('part')}>
             <h4>선택한 날짜</h4>
             <p>
-                {year}. {month}. {date} ({dayArray[day]})
+                {year}. {month}. {date} ({dayList[day]})
             </p>
         </div>
     );

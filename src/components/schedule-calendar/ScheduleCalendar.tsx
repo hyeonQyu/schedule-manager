@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 import style from './ScheduleCalendar.scss';
 import ScheduleCalendarHeader from '@components/schedule-calendar/componenets/ScheduleCalendarHeader';
 import ScheduleCalendarDates from '@components/schedule-calendar/componenets/ScheduleCalendarDates';
-import { dayArray } from '@defines/defines';
+import { dayList } from '@defines/defines';
 
 const cx = classNames.bind(style);
 
@@ -13,7 +13,7 @@ const ScheduleCalendar = observer(() => {
         <div className={cx('wrapper')}>
             <ScheduleCalendarHeader />
             <div className={cx('days')}>
-                {dayArray.map((day) => (
+                {dayList.map((day) => (
                     <div key={day} className={cx('day')}>
                         {day}
                     </div>

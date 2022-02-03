@@ -8,7 +8,7 @@ import { ScheduleCalendarRequest } from '@requests/ScheduleCalendarRequest';
 export default class WeeklyScheduleStore {
     private static _instance: WeeklyScheduleStore;
 
-    @observable private _thisWeekArray: CalendarDate[];
+    @observable private _thisWeekDateList: CalendarDate[];
     @observable private _thisWeekSchedule: Schedule[];
 
     private constructor() {
@@ -16,8 +16,8 @@ export default class WeeklyScheduleStore {
         const date = today.getDate();
         const month = today.getMonth() + 1;
         const year = today.getFullYear();
-        this.setThisWeekArray(DateUtil.getThisWeek({ year, month, date }));
-        (async() => {
+        this.setThisWeekList(DateUtil.getThisWeek({ year, month, date }));
+        (async () => {
             this.setThisWeekSchedule(await ScheduleCalendarRequest.getSchedulesOfWeek(year, month, date));
         })();
         WeeklyScheduleStore._instance = this;
@@ -30,8 +30,8 @@ export default class WeeklyScheduleStore {
         return this._instance;
     }
 
-    get thisWeekArray(): CalendarDate[] {
-        return this._thisWeekArray;
+    get thisWeekDateList(): CalendarDate[] {
+        return this._thisWeekDateList;
     }
 
     get thisWeekSchedule(): Schedule[] {
@@ -39,8 +39,8 @@ export default class WeeklyScheduleStore {
     }
 
     @action
-    setThisWeekArray(thisWeekArray: CalendarDate[]) {
-        this._thisWeekArray = thisWeekArray;
+    setThisWeekList(thisWeekDateList: CalendarDate[]) {
+        this._thisWeekDateList = thisWeekDateList;
     }
 
     @action

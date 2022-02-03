@@ -3,7 +3,7 @@ import classNames from 'classnames/bind';
 import style from './DateSlider.scss';
 import DateSlide from './DateSlide';
 import { observer } from 'mobx-react';
-import { dayArray } from '@defines/defines';
+import { dayList } from '@defines/defines';
 
 const cx = classNames.bind(style);
 
@@ -12,7 +12,7 @@ const DateSlider = observer(() => {
         <div className={cx('wrapper')}>
             {/* 요일 */}
             <div className={cx('days')}>
-                {dayArray.map((day) => (
+                {dayList.map((day) => (
                     <div key={day} className={cx('day')}>
                         {day}
                     </div>

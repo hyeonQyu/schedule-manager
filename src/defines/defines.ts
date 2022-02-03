@@ -79,4 +79,4 @@ export interface OrderByParams {
     directionStr?: OrderByDirection;
 }
 
-export const dayArray = ['일', '월', '화', '수', '목', '금', '토'];
+export const dayList = ['일', '월', '화', '수', '목', '금', '토'];

@@ -64,7 +64,7 @@ export default class ScheduleAddModalStore extends ScheduleModalStore {
 
     @action
     async confirm() {
-        if (!this.isStarScheduleOpened || !this.isValid()) {
+        if (this.isStarScheduleOpened || !this.isValid()) {
             return;
         }
 

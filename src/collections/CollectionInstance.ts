@@ -61,7 +61,26 @@ export default class CollectionInstance<T> {
         );
     }
 
-    // TODO: 삭제 구현
+    /**
+     * 컬렉션에서 특정 조건을 가진 문서 목록 삭제
+     * @param whereConditionList
+     */
+    async deleteByWhereConditions(whereConditionList: WhereCondition[] = []): Promise<void> {
+        const { docs } = await this.get(whereConditionList);
+        await this.deleteByDocs(docs);
+    }
+
+    /**
+     * 컬렉션에서 특정 문서 목록 삭제
+     * @param docs
+     */
+    async deleteByDocs(docs: firebase.firestore.QueryDocumentSnapshot<firebase.firestore.DocumentData>[] = []) {
+        await Promise.all(
+            docs.map((doc) => {
+                dbService.doc(`${this._id}/${doc.id}`).delete();
+            }),
+        );
+    }
 
     /**
      * where 조건으로 필터링한 DocumentData 의 레퍼런스 반환

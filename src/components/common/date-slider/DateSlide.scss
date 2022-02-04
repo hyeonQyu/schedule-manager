@@ -13,13 +13,12 @@
         padding-top: 1vh;
         padding-bottom: 1vh;
         color: #636363;
-    }
 
-    .today {
-        @extend .dates;
-        border-radius: 3vw;
-        background: rgb(162, 211, 255);
-        color: #000;
-        font-weight: 600;
+        &.today {
+            border-radius: 3vw;
+            background: rgb(162, 211, 255);
+            color: #000;
+            font-weight: 600;
+        }
     }
 }

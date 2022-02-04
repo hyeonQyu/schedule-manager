@@ -16,7 +16,7 @@ const DateSlide = observer(() => {
         <div className={cx('wrapper')}>
             <div className={cx('dates-container')}>
                 {thisWeekDateList.map((value) => (
-                    <div className={todayDate === value.date ? cx('today') : cx('dates')} key={value.date}>
+                    <div className={cx('dates', todayDate === value.date && 'today')} key={value.date}>
                         {value.date}
                     </div>
                 ))}

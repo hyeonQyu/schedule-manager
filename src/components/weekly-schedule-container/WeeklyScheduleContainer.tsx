@@ -14,33 +14,11 @@ const weekStore = WeeklyScheduleStore.instance;
 const userStore = UserStore.instance;
 
 const WeeklyScheduleContainer = observer(() => {
-    const { thisWeekSchedule } = weekStore;
-
-    const getCardList = (scheduleList) => {
-        const cardList = [];
-        {
-            scheduleList?.map(({ owner, createdDatetime, scheduleDate, startTime, endTime, name }) => {
-                return cardList.push(
-                    <Card
-                        className={owner === userStore.userEmail ? cx('my-card') : cx('other-card')}
-                        key={createdDatetime.toLocaleString()}
-                        schedule={{
-                            owner,
-                            scheduleDate,
-                            startTime,
-                            endTime,
-                            name,
-                        }}
-                    />,
-                );
-            });
-        }
-        return cardList;
-    };
+    const { thisWeekDateInfoList } = weekStore;
 
     return (
         <div className={cx('wrapper')}>
-            {thisWeekSchedule.map(
+            {thisWeekDateInfoList.map(
                 ({ calendarDate, scheduleList }, index) =>
                     scheduleList && (
                         <div key={index}>
@@ -51,7 +29,21 @@ const WeeklyScheduleContainer = observer(() => {
                             </h2>
                             <div className={cx('schedule-container')}>
                                 <div className={cx('schedule-line')} />
-                                <div className={cx('schedule-info')}>{getCardList(scheduleList)}</div>
+                                <div className={cx('schedule-info')}>
+                                    {scheduleList.map(({ owner, createdDatetime, scheduleDate, startTime, endTime, name }) => {
+                                        return <Card
+                                            className={owner === userStore.userEmail ? cx('my-card') : cx('other-card')}
+                                            key={createdDatetime.toLocaleString()}
+                                            schedule={{
+                                                owner,
+                                                scheduleDate,
+                                                startTime,
+                                                endTime,
+                                                name,
+                                            }}
+                                        />
+                                    })}
+                                </div>
                             </div>
                         </div>
                     ),

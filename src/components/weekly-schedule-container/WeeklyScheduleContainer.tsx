@@ -14,26 +14,25 @@ const weekStore = WeeklyScheduleStore.instance;
 const userStore = UserStore.instance;
 
 const WeeklyScheduleContainer = observer(() => {
-    const { thisWeekDateList, thisWeekSchedule } = weekStore;
+    const { thisWeekSchedule } = weekStore;
 
-    const getCardList = (year, month, date) => {
+    const getCardList = (scheduleList) => {
         const cardList = [];
         {
-            thisWeekSchedule?.map(({ scheduleDate, createdDatetime, owner, startTime, endTime, name }) => {
-                if (year === scheduleDate.year && month === scheduleDate.month && date === scheduleDate.date)
-                    return cardList.push(
-                        <Card
-                            className={owner === userStore.userEmail ? cx('my-card') : cx('other-card')}
-                            key={createdDatetime.toLocaleString()}
-                            schedule={{
-                                owner: owner,
-                                scheduleDate: scheduleDate,
-                                startTime: startTime,
-                                endTime: endTime,
-                                name: name,
-                            }}
-                        />,
-                    );
+            scheduleList?.map(({ owner, createdDatetime, scheduleDate, startTime, endTime, name }) => {
+                return cardList.push(
+                    <Card
+                        className={owner === userStore.userEmail ? cx('my-card') : cx('other-card')}
+                        key={createdDatetime.toLocaleString()}
+                        schedule={{
+                            owner,
+                            scheduleDate,
+                            startTime,
+                            endTime,
+                            name,
+                        }}
+                    />,
+                );
             });
         }
         return cardList;
@@ -41,21 +40,22 @@ const WeeklyScheduleContainer = observer(() => {
 
     return (
         <div className={cx('wrapper')}>
-            {thisWeekDateList.map(({ year, month, date }) => (
-                <div key={`${year}.${month}.${date}`}>
-                    {getCardList(year, month, date).length !== 0 && (
-                        <>
+            {thisWeekSchedule.map(
+                ({ calendarDate, scheduleList }, index) =>
+                    scheduleList && (
+                        <div key={index}>
                             <h2>
-                                {`✔ ${FormatUtil.calendarDateToString({ year, month, date })} (${dayList[new Date(year, month - 1, date).getDay()]})`}
+                                {`✔ ${FormatUtil.calendarDateToString(calendarDate)} (${
+                                    dayList[new Date(calendarDate.year, calendarDate.month - 1, calendarDate.date).getDay()]
+                                })`}
                             </h2>
                             <div className={cx('schedule-container')}>
                                 <div className={cx('schedule-line')} />
-                                <div className={cx('schedule-info')}>{getCardList(year, month, date)}</div>
+                                <div className={cx('schedule-info')}>{getCardList(scheduleList)}</div>
                             </div>
-                        </>
-                    )}
-                </div>
-            ))}
+                        </div>
+                    ),
+            )}
         </div>
     );
 });

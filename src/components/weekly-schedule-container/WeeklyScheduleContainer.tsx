@@ -5,8 +5,8 @@ import style from './WeeklyScheduleContainer.scss';
 import Card from '@components/card/Card';
 import WeeklyScheduleStore from '@stores/WeeklyScheduleStore';
 import UserStore from '@stores/UserStore';
-import { dayList } from '@defines/defines';
 import { FormatUtil } from '@utils/FormatUtil';
+import { DateUtil } from '@utils/DateUtil';
 
 const cx = classNames.bind(style);
 
@@ -24,7 +24,7 @@ const WeeklyScheduleContainer = observer(() => {
                         <div key={index}>
                             <h2>
                                 {`✔ ${FormatUtil.calendarDateToString(calendarDate)} (${
-                                    dayList[new Date(calendarDate.year, calendarDate.month - 1, calendarDate.date).getDay()]
+                                    DateUtil.getDay(calendarDate.year, calendarDate.month - 1, calendarDate.date)
                                 })`}
                             </h2>
                             <div className={cx('schedule-container')}>

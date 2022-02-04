@@ -1,4 +1,4 @@
-import { CalendarDate } from '@defines/defines';
+import { CalendarDate, dayList } from '@defines/defines';
 
 export namespace DateUtil {
     /**
@@ -81,5 +81,15 @@ export namespace DateUtil {
     export function getNextWeekDate(calendarDate: CalendarDate): CalendarDate {
         const { year, month, date } = calendarDate;
         return dateToCalendarDate(new Date(year, month - 1, date + 7));
+    }
+
+    /**
+     * 년, 월, 일을 통해 요일을 반환
+     * @param year
+     * @param month
+     * @param date
+     */
+    export function getDay(year, month, date): string {
+        return dayList[new Date(year, month, date).getDay()];
     }
 }

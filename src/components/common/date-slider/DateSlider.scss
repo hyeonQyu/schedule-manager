@@ -2,9 +2,13 @@
 
 .wrapper {
     margin-bottom: 10vw;
+    background: aliceblue;
+    border-radius: 4vw;
+    padding: 2vh 4vw;
 
     .days {
         display: flex;
         justify-content: space-around;
+        margin-bottom: 1.5vh;
     }
 }

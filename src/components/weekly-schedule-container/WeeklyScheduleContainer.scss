@@ -9,6 +9,7 @@
 
     .schedule-container {
         display: flex;
+        margin-bottom: 4vh;
     }
 
     .schedule-line {
@@ -39,5 +40,9 @@
         text-align: left;
         float: left;
         border-bottom-left-radius: 0;
+    }
+
+    button.other-card:active {
+        background: none;
     }
 }

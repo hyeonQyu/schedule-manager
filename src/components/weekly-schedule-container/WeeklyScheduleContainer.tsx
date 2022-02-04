@@ -19,16 +19,10 @@ const WeeklyScheduleContainer = observer(() => {
     return (
         <div className={cx('wrapper')}>
             {thisWeekDateInfoList.map(
-                ({ calendarDate, scheduleList }, index) =>
+                ({ calendarDate: { year, month, date }, scheduleList }, index) =>
                     scheduleList && (
                         <div key={index}>
-                            <h2>
-                                {`✔ ${FormatUtil.calendarDateToString(calendarDate)} (${DateUtil.getDay(
-                                    calendarDate.year,
-                                    calendarDate.month - 1,
-                                    calendarDate.date,
-                                )})`}
-                            </h2>
+                            <h2>{`✔ ${FormatUtil.calendarDateToString({ year, month, date })} (${DateUtil.getDay(year, month - 1, date)})`}</h2>
                             <div className={cx('schedule-container')}>
                                 <div className={cx('schedule-line')} />
                                 <div className={cx('schedule-info')}>

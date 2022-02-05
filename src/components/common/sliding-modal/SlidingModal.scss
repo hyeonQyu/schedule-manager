@@ -1,15 +1,5 @@
 @import "src/presets";
 
-@keyframes slide {
-  from {
-    margin-bottom: -90vh;
-  }
-
-  to {
-    margin-bottom: 0;
-  }
-}
-
 .wrapper {
   @include screenMask($modal-z-index);
   background: transparent;
@@ -23,11 +13,11 @@
     height: 90vh;
     background: white;
     box-shadow: 0 6px 14px 2px;
-    transition: all cubic-bezier(0.86, 0, 0.07, 1) .6s;
+    transition: margin-bottom cubic-bezier(0.86, 0, 0.07, 1) .4s;
     margin-bottom: -90vh;
 
     &.open {
-      animation: slide 600ms cubic-bezier(0.86, 0, 0.07, 1);
+      animation: slide .4s cubic-bezier(0.86, 0, 0.07, 1);
       margin-bottom: 0;
     }
 
@@ -70,6 +60,16 @@
       padding-top: 2vh;
       height: 94%;
       overflow-y: auto;
+    }
+  }
+
+  @keyframes slide {
+    from {
+      margin-bottom: -90vh;
+    }
+
+    to {
+      margin-bottom: 0;
     }
   }
 }

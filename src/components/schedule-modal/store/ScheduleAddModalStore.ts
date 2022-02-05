@@ -60,13 +60,10 @@ export default class ScheduleAddModalStore extends ScheduleModalStore {
                 this.setIsStarScheduleOpened(false);
                 return;
             }
-            dialog.alert(
-                () => 'super.close() 실행 전',
-                () => {
-                    super.close();
-                    dialog.alert('super.close() 실행 이후');
-                },
-            );
+            dialog.alert('super.close() 실행 전', () => {
+                super.close();
+                dialog.alert(`super.close() 실행 이후 isOpened: ${this.isOpened}`);
+            });
             // super.close();
         });
     }

@@ -55,17 +55,11 @@ export default class ScheduleAddModalStore extends ScheduleModalStore {
 
     @action
     close() {
-        dialog.alert('닫기 누름', () => {
-            if (this.isStarScheduleOpened) {
-                this.setIsStarScheduleOpened(false);
-                return;
-            }
-            dialog.alert('super.close() 실행 전', () => {
-                super.close();
-                dialog.alert(`super.close() 실행 이후 isOpened: ${this.isOpened}`);
-            });
-            // super.close();
-        });
+        if (this.isStarScheduleOpened) {
+            this.setIsStarScheduleOpened(false);
+            return;
+        }
+        super.close();
     }
 
     @action

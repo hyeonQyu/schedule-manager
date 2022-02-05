@@ -10,11 +10,6 @@
   }
 }
 
-@mixin slideOpen($direction) {
-  animation: slide 600ms cubic-bezier(0.86, 0, 0.07, 1) $direction;
-  //-webkit-transform: translateZ(0);
-}
-
 .wrapper {
   @include screenMask($modal-z-index);
   background: transparent;
@@ -32,12 +27,12 @@
     margin-bottom: -90vh;
 
     &.open {
-      @include slideOpen(normal);
+      animation: slide 600ms cubic-bezier(0.86, 0, 0.07, 1);
       margin-bottom: 0;
     }
 
     &.close {
-      margin-bottom: -96vh;
+      margin-bottom: -90vh;
     }
 
     .header {

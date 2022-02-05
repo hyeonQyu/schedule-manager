@@ -2,7 +2,7 @@
 
 @keyframes slide {
   from {
-    margin-bottom: -96vh;
+    margin-bottom: -90vh;
   }
 
   to {
@@ -25,11 +25,11 @@
     border-top-right-radius: 10px;
     border: 1px solid #767676;
     width: 99%;
-    height: 96vh;
+    height: 90vh;
     background: white;
     box-shadow: 0 6px 14px 2px;
     transition: all cubic-bezier(0.86, 0, 0.07, 1) .6s;
-    margin-bottom: -96vh;
+    margin-bottom: -90vh;
 
     &.open {
       @include slideOpen(normal);

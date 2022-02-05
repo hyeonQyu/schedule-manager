@@ -13,11 +13,11 @@
     height: 90vh;
     background: white;
     box-shadow: 0 6px 14px 2px;
-    transition: margin-bottom cubic-bezier(0.86, 0, 0.07, 1) .4s;
+    transition: margin-bottom cubic-bezier(0.86, 0, 0.07, 1) .6s;
     margin-bottom: -90vh;
 
     &.open {
-      animation: slide .4s cubic-bezier(0.86, 0, 0.07, 1);
+      animation: slide .6s cubic-bezier(0.86, 0, 0.07, 1);
       margin-bottom: 0;
     }
 

@@ -60,6 +60,8 @@
   "display": "standalone",
   "theme_color": "#ffffff",
   "background_color": "#ffffff",
-  "ios": true,
+  "ios": {
+    "apple-mobile-web-app-status-bar-style": "#ffffff"
+  },
   "inject": true
 }

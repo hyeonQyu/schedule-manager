@@ -8,7 +8,12 @@
 
     .days {
         display: flex;
-        justify-content: space-around;
-        margin-bottom: 1.5vh;
+        justify-content: space-between;
+        margin-bottom: 1vh;
+        padding: 0 8vw;
+    }
+
+    .day {
+        padding: 0 1vw;
     }
 }

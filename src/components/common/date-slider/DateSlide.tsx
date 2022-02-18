@@ -17,9 +17,9 @@ const DateSlide = observer(() => {
         <div className={cx('wrapper')}>
             <button onClick={toPrevWeek}>&lt;</button>
             <div className={cx('dates-container')}>
-                {thisWeekDateList.map((value) => (
-                    <div className={cx('dates', todayDate === value.date && 'today')} key={value.date}>
-                        {value.date}
+                {thisWeekDateList.map(({ date }) => (
+                    <div className={cx('dates', todayDate === date && 'today')} key={date}>
+                        {date}
                     </div>
                 ))}
             </div>

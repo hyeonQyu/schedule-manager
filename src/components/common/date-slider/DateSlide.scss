@@ -1,22 +1,37 @@
 @import 'src/presets';
 
 .wrapper {
+    display: flex;
+    align-items: center;
+
+    button {
+        width: 5vw;
+        font-weight: 600;
+        color: rgb(125, 125, 125);
+    }
+
+    button:first-child {
+        margin-right: 3vw;
+    }
+
+    button:last-child {
+        margin-left: 3vw;
+    }
+
     .dates-container {
         display: flex;
+        flex: 1;
     }
 
     .dates {
         width: calc(100% / 7);
-        width: -webkit-calc(100% / 7);
-        width: -moz-calc(100% / 7);
         text-align: center;
-        padding-top: 1vh;
-        padding-bottom: 1vh;
+        padding: 0.5rem 0;
         color: #636363;
 
         &.today {
-            border-radius: 3vw;
-            background: rgb(162, 211, 255);
+            border-radius: 50%;
+            background: #cebad7;
             color: #000;
             font-weight: 600;
         }

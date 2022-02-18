@@ -1,14 +1,21 @@
 @import 'src/presets';
 
 .wrapper {
-    margin-bottom: 10vw;
-    background: aliceblue;
+    width: 90vw;
+    margin: 0 auto;
+    margin-top: 2vh;
+    padding: 2vh 2vw;
     border-radius: 4vw;
-    padding: 2vh 4vw;
+    background: #e4e1e8;
 
     .days {
         display: flex;
-        justify-content: space-around;
-        margin-bottom: 1.5vh;
+        margin-bottom: 1vh;
+        padding: 0 8vw;
+    }
+
+    .day {
+        width: calc(100% / 7);
+        text-align: center;
     }
 }

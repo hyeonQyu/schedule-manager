@@ -12,8 +12,9 @@ const WeeklySchedule = observer(() => {
     return (
         <Layout>
             <div className={cx('wrapper')}>
-                <h1>Weekly Schedule</h1>
-                <DateSlider />
+                <div className={cx('weekly-header')}>
+                    <DateSlider />
+                </div>
                 <WeeklyScheduleContainer />
             </div>
         </Layout>

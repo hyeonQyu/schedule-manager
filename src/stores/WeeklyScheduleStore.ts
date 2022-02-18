@@ -2,6 +2,7 @@ import { autobind } from 'core-decorators';
 import { action, observable } from 'mobx';
 import { CalendarDate, DateInfo } from '@defines/defines';
 import { ScheduleCalendarRequest } from '@requests/ScheduleCalendarRequest';
+import { DateUtil } from '@utils/DateUtil';
 
 @autobind
 export default class WeeklyScheduleStore {
@@ -27,6 +28,10 @@ export default class WeeklyScheduleStore {
         return this._instance;
     }
 
+    get dateOfThisWeek(): CalendarDate {
+        return this._thisWeekDateInfoList[0].calendarDate;
+    }
+
     get thisWeekDateList(): CalendarDate[] {
         return this._thisWeekDateInfoList.map((value) => value.calendarDate);
     }
@@ -38,5 +43,20 @@ export default class WeeklyScheduleStore {
     @action
     setThisWeekDateInfoList(thisWeekDateInfoList: DateInfo[]) {
         this._thisWeekDateInfoList = thisWeekDateInfoList;
+    }
+
+    @action
+    toPrevWeek() {
+        this.changeWeek(DateUtil.getLastWeekDate(this.dateOfThisWeek));
+    }
+
+    @action
+    toNextWeek() {
+        this.changeWeek(DateUtil.getNextWeekDate(this.dateOfThisWeek));
+    }
+
+    @action
+    private async changeWeek({ year, month, date }: CalendarDate) {
+        this.setThisWeekDateInfoList(await ScheduleCalendarRequest.getDateInfosOfWeek(year, month, date));
     }
 }

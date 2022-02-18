@@ -4,9 +4,22 @@
     padding: 5vw;
     overflow-x: hidden;
 
+    .weekly-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: calc(100% - 5vw);
+        margin: 0 auto;
+        z-index: 999;
+        background-color: white;
+    }
+
     h1 {
-        font-size: 6vw;
-        font-weight: 400;
-        margin-bottom: 4vh;
+        font-size: 5.5vw;
+        font-weight: 600;
+        margin-top: 5vw;
+        margin-bottom: 2vh;
+        text-align: center;
     }
 }

@@ -21,17 +21,17 @@
     .dates-container {
         display: flex;
         flex: 1;
-        justify-content: space-between;
     }
 
     .dates {
+        width: calc(100% / 7);
         text-align: center;
-        padding: 1vh 1vw;
+        padding: 0.5rem 0;
         color: #636363;
 
         &.today {
-            border-radius: 1vw;
-            background: rgb(162, 211, 255);
+            border-radius: 50%;
+            background: #cebad7;
             color: #000;
             font-weight: 600;
         }

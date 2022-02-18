@@ -3,18 +3,19 @@
 .wrapper {
     width: 90vw;
     margin: 0 auto;
+    margin-top: 2vh;
     padding: 2vh 2vw;
     border-radius: 4vw;
-    background: aliceblue;
+    background: #e4e1e8;
 
     .days {
         display: flex;
-        justify-content: space-between;
         margin-bottom: 1vh;
         padding: 0 8vw;
     }
 
     .day {
-        padding: 0 1vw;
+        width: calc(100% / 7);
+        text-align: center;
     }
 }

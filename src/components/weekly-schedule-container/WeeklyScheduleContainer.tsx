@@ -30,7 +30,7 @@ const WeeklyScheduleContainer = observer(() => {
                                         return (
                                             <Card
                                                 className={owner === userStore.userEmail ? cx('my-card') : cx('other-card')}
-                                                key={createdDatetime.toLocaleString()}
+                                                key={`${owner} ${createdDatetime.toLocaleString()}`}
                                                 schedule={{
                                                     owner,
                                                     scheduleDate,

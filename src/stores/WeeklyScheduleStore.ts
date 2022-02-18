@@ -56,9 +56,7 @@ export default class WeeklyScheduleStore {
     }
 
     @action
-    private changeWeek({ year, month, date }: CalendarDate) {
-        (async () => {
-            this.setThisWeekDateInfoList(await ScheduleCalendarRequest.getDateInfosOfWeek(year, month, date));
-        })();
+    private async changeWeek({ year, month, date }: CalendarDate) {
+        this.setThisWeekDateInfoList(await ScheduleCalendarRequest.getDateInfosOfWeek(year, month, date));
     }
 }

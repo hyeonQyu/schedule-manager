@@ -7,7 +7,7 @@ $otherColor: #c482ff;
 
 @mixin screenMask($z-index) {
   background: rgba(0, 0, 0, .5);
-  position: fixed;
+  position: absolute;
   z-index: $z-index;
   top: 0;
   bottom: 0;

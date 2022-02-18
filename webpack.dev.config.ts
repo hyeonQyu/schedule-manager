@@ -1,9 +1,12 @@
-import webpack from 'webpack';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import path from 'path';
-import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin';
-import dotenv from 'dotenv';
-import loadEnv from './env/loadEnv.js';
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const dotenv = require('dotenv');
+const loadEnv = require('./env/loadEnv');
+const WebpackPwaManifest = require('webpack-pwa-manifest');
+const { InjectManifest } = require('workbox-webpack-plugin');
+const manifest = require('./public/manifest.json');
 
 export default (env) => {
     dotenv.config({
@@ -84,6 +87,12 @@ export default (env) => {
             }),
             new webpack.DefinePlugin({
                 'process.env': loadEnv(process.env),
+            }),
+            /** PWA 관련 플러그인 */
+            new WebpackPwaManifest(manifest),
+            new InjectManifest({
+                swSrc: '/public/service-worker.js',
+                swDest: 'service-worker.js',
             }),
         ],
         devtool: 'inline-source-map',

@@ -54,11 +54,7 @@ export default class CollectionInstance<T> {
      * @param docs
      */
     async updateByDocs(vo: Partial<T>, docs: firebase.firestore.QueryDocumentSnapshot<firebase.firestore.DocumentData>[] = []) {
-        await Promise.all(
-            docs.map((doc) => {
-                dbService.doc(`${this._id}/${doc.id}`).update(vo);
-            }),
-        );
+        await Promise.all(docs.map((doc) => dbService.doc(`${this._id}/${doc.id}`).update(vo)));
     }
 
     /**
@@ -75,11 +71,7 @@ export default class CollectionInstance<T> {
      * @param docs
      */
     async deleteByDocs(docs: firebase.firestore.QueryDocumentSnapshot<firebase.firestore.DocumentData>[] = []) {
-        await Promise.all(
-            docs.map((doc) => {
-                dbService.doc(`${this._id}/${doc.id}`).delete();
-            }),
-        );
+        await Promise.all(docs.map((doc) => dbService.doc(`${this._id}/${doc.id}`).delete()));
     }
 
     /**

@@ -1,43 +1,29 @@
 @import "src/presets";
 
-@keyframes slide {
-  from {
-    margin-bottom: -96vh;
-  }
-
-  to {
-    margin-bottom: 0;
-  }
-}
-
-@mixin slideOpen($direction) {
-  animation: slide 600ms cubic-bezier(0.86, 0, 0.07, 1) $direction;
-  //-webkit-transform: translateZ(0);
-}
-
 .wrapper {
   @include screenMask($modal-z-index);
   background: transparent;
   align-items: end;
 
   .sliding-modal {
+    position: absolute;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     border: 1px solid #767676;
     width: 99%;
-    height: 96vh;
+    height: 100%;
     background: white;
     box-shadow: 0 6px 14px 2px;
-    transition: all cubic-bezier(0.86, 0, 0.07, 1) .6s;
-    margin-bottom: -96vh;
+    transition: top cubic-bezier(0.86, 0, 0.07, 1) .6s;
+    top: 100%;
 
     &.open {
-      @include slideOpen(normal);
-      margin-bottom: 0;
+      animation: slide .6s cubic-bezier(0.86, 0, 0.07, 1);
+      top: 10%;
     }
 
     &.close {
-      margin-bottom: -96vh;
+      top: 100%;
     }
 
     .header {
@@ -73,8 +59,20 @@
 
     .body {
       padding-top: 2vh;
-      height: 94%;
+      height: 100%;
       overflow-y: auto;
+    }
+  }
+
+  @-webkit-keyframes slide {
+    from {
+      //margin-bottom: -90vh;
+      top: 100%;
+    }
+
+    to {
+      //margin-bottom: 0;
+      top: 10%;
     }
   }
 }

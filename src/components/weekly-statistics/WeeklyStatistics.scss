@@ -1,0 +1,111 @@
+.wrapper {
+    .arrow-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0 auto;
+        margin-bottom: 4vh;
+        width: 60vw;
+
+        button {
+            &:disabled svg path {
+                fill: lightgray;
+            }
+
+            div {
+                display: flex;
+                align-items: center;
+            }
+        }
+
+        svg path {
+            fill: #9e5ade;
+        }
+    }
+
+    .chart {
+        display: flex;
+
+        &__count {
+            display: flex;
+            flex-direction: column;
+            font-size: 1vh;
+            gap: 20vh;
+            width: 1vw;
+            margin-right: 5vw;
+        }
+
+        &__bar-group {
+            display: flex;
+            flex: 1;
+            justify-content: space-around;
+            border-top: 1px solid lightgray;
+            border-bottom: 1px solid gray;
+        }
+
+        .bar {
+            display: flex;
+            align-items: flex-end;
+            gap: 0.5vw;
+
+            & > div {
+                position: relative;
+                width: 4vw;
+
+                & > div {
+                    @keyframes fillChartAnimation {
+                        from {
+                            height: 0%;
+                        }
+                        to {
+                            height: 100%;
+                        }
+                    }
+
+                    position: absolute;
+                    bottom: 0;
+                    animation-name: fillChartAnimation;
+                    animation-duration: 2s;
+                    animation-fill-mode: forwards;
+                    width: 100%;
+                    border-top-left-radius: 2vw;
+                    border-top-right-radius: 2vw;
+                }
+            }
+        }
+    }
+
+    .dates,
+    .owner {
+        display: flex;
+        justify-content: space-around;
+        font-size: 2.5vw;
+        margin-top: 1vh;
+        margin-left: 6vw;
+    }
+
+    .owner {
+        justify-content: space-evenly;
+        margin-top: 2vh;
+
+        & > div {
+            display: flex;
+            align-items: center;
+            gap: 1.5vw;
+        }
+
+        & > div::before {
+            content: '';
+            width: 2vw;
+            height: 2vw;
+        }
+
+        & > div:first-child::before {
+            background-color: #a34dff;
+        }
+
+        & > div:last-child::before {
+            background-color: #c482ff;
+        }
+    }
+}

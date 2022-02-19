@@ -58,12 +58,8 @@ const WeeklyStatistics = observer(() => {
                 })}
             </div>
             <div className={cx('owner')}>
-                <div>
-                    <div></div>나의 일정
-                </div>
-                <div>
-                    <div></div>너의 일정
-                </div>
+                <div>나의 일정</div>
+                <div>너의 일정</div>
             </div>
         </div>
     );

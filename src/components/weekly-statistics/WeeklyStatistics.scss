@@ -94,16 +94,17 @@
             gap: 1.5vw;
         }
 
-        & > div > div {
+        & > div::before {
+            content: '';
             width: 2vw;
             height: 2vw;
         }
 
-        & > div:first-child > div {
+        & > div:first-child::before {
             background-color: #a34dff;
         }
 
-        & > div:last-child > div {
+        & > div:last-child::before {
             background-color: #c482ff;
         }
     }

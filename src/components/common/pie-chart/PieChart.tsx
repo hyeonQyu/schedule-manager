@@ -16,10 +16,11 @@ export interface PieChartProps {
     isDonut?: boolean;
     donutSizePercentage?: number;
     children?: ReactNode;
+    gradientValue?: number;
 }
 
 const PieChart = observer((props: PieChartProps) => {
-    const { sectorList, size, isDonut = false, donutSizePercentage = 70, children } = props;
+    const { sectorList, size, isDonut = false, donutSizePercentage = 70, children, gradientValue = 0 } = props;
     const ref = useRef<HTMLDivElement>();
     const [centerSize, setCenterSize] = useState(0);
 
@@ -31,7 +32,7 @@ const PieChart = observer((props: PieChartProps) => {
     const conicGradientParams = (() => {
         let acc = 0;
         return sectorList.map(({ color, percentage }) => {
-            return `${color} ${acc}% ${(acc = acc + percentage)}%`;
+            return `${color} ${acc}% ${(acc = acc + percentage) - gradientValue}%`;
         });
     })();
 

@@ -49,6 +49,27 @@ export interface DateInfo {
     scheduleList?: Schedule[];
 }
 
+/**
+ * 주간 통계 정보
+ */
+export interface WeeklyStatisticsInfo {
+    weeklyStatisticsDateInfoList: WeeklyStatisticsDateInfo[];
+    maxScheduleCount: number;
+}
+
+/**
+ * 날짜별 주간 통계 정보
+ */
+export interface WeeklyStatisticsDateInfo {
+    calendarDate: CalendarDate;
+    scheduleCountInfo: ScheduleCountInfo;
+}
+
+export interface ScheduleCountInfo {
+    me: number;
+    other: number;
+}
+
 export interface Schedule {
     owner: string;
     scheduleDate: CalendarDate;

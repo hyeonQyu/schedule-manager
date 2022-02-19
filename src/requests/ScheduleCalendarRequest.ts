@@ -10,11 +10,10 @@ import { DateUtil } from '@utils/DateUtil';
 export namespace ScheduleCalendarRequest {
     /**
      * 특정 달 일정 목록 조회
-     * @param year
-     * @param month
-     * @param lastDate
+     * @param lastCalendarDateOfMonth
      */
-    export async function getSchedulesOfMonth(year: number, month: number, lastDate: number): Promise<Schedule[]> {
+    export async function getSchedulesOfMonth(lastCalendarDateOfMonth: CalendarDate): Promise<Schedule[]> {
+        const { year, month, date: lastDate } = lastCalendarDateOfMonth;
         loading.show();
         const { docs } = await Collections.schedule.getOrderBy({ fieldPath: 'scheduleDate' }, [
             {
@@ -35,13 +34,11 @@ export namespace ScheduleCalendarRequest {
 
     /**
      * 특정 주 일정 목록 조회
-     * @param year
-     * @param month
-     * @param date
+     * @param calendarDate
      */
-    export async function getSchedulesOfWeek(year: number, month: number, date: number): Promise<Schedule[]> {
+    export async function getSchedulesOfWeek(calendarDate: CalendarDate): Promise<Schedule[]> {
         loading.show();
-        const { firstDate, lastDate } = getFirstAndLastDateOfWeek(year, month, date);
+        const { firstDate, lastDate } = DateUtil.getFirstAndLastDateOfWeek(calendarDate);
         const { docs } = await Collections.schedule.getOrderBy({ fieldPath: 'scheduleDate' }, [
             {
                 fieldPath: 'scheduleDate',
@@ -61,12 +58,10 @@ export namespace ScheduleCalendarRequest {
 
     /**
      * 특정 주 일정 정보 목록 조회
-     * @param year
-     * @param month
-     * @param date
+     * @param calendarDate
      */
-    export async function getDateInfosOfWeek(year: number, month: number, date: number): Promise<DateInfo[]> {
-        const scheduleList = await getSchedulesOfWeek(year, month, date);
+    export async function getDateInfosOfWeek(calendarDate: CalendarDate): Promise<DateInfo[]> {
+        const scheduleList = await getSchedulesOfWeek(calendarDate);
         const scheduleMap = new Map<string, Schedule[]>();
 
         scheduleList.forEach((schedule) => {
@@ -78,7 +73,7 @@ export namespace ScheduleCalendarRequest {
             scheduleMap.set(key, [schedule]);
         });
 
-        const dateList = DateUtil.getThisWeek({ year, month, date });
+        const dateList = DateUtil.getThisWeek(calendarDate);
 
         return dateList.map((calendarDate) => {
             return {
@@ -90,17 +85,15 @@ export namespace ScheduleCalendarRequest {
 
     /**
      * 특정 날 일정 목록 조회
-     * @param year
-     * @param month
-     * @param date
+     * @param calendarDate
      */
-    export async function getSchedulesOfDate(year: number, month: number, date: number): Promise<Schedule[]> {
+    export async function getSchedulesOfDate(calendarDate: CalendarDate): Promise<Schedule[]> {
         loading.show();
         const { docs } = await Collections.schedule.get([
             {
                 fieldPath: 'scheduleDate',
                 opStr: '==',
-                value: FormatUtil.calendarDateToString({ year, month, date }),
+                value: FormatUtil.calendarDateToString(calendarDate),
             },
         ]);
         loading.hide();
@@ -129,20 +122,5 @@ export namespace ScheduleCalendarRequest {
                 createdDatetime,
             };
         });
-    }
-
-    /**
-     * 특정 주의 첫번째 날과 마지막 날 반환
-     * @param year
-     * @param month
-     * @param date
-     * @private
-     */
-    function getFirstAndLastDateOfWeek(year: number, month: number, date: number): { firstDate: CalendarDate; lastDate: CalendarDate } {
-        const dateList = DateUtil.getThisWeek({ year, month, date });
-        return {
-            firstDate: dateList[0],
-            lastDate: dateList[6],
-        };
     }
 }

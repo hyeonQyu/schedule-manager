@@ -16,7 +16,7 @@ export default class WeeklyScheduleStore {
         const month = today.getMonth() + 1;
         const year = today.getFullYear();
         (async () => {
-            this.setThisWeekDateInfoList(await ScheduleCalendarRequest.getDateInfosOfWeek(year, month, date));
+            this.setThisWeekDateInfoList(await ScheduleCalendarRequest.getDateInfosOfWeek({ year, month, date }));
         })();
         WeeklyScheduleStore._instance = this;
     }
@@ -56,7 +56,7 @@ export default class WeeklyScheduleStore {
     }
 
     @action
-    private async changeWeek({ year, month, date }: CalendarDate) {
-        this.setThisWeekDateInfoList(await ScheduleCalendarRequest.getDateInfosOfWeek(year, month, date));
+    private async changeWeek(calendarDate: CalendarDate) {
+        this.setThisWeekDateInfoList(await ScheduleCalendarRequest.getDateInfosOfWeek(calendarDate));
     }
 }

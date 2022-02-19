@@ -49,16 +49,34 @@
             gap: 0.5vw;
 
             & > div {
-                width: 4vw;
-                border-top-left-radius: 2vw;
-                border-top-right-radius: 2vw;
+                position: relative;
 
-                &:first-child {
-                    background-color: #a34dff;
-                }
+                & > div {
+                    @keyframes fillChartAnimation {
+                        from {
+                            height: 0%;
+                        }
+                        to {
+                            height: 100%;
+                        }
+                    }
 
-                &:last-child {
-                    background-color: #c482ff;
+                    position: absolute;
+                    bottom: 0;
+                    animation-name: fillChartAnimation;
+                    animation-duration: 3s;
+                    animation-fill-mode: forwards;
+                    width: 4vw;
+                    border-top-left-radius: 2vw;
+                    border-top-right-radius: 2vw;
+
+                    &:first-child {
+                        background-color: #a34dff;
+                    }
+
+                    &:last-child {
+                        background-color: #c482ff;
+                    }
                 }
             }
         }

@@ -10,20 +10,21 @@ const cx = classNames.bind(style);
 export interface PeriodSelectorProps {
     toPrev: () => void;
     toNext: () => void;
-    disabled?: boolean;
+    isPrevDisabled?: boolean;
+    isNextDisabled?: boolean;
     children?: ReactNode;
 }
 
 const PeriodSelector = observer((props: PeriodSelectorProps) => {
-    const { toPrev, toNext, disabled = false, children } = props;
+    const { toPrev, toNext, isPrevDisabled = false, isNextDisabled = false, children } = props;
 
     return (
         <div className={cx('wrapper')}>
-            <button onClick={toPrev}>
+            <button onClick={toPrev} disabled={isPrevDisabled}>
                 <ArrowIcon direction={EArrowDirection.LEFT} />
             </button>
             {children && <span>{children}</span>}
-            <button onClick={toNext} disabled={disabled}>
+            <button onClick={toNext} disabled={isNextDisabled}>
                 <ArrowIcon direction={EArrowDirection.RIGHT} />
             </button>
         </div>

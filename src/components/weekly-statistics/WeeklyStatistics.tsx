@@ -26,7 +26,7 @@ const WeeklyStatistics = observer(() => {
 
     return (
         <div className={cx('wrapper')}>
-            <PeriodSelector toPrev={toPrevWeek} toNext={toNextWeek} disabled={isThisWeek}>
+            <PeriodSelector toPrev={toPrevWeek} toNext={toNextWeek} isNextDisabled={isThisWeek}>
                 {isThisWeek ? '이번 주' : `${firstDateStringOfThisWeek} - ${lastDateStringOfThisWeek}`}
             </PeriodSelector>
             <div className={cx('chart')}>

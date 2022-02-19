@@ -50,6 +50,7 @@
 
             & > div {
                 position: relative;
+                width: 4vw;
 
                 & > div {
                     @keyframes fillChartAnimation {
@@ -64,9 +65,9 @@
                     position: absolute;
                     bottom: 0;
                     animation-name: fillChartAnimation;
-                    animation-duration: 3s;
+                    animation-duration: 2s;
                     animation-fill-mode: forwards;
-                    width: 4vw;
+                    width: 100%;
                     border-top-left-radius: 2vw;
                     border-top-right-radius: 2vw;
                 }

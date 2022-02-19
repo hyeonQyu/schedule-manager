@@ -32,10 +32,10 @@ const WeeklyStatistics = observer(() => {
                     <span>0</span>
                 </div>
                 <div className={cx('chart__bar-group')}>
-                    {weeklyStatisticsDateInfoList.map(({ scheduleCountInfo }) => {
+                    {weeklyStatisticsDateInfoList.map(({ calendarDate, scheduleCountInfo }) => {
                         const { me, other } = scheduleCountInfo;
                         return (
-                            <div className={cx('bar')}>
+                            <div key={FormatUtil.calendarDateToString(calendarDate)} className={cx('bar')}>
                                 <div style={{ height: `${NumberUtil.getPercentage(me, maxScheduleCount)}%` }}>
                                     <div style={{ backgroundColor: '#a34dff' }}></div>
                                 </div>
@@ -52,7 +52,7 @@ const WeeklyStatistics = observer(() => {
                     const { year, month, date } = calendarDate;
                     return (
                         <span key={FormatUtil.calendarDateToString(calendarDate)}>
-                            {month}/{date} ({dayList[new Date(year, month, date).getDay()]})
+                            {FormatUtil.monthAndDateToString(month, date)}({dayList[new Date(year, month, date).getDay()]})
                         </span>
                     );
                 })}

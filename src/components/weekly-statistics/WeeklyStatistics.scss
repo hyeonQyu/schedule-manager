@@ -1,28 +1,4 @@
 .wrapper {
-    .arrow-container {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin: 0 auto;
-        margin-bottom: 4vh;
-        width: 60vw;
-
-        button {
-            &:disabled svg path {
-                fill: lightgray;
-            }
-
-            div {
-                display: flex;
-                align-items: center;
-            }
-        }
-
-        svg path {
-            fill: #9e5ade;
-        }
-    }
-
     .chart {
         display: flex;
 

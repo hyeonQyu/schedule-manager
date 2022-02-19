@@ -3,10 +3,10 @@ import { observer } from 'mobx-react';
 import classNames from 'classnames/bind';
 import style from './WeeklyStatistics.scss';
 import StatisticsStore from '@stores/StatisticsStore';
-import ArrowIcon from '@icons/arrow/ArrowIcon';
-import { dayList, EArrowDirection } from '@defines/defines';
+import { dayList } from '@defines/defines';
 import { FormatUtil } from '@utils/FormatUtil';
 import { NumberUtil } from '@utils/NumberUtil';
+import PeriodSelector from '@components/common/period-selector/PeriodSelector';
 
 const cx = classNames.bind(style);
 
@@ -25,15 +25,9 @@ const WeeklyStatistics = observer(() => {
 
     return (
         <div className={cx('wrapper')}>
-            <div className={cx('arrow-container')}>
-                <button onClick={toPrevWeek}>
-                    <ArrowIcon direction={EArrowDirection.LEFT} />
-                </button>
-                <span>{isThisWeek ? '이번 주' : `${firstDateStringOfThisWeek} - ${lastDateStringOfThisWeek}`}</span>
-                <button onClick={toNextWeek} disabled={isThisWeek}>
-                    <ArrowIcon direction={EArrowDirection.RIGHT} />
-                </button>
-            </div>
+            <PeriodSelector toPrev={toPrevWeek} toNext={toNextWeek} disabled={isThisWeek}>
+                {isThisWeek ? '이번 주' : `${firstDateStringOfThisWeek} - ${lastDateStringOfThisWeek}`}
+            </PeriodSelector>
             <div className={cx('chart')}>
                 <div className={cx('chart__count')}>
                     <span>{maxScheduleCount}</span>

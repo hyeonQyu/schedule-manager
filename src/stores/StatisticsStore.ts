@@ -1,7 +1,9 @@
 import { autobind } from 'core-decorators';
 import { action, observable } from 'mobx';
-import { WeeklyStatisticsDateInfo, WeeklyStatisticsInfo } from '@defines/defines';
+import { CalendarDate, WeeklyStatisticsDateInfo, WeeklyStatisticsInfo } from '@defines/defines';
 import { StatisticsRequest } from '@requests/StatisticsRequest';
+import { DateUtil } from '@utils/DateUtil';
+import { FormatUtil } from '@utils/FormatUtil';
 
 @autobind
 export default class StatisticsStore {
@@ -36,9 +38,36 @@ export default class StatisticsStore {
     get weeklyStatisticsDateInfoList(): WeeklyStatisticsDateInfo[] {
         return this._weeklyStatisticsInfo.weeklyStatisticsDateInfoList;
     }
+    
+    get dateOfThisWeek(): CalendarDate {
+        return this._weeklyStatisticsInfo.weeklyStatisticsDateInfoList[0].calendarDate;
+    }
+
+    get firstDateStringOfThisWeek(): string {
+        return FormatUtil.calendarDateToStringExceptYear(this._weeklyStatisticsInfo.weeklyStatisticsDateInfoList[0].calendarDate);
+    }
+
+    get lastDateStringOfThisWeek(): string {
+        return FormatUtil.calendarDateToStringExceptYear(this._weeklyStatisticsInfo.weeklyStatisticsDateInfoList[6].calendarDate);
+    }
 
     @action
     setWeeklyStatisticsInfo(weeklyStatisticsInfo: WeeklyStatisticsInfo) {
         this._weeklyStatisticsInfo = weeklyStatisticsInfo;
+    }
+
+    @action
+    toPrevWeek() {
+        this.changeWeek(DateUtil.getLastWeekDate(this.dateOfThisWeek));
+    }
+
+    @action
+    toNextWeek() {
+        this.changeWeek(DateUtil.getNextWeekDate(this.dateOfThisWeek));
+    }
+
+    @action
+    private async changeWeek(calendarDate: CalendarDate) {
+        this.setWeeklyStatisticsInfo(await StatisticsRequest.getWeeklyStatisticsInfo(calendarDate));
     }
 }

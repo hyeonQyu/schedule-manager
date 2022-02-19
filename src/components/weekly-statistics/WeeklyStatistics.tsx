@@ -13,16 +13,18 @@ const cx = classNames.bind(style);
 const statisticsStore = StatisticsStore.instance;
 
 const WeeklyStatistics = observer(() => {
-    const { weeklyStatisticsDateInfoList, maxScheduleCount } = statisticsStore;
+    const { weeklyStatisticsDateInfoList, firstDateStringOfThisWeek, lastDateStringOfThisWeek, maxScheduleCount, toPrevWeek, toNextWeek } =
+        statisticsStore;
+    const isThisWeek = true; // 임시
 
     return (
         <div className={cx('wrapper')}>
             <div className={cx('arrow-container')}>
-                <button>
+                <button onClick={toPrevWeek}>
                     <ArrowIcon direction={EArrowDirection.LEFT} />
                 </button>
-                <span>이번 주</span>
-                <button disabled={true}>
+                <span>{isThisWeek ? '이번 주' : `${firstDateStringOfThisWeek} - ${lastDateStringOfThisWeek}`}</span>
+                <button onClick={toNextWeek} disabled={isThisWeek}>
                     <ArrowIcon direction={EArrowDirection.RIGHT} />
                 </button>
             </div>
@@ -52,7 +54,7 @@ const WeeklyStatistics = observer(() => {
                     const { year, month, date } = calendarDate;
                     return (
                         <span key={FormatUtil.calendarDateToString(calendarDate)}>
-                            {FormatUtil.monthAndDateToString(month, date)}({dayList[new Date(year, month, date).getDay()]})
+                            {FormatUtil.calendarDateToStringExceptYear(calendarDate)}({dayList[new Date(year, month, date).getDay()]})
                         </span>
                     );
                 })}

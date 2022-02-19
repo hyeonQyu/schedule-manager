@@ -6,7 +6,7 @@ import Login from '@pages/login/Login';
 import Home from '@pages/home/Home';
 import ProtectedRoute from '@components/protected-route/ProtectedRoute';
 import WeeklySchedule from '@pages/weeklySchedule/WeeklySchedule';
-import OtherSchedule from '@pages/otherSchedule/OtherSchedule';
+import Statistics from '@pages/statistics/Statistics';
 
 const userStore = UserStore.instance;
 
@@ -25,10 +25,10 @@ const AppRouter = observer(() => {
                 }
             />
             <Route
-                path={'/other'}
+                path={'/statistics'}
                 element={
                     <ProtectedRoute>
-                        <OtherSchedule />
+                        <Statistics />
                     </ProtectedRoute>
                 }
             />

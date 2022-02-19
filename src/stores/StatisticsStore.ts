@@ -31,16 +31,13 @@ export default class StatisticsStore {
         return this._instance;
     }
 
-    get maxScheduleCount(): number {
-        return this._weeklyStatisticsInfo.maxScheduleCount;
-    }
-
-    get weeklyStatisticsDateInfoList(): WeeklyStatisticsDateInfo[] {
-        return this._weeklyStatisticsInfo.weeklyStatisticsDateInfoList;
-    }
-    
     get dateOfThisWeek(): CalendarDate {
         return this._weeklyStatisticsInfo.weeklyStatisticsDateInfoList[0].calendarDate;
+    }
+
+    get isThisWeek(): boolean {
+        const isThisWeek = ({ calendarDate }) => calendarDate.date === new Date().getDate();
+        return this.weeklyStatisticsDateInfoList.some(isThisWeek);
     }
 
     get firstDateStringOfThisWeek(): string {
@@ -49,6 +46,14 @@ export default class StatisticsStore {
 
     get lastDateStringOfThisWeek(): string {
         return FormatUtil.calendarDateToStringExceptYear(this._weeklyStatisticsInfo.weeklyStatisticsDateInfoList[6].calendarDate);
+    }
+
+    get maxScheduleCount(): number {
+        return this._weeklyStatisticsInfo.maxScheduleCount;
+    }
+
+    get weeklyStatisticsDateInfoList(): WeeklyStatisticsDateInfo[] {
+        return this._weeklyStatisticsInfo.weeklyStatisticsDateInfoList;
     }
 
     @action

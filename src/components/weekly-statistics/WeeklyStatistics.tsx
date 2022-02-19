@@ -13,9 +13,15 @@ const cx = classNames.bind(style);
 const statisticsStore = StatisticsStore.instance;
 
 const WeeklyStatistics = observer(() => {
-    const { weeklyStatisticsDateInfoList, firstDateStringOfThisWeek, lastDateStringOfThisWeek, maxScheduleCount, toPrevWeek, toNextWeek } =
-        statisticsStore;
-    const isThisWeek = true; // 임시
+    const {
+        toPrevWeek,
+        toNextWeek,
+        isThisWeek,
+        firstDateStringOfThisWeek,
+        lastDateStringOfThisWeek,
+        maxScheduleCount,
+        weeklyStatisticsDateInfoList,
+    } = statisticsStore;
 
     return (
         <div className={cx('wrapper')}>

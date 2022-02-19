@@ -60,6 +60,14 @@ export default class UserStore {
     }
 
     /**
+     * 스케쥴의 owner가 나인지 확인
+     * @param owner
+     */
+    isMe(owner: string) {
+        return this.userEmail === owner;
+    }
+
+    /**
      * 허용된 사용자인지 검사
      * @param user
      * @private

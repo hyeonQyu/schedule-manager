@@ -31,7 +31,7 @@ const WeeklyScheduleContainer = observer(() => {
                                     {scheduleList.map(({ owner, createdDatetime, scheduleDate, startTime, endTime, name }) => {
                                         return (
                                             <Card
-                                                className={owner === userStore.userEmail ? cx('my-card') : cx('other-card')}
+                                                className={userStore.isMe(owner) ? cx('my-card') : cx('other-card')}
                                                 key={`${owner} ${createdDatetime.toLocaleString()}`}
                                                 schedule={{
                                                     owner,

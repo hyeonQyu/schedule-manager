@@ -92,4 +92,16 @@ export namespace DateUtil {
     export function getDay(year, month, date): string {
         return dayList[new Date(year, month, date).getDay()];
     }
+
+    /**
+     * 특정 주의 첫번째 날과 마지막 날 반환
+     * @param calendarDate
+     */
+    export function getFirstAndLastDateOfWeek(calendarDate: CalendarDate): { firstDate: CalendarDate; lastDate: CalendarDate } {
+        const dateList = DateUtil.getThisWeek(calendarDate);
+        return {
+            firstDate: dateList[0],
+            lastDate: dateList[6],
+        };
+    }
 }

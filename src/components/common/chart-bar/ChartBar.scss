@@ -1,0 +1,23 @@
+.wrapper {
+    position: relative;
+
+    .inside {
+        @keyframes fillChartAnimation {
+            from {
+                height: 0%;
+            }
+            to {
+                height: 100%;
+            }
+        }
+
+        position: absolute;
+        bottom: 0;
+        animation-name: fillChartAnimation;
+        animation-duration: 2s;
+        animation-fill-mode: forwards;
+        width: 100%;
+        border-top-left-radius: 2vw;
+        border-top-right-radius: 2vw;
+    }
+}

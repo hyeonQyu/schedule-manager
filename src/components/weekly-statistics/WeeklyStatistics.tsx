@@ -7,6 +7,7 @@ import { dayList } from '@defines/defines';
 import { FormatUtil } from '@utils/FormatUtil';
 import { NumberUtil } from '@utils/NumberUtil';
 import PeriodSelector from '@components/common/period-selector/PeriodSelector';
+import ChartBar from '@components/common/chart-bar/ChartBar';
 
 const cx = classNames.bind(style);
 
@@ -38,12 +39,8 @@ const WeeklyStatistics = observer(() => {
                         const { me, other } = scheduleCountInfo;
                         return (
                             <div key={FormatUtil.calendarDateToString(calendarDate)} className={cx('bar')}>
-                                <div style={{ height: `${NumberUtil.getPercentage(me, maxScheduleCount)}%` }}>
-                                    <div style={{ backgroundColor: '#a34dff' }}></div>
-                                </div>
-                                <div style={{ height: `${NumberUtil.getPercentage(other, maxScheduleCount)}%` }}>
-                                    <div style={{ backgroundColor: '#c482ff' }}></div>
-                                </div>
+                                <ChartBar width={4} percentage={NumberUtil.getPercentage(me, maxScheduleCount)} color="#a34dff"></ChartBar>
+                                <ChartBar width={4} percentage={NumberUtil.getPercentage(other, maxScheduleCount)} color="#c482ff"></ChartBar>
                             </div>
                         );
                     })}

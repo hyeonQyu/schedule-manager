@@ -99,7 +99,7 @@ export default class ScheduleCalendarStore {
         const lastDateOfNextMonth = (EWeek.MAX_WEEK - lastWeek) * EWeek.DATES_PER_WEEK + (EDay.MAX_DAY - lastDay);
 
         // 이번 달 일정 조회
-        const scheduleList = await ScheduleCalendarRequest.getSchedulesOfMonth(this.curYear, this.curMonth, lastDate);
+        const scheduleList = await ScheduleCalendarRequest.getSchedulesOfMonth({ year: this.curYear, month: this.curMonth, date: lastDate });
 
         action(() => {
             // 지난달
@@ -200,8 +200,7 @@ export default class ScheduleCalendarStore {
         }
 
         (async () => {
-            const { year, month, date } = calendarDate;
-            const scheduleList = await ScheduleCalendarRequest.getSchedulesOfDate(year, month, date);
+            const scheduleList = await ScheduleCalendarRequest.getSchedulesOfDate(calendarDate);
 
             action(() => {
                 this._selectedDateScheduleList = scheduleList;

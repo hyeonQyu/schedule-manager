@@ -9,7 +9,7 @@ export enum EDialogType {
 export enum ENavigationType {
     ENTIRE = 'entire',
     WEEKLY = 'weekly',
-    OTHER = 'other',
+    STATISTICS = 'statistics',
 }
 
 export enum EYear {

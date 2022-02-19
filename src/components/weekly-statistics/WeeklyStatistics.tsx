@@ -36,8 +36,12 @@ const WeeklyStatistics = observer(() => {
                         const { me, other } = scheduleCountInfo;
                         return (
                             <div className={cx('bar')}>
-                                <div style={{ height: `${NumberUtil.getPercentage(me, maxScheduleCount)}%` }}><div></div></div>
-                                <div style={{ height: `${NumberUtil.getPercentage(other, maxScheduleCount)}%` }}><div></div></div>
+                                <div style={{ height: `${NumberUtil.getPercentage(me, maxScheduleCount)}%` }}>
+                                    <div style={{ backgroundColor: '#a34dff' }}></div>
+                                </div>
+                                <div style={{ height: `${NumberUtil.getPercentage(other, maxScheduleCount)}%` }}>
+                                    <div style={{ backgroundColor: '#c482ff' }}></div>
+                                </div>
                             </div>
                         );
                     })}

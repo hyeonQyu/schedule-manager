@@ -5,7 +5,7 @@ import style from './DateDetailMenu.scss';
 import ScheduleCalendarStore from '@components/schedule-calendar/store/ScheduleCalendarStore';
 import ArrowIcon from '@icons/arrow/ArrowIcon';
 import { EArrowDirection } from '@defines/defines';
-import Card from '@components/card/Card';
+import Card from '@components/common/card/Card';
 import ScheduleAddButton from '@components/date-detail-menu/components/ScheduleAddButton';
 
 const cx = classNames.bind(style);

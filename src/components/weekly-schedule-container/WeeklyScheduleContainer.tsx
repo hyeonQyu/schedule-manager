@@ -2,7 +2,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import classNames from 'classnames/bind';
 import style from './WeeklyScheduleContainer.scss';
-import Card from '@components/card/Card';
+import Card from '@components/common/card/Card';
 import WeeklyScheduleStore from '@stores/WeeklyScheduleStore';
 import UserStore from '@stores/UserStore';
 import { FormatUtil } from '@utils/FormatUtil';

@@ -13,13 +13,13 @@ export default class StatisticsStore {
 
     private constructor() {
         const today = new Date();
-        const todayObject = {
+        const todayDate = {
             year: today.getFullYear(),
             month: today.getMonth() + 1,
             date: today.getDate(),
         };
         (async () => {
-            this.setWeeklyStatisticsInfo(await StatisticsRequest.getWeeklyStatisticsInfo(todayObject));
+            this.setWeeklyStatisticsInfo(await StatisticsRequest.getWeeklyStatisticsInfo(todayDate));
         })();
         StatisticsStore._instance = this;
     }
@@ -36,7 +36,9 @@ export default class StatisticsStore {
     }
 
     get isThisWeek(): boolean {
-        const isThisWeek = ({ calendarDate }) => calendarDate.date === new Date().getDate();
+        const today = new Date();
+        const isThisWeek = ({ calendarDate }) =>
+            calendarDate.year === today.getFullYear() && calendarDate.month === today.getMonth() + 1 && calendarDate.date === today.getDate();
         return this.weeklyStatisticsDateInfoList.some(isThisWeek);
     }
 

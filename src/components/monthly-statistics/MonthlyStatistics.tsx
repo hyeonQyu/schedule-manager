@@ -48,13 +48,14 @@ const MonthlyStatistics = observer(() => {
 
         const balls = calendarDateWithDateList.map(({ date }) => new Ball(canvas, date.toString()));
         animate(canvas, context, balls);
+    }, [canvasRef, calendarDateWithDateList]);
 
+    useEffect(() => {
         return () => {
             setCanvasSize(0);
             setRequestedAnim(-1);
-            cancelAnimate(canvas, context);
         };
-    }, [canvasRef, calendarDateWithDateList]);
+    }, [canvasRef]);
 
     const { year, month } = selectedMonthDate;
 

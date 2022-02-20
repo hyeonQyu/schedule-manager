@@ -1,7 +1,20 @@
 .wrapper {
-  .chart {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+    .date-count {
+        font-size: 3.5vw;
+        text-align: center;
+		margin-top: -2vh;
+		margin-bottom: 3vh;
+
+		span {
+			font-size: 4vw;
+			font-weight: 600;
+			color: #a34dff;
+		}
+    }
+
+    .chart {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 }

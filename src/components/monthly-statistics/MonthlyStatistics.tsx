@@ -59,6 +59,9 @@ const MonthlyStatistics = observer(() => {
             <PeriodSelector toPrev={toPrevMonth} toNext={toNextMonth} isNextDisabled={isThisMonth}>
                 {isThisMonth ? '이번 달' : `${year}년 ${month}월`}
             </PeriodSelector>
+            <div className={cx('date-count')}>
+                {month}월에는 우리가 <span>{ourDateList.length}</span>번 만났어요
+            </div>
             <div className={cx('chart')}>
                 <PieChart
                     sectorList={[

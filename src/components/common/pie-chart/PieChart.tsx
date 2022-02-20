@@ -17,16 +17,19 @@ export interface PieChartProps {
     donutSizePercentage?: number;
     children?: ReactNode;
     gradientValue?: number;
+    onChangeDonutSize?: (size: number) => void;
 }
 
 const PieChart = observer((props: PieChartProps) => {
-    const { sectorList, size, isDonut = false, donutSizePercentage = 70, children, gradientValue = 0 } = props;
+    const { sectorList, size, isDonut = false, donutSizePercentage = 70, children, gradientValue = 0, onChangeDonutSize = () => {} } = props;
     const ref = useRef<HTMLDivElement>();
     const [centerSize, setCenterSize] = useState(0);
 
     useEffect(() => {
         if (!ref.current) return;
-        setCenterSize((ref.current.clientWidth / 100) * donutSizePercentage);
+        const centerSize = (ref.current.clientWidth / 100) * donutSizePercentage;
+        setCenterSize(centerSize);
+        onChangeDonutSize(centerSize);
     }, [ref.current, donutSizePercentage]);
 
     const conicGradientParams = (() => {

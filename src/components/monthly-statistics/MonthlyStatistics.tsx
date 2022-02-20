@@ -26,23 +26,34 @@ const MonthlyStatistics = observer(() => {
         height: canvasSize,
     };
 
+    const cancelAnimate = (canvas: HTMLCanvasElement, context: CanvasRenderingContext2D) => {
+        cancelAnimationFrame(requestedAnim);
+        context.clearRect(0, 0, canvas.width, canvas.height);
+    };
+
+    const animate = (canvas: HTMLCanvasElement, context: CanvasRenderingContext2D, balls: Ball[]) => {
+        context.fillStyle = 'rgba(255,255,255,0.5)';
+        context.fillRect(0, 0, canvas.width, canvas.height);
+        balls.forEach((ball) => ball.update());
+        setRequestedAnim(requestAnimationFrame(() => animate(canvas, context, balls)));
+    };
+
     // 캔버스에 데이트 한 날 목록을 그림
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) return;
 
         const context = canvas.getContext('2d');
-        cancelAnimationFrame(requestedAnim);
-        context.clearRect(0, 0, canvas.width, canvas.height);
+        cancelAnimate(canvas, context);
 
         const balls = calendarDateWithDateList.map(({ date }) => new Ball(canvas, date.toString()));
-        const animate = () => {
-            context.fillStyle = 'rgba(255,255,255,0.5)';
-            context.fillRect(0, 0, canvas.width, canvas.height);
-            balls.forEach((ball) => ball.update());
-            setRequestedAnim(requestAnimationFrame(animate));
+        animate(canvas, context, balls);
+
+        return () => {
+            setCanvasSize(0);
+            setRequestedAnim(-1);
+            cancelAnimate(canvas, context);
         };
-        animate();
     }, [canvasRef, calendarDateWithDateList]);
 
     const { year, month } = selectedMonthDate;

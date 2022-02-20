@@ -5,6 +5,7 @@
 
     h2 {
         margin-bottom: 2vh;
+        font-weight: 500;
     }
 
     .schedule-container {
@@ -24,9 +25,17 @@
 
     button[class*='card'] {
         margin-top: 2vh;
-        width: 60%;
+        width: 65%;
         border-radius: 5vw;
         word-break: keep-all;
+
+        & > div {
+            flex-direction: column;
+            
+            & > div {
+                min-width: 100%;
+            }
+        }
     }
 
     button.my-card {

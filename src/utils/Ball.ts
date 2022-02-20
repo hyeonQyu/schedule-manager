@@ -74,7 +74,7 @@ export default class Ball {
         this._context.closePath();
         this._context.fill();
 
-        this._context.font = `${this._size}px 돋움 bold`;
+        this._context.font = `${this._size}px Pretendard`;
         this._context.fillStyle = 'white';
         let textX = this._x - this._size / 2;
         if (this._text.length === 1) textX += this._size / 5;

@@ -28,7 +28,7 @@ const WeeklyScheduleContainer = observer(() => {
                             <div className={cx('schedule-container')}>
                                 <div className={cx('schedule-line')} />
                                 <div className={cx('schedule-info')}>
-                                    {scheduleList.map(({ owner, createdDatetime, scheduleDate, startTime, endTime, name }) => {
+                                    {scheduleList.map(({ owner, createdDatetime, scheduleDate, startTime, endTime, name, location }) => {
                                         return (
                                             <Card
                                                 className={userStore.isMe(owner) ? cx('my-card') : cx('other-card')}
@@ -39,6 +39,7 @@ const WeeklyScheduleContainer = observer(() => {
                                                     startTime,
                                                     endTime,
                                                     name,
+                                                    location,
                                                 }}
                                             />
                                         );

@@ -37,8 +37,10 @@ export default class StatisticsStore {
 
     get isThisWeek(): boolean {
         const today = new Date();
-        const isThisWeek = ({ calendarDate }) =>
-            calendarDate.year === today.getFullYear() && calendarDate.month === today.getMonth() + 1 && calendarDate.date === today.getDate();
+        const isThisWeek = ({ calendarDate }) => {
+            const { year, month, date } = calendarDate;
+            return year === today.getFullYear() && month === today.getMonth() + 1 && date === today.getDate();
+        };
         return this.weeklyStatisticsDateInfoList.some(isThisWeek);
     }
 

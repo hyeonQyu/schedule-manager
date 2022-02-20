@@ -3,7 +3,6 @@ import classNames from 'classnames/bind';
 import style from './DateSlide.scss';
 import { observer } from 'mobx-react-lite';
 import WeeklyScheduleStore from '@stores/WeeklyScheduleStore';
-import { DateUtil } from '@utils/DateUtil';
 
 const cx = classNames.bind(style);
 

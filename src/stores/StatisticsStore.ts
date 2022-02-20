@@ -4,6 +4,7 @@ import { CalendarDate, MonthlyStatisticsInfo, WeeklyStatisticsDateInfo, WeeklySt
 import { StatisticsRequest } from '@requests/StatisticsRequest';
 import { DateUtil } from '@utils/DateUtil';
 import { NumberUtil } from '@utils/NumberUtil';
+import { FormatUtil } from '@utils/FormatUtil';
 
 @autobind
 export default class StatisticsStore {
@@ -17,17 +18,17 @@ export default class StatisticsStore {
 
     private constructor() {
         const today = new Date();
-        const todayObject = {
+        const todayDate = {
             year: today.getFullYear(),
             month: today.getMonth() + 1,
             date: today.getDate(),
         };
 
-        this.setSelectedMonth(todayObject);
+        this.setSelectedMonth(todayDate);
 
         (async () => {
-            this.setWeeklyStatisticsInfo(await StatisticsRequest.getWeeklyStatisticsInfo(todayObject));
-            await this.loadMonthlyStatisticsInfo(todayObject);
+            this.setWeeklyStatisticsInfo(await StatisticsRequest.getWeeklyStatisticsInfo(todayDate));
+            await this.loadMonthlyStatisticsInfo(todayDate);
         })();
         StatisticsStore._instance = this;
     }
@@ -37,6 +38,27 @@ export default class StatisticsStore {
             StatisticsStore._instance = new StatisticsStore();
         }
         return this._instance;
+    }
+
+    get dateOfThisWeek(): CalendarDate {
+        return this._weeklyStatisticsInfo.weeklyStatisticsDateInfoList[0].calendarDate;
+    }
+
+    get isThisWeek(): boolean {
+        const today = new Date();
+        const isThisWeek = ({ calendarDate }) => {
+            const { year, month, date } = calendarDate;
+            return year === today.getFullYear() && month === today.getMonth() + 1 && date === today.getDate();
+        };
+        return this.weeklyStatisticsDateInfoList.some(isThisWeek);
+    }
+
+    get firstDateStringOfThisWeek(): string {
+        return FormatUtil.calendarDateToStringExceptYear(this._weeklyStatisticsInfo.weeklyStatisticsDateInfoList[0].calendarDate);
+    }
+
+    get lastDateStringOfThisWeek(): string {
+        return FormatUtil.calendarDateToStringExceptYear(this._weeklyStatisticsInfo.weeklyStatisticsDateInfoList[6].calendarDate);
     }
 
     get maxScheduleCount(): number {
@@ -54,6 +76,16 @@ export default class StatisticsStore {
     @action
     setWeeklyStatisticsInfo(weeklyStatisticsInfo: WeeklyStatisticsInfo) {
         this._weeklyStatisticsInfo = weeklyStatisticsInfo;
+    }
+
+    @action
+    toPrevWeek() {
+        this.changeWeek(DateUtil.getLastWeekDate(this.dateOfThisWeek));
+    }
+
+    @action
+    toNextWeek() {
+        this.changeWeek(DateUtil.getNextWeekDate(this.dateOfThisWeek));
     }
 
     @action
@@ -78,12 +110,6 @@ export default class StatisticsStore {
         this.changeMonth(year, month - 1);
     }
 
-    @action
-    changeMonth(year, nextMonth: number) {
-        this.setSelectedMonth(DateUtil.dateToCalendarDate(new Date(year, nextMonth - 1, 1)));
-        this.loadMonthlyStatisticsInfo(this._selectedMonthDate);
-    }
-
     getPercentageOfDate(): number {
         const { year, month } = this._selectedMonthDate;
         const totalDates = DateUtil.getLastDate(year, month);
@@ -94,5 +120,16 @@ export default class StatisticsStore {
     @action
     private async loadMonthlyStatisticsInfo(calendarDate: CalendarDate) {
         this.setMonthlyStatisticsInfo(await StatisticsRequest.getMonthlyStatisticsInfo(calendarDate));
+    }
+
+    @action
+    private async changeWeek(calendarDate: CalendarDate) {
+        this.setWeeklyStatisticsInfo(await StatisticsRequest.getWeeklyStatisticsInfo(calendarDate));
+    }
+
+    @action
+    private async changeMonth(year, nextMonth: number) {
+        this.setSelectedMonth(DateUtil.dateToCalendarDate(new Date(year, nextMonth - 1, 1)));
+        await this.loadMonthlyStatisticsInfo(this._selectedMonthDate);
     }
 }

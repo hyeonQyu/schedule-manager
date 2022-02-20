@@ -73,6 +73,16 @@ export default class StatisticsStore {
         return this._monthlyStatisticsInfo.calendarDateWithDateList;
     }
 
+    get selectedMonthDate(): CalendarDate {
+        return this._selectedMonthDate;
+    }
+
+    get isThisMonth(): boolean {
+        const today = new Date();
+        const { year, month } = this.selectedMonthDate;
+        return year === today.getFullYear() && month === today.getMonth() + 1;
+    }
+
     @action
     setWeeklyStatisticsInfo(weeklyStatisticsInfo: WeeklyStatisticsInfo) {
         this._weeklyStatisticsInfo = weeklyStatisticsInfo;

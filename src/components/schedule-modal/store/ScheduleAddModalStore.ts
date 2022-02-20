@@ -98,7 +98,7 @@ export default class ScheduleAddModalStore extends ScheduleModalStore {
             return;
         }
 
-        dialog.confirm('현재 작성한 일정과 같은 내용으로 자주 사용하는 일정으로 등록하시겠습니까?', () => {
+        dialog.confirm('현재 작성한 일정과 같은 내용을 자주 사용하는 일정으로 등록하시겠습니까?', () => {
             (async () => {
                 const { name, startTime, endTime, location } = this;
                 await ScheduleModalRequest.registerStarSchedule({

@@ -19,7 +19,7 @@ const ChartBar = (props: ChartBarProps) => {
     };
 
     const chartBarInsideStyle = {
-        background: `${color}`,
+        background: color,
     };
 
     return (

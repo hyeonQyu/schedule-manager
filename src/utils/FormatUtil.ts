@@ -16,11 +16,13 @@ export namespace FormatUtil {
     }
 
     /**
-     * month, date 값을 00.00 포맷의 문자열로 변환
-     * @param month
-     * @param date
+     * CalendarDate 객체를 00.00 포맷의 문자열로 변환
+     * @param calendarDate
      */
-    export function monthAndDateToString(month: number, date: number): string {
+    export function calendarDateToStringExceptYear(calendarDate: CalendarDate): string {
+        if (!calendarDate) return '';
+
+        const { month, date } = calendarDate;
         return `${withDigitLength(month, 2)}.${withDigitLength(date, 2)}`;
     }
 

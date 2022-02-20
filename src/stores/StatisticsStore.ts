@@ -1,7 +1,9 @@
 import { autobind } from 'core-decorators';
 import { action, observable } from 'mobx';
-import { WeeklyStatisticsDateInfo, WeeklyStatisticsInfo } from '@defines/defines';
+import { CalendarDate, WeeklyStatisticsDateInfo, WeeklyStatisticsInfo } from '@defines/defines';
 import { StatisticsRequest } from '@requests/StatisticsRequest';
+import { DateUtil } from '@utils/DateUtil';
+import { FormatUtil } from '@utils/FormatUtil';
 
 @autobind
 export default class StatisticsStore {
@@ -11,13 +13,13 @@ export default class StatisticsStore {
 
     private constructor() {
         const today = new Date();
-        const todayObject = {
+        const todayDate = {
             year: today.getFullYear(),
             month: today.getMonth() + 1,
             date: today.getDate(),
         };
         (async () => {
-            this.setWeeklyStatisticsInfo(await StatisticsRequest.getWeeklyStatisticsInfo(todayObject));
+            this.setWeeklyStatisticsInfo(await StatisticsRequest.getWeeklyStatisticsInfo(todayDate));
         })();
         StatisticsStore._instance = this;
     }
@@ -27,6 +29,27 @@ export default class StatisticsStore {
             StatisticsStore._instance = new StatisticsStore();
         }
         return this._instance;
+    }
+
+    get dateOfThisWeek(): CalendarDate {
+        return this._weeklyStatisticsInfo.weeklyStatisticsDateInfoList[0].calendarDate;
+    }
+
+    get isThisWeek(): boolean {
+        const today = new Date();
+        const isThisWeek = ({ calendarDate }) => {
+            const { year, month, date } = calendarDate;
+            return year === today.getFullYear() && month === today.getMonth() + 1 && date === today.getDate();
+        };
+        return this.weeklyStatisticsDateInfoList.some(isThisWeek);
+    }
+
+    get firstDateStringOfThisWeek(): string {
+        return FormatUtil.calendarDateToStringExceptYear(this._weeklyStatisticsInfo.weeklyStatisticsDateInfoList[0].calendarDate);
+    }
+
+    get lastDateStringOfThisWeek(): string {
+        return FormatUtil.calendarDateToStringExceptYear(this._weeklyStatisticsInfo.weeklyStatisticsDateInfoList[6].calendarDate);
     }
 
     get maxScheduleCount(): number {
@@ -40,5 +63,20 @@ export default class StatisticsStore {
     @action
     setWeeklyStatisticsInfo(weeklyStatisticsInfo: WeeklyStatisticsInfo) {
         this._weeklyStatisticsInfo = weeklyStatisticsInfo;
+    }
+
+    @action
+    toPrevWeek() {
+        this.changeWeek(DateUtil.getLastWeekDate(this.dateOfThisWeek));
+    }
+
+    @action
+    toNextWeek() {
+        this.changeWeek(DateUtil.getNextWeekDate(this.dateOfThisWeek));
+    }
+
+    @action
+    private async changeWeek(calendarDate: CalendarDate) {
+        this.setWeeklyStatisticsInfo(await StatisticsRequest.getWeeklyStatisticsInfo(calendarDate));
     }
 }

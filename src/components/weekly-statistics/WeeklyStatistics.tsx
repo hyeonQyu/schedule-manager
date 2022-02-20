@@ -3,29 +3,32 @@ import { observer } from 'mobx-react';
 import classNames from 'classnames/bind';
 import style from './WeeklyStatistics.scss';
 import StatisticsStore from '@stores/StatisticsStore';
-import ArrowIcon from '@icons/arrow/ArrowIcon';
-import { dayList, EArrowDirection } from '@defines/defines';
+import { dayList } from '@defines/defines';
 import { FormatUtil } from '@utils/FormatUtil';
 import { NumberUtil } from '@utils/NumberUtil';
+import PeriodSelector from '@components/common/period-selector/PeriodSelector';
+import ChartBar from '@components/common/chart-bar/ChartBar';
 
 const cx = classNames.bind(style);
 
 const statisticsStore = StatisticsStore.instance;
 
 const WeeklyStatistics = observer(() => {
-    const { weeklyStatisticsDateInfoList, maxScheduleCount } = statisticsStore;
+    const {
+        toPrevWeek,
+        toNextWeek,
+        isThisWeek,
+        firstDateStringOfThisWeek,
+        lastDateStringOfThisWeek,
+        maxScheduleCount,
+        weeklyStatisticsDateInfoList,
+    } = statisticsStore;
 
     return (
         <div className={cx('wrapper')}>
-            <div className={cx('arrow-container')}>
-                <button>
-                    <ArrowIcon direction={EArrowDirection.LEFT} />
-                </button>
-                <span>이번 주</span>
-                <button disabled={true}>
-                    <ArrowIcon direction={EArrowDirection.RIGHT} />
-                </button>
-            </div>
+            <PeriodSelector toPrev={toPrevWeek} toNext={toNextWeek} isNextDisabled={isThisWeek}>
+                {isThisWeek ? '이번 주' : `${firstDateStringOfThisWeek} - ${lastDateStringOfThisWeek}`}
+            </PeriodSelector>
             <div className={cx('chart')}>
                 <div className={cx('chart__count')}>
                     <span>{maxScheduleCount}</span>
@@ -36,12 +39,8 @@ const WeeklyStatistics = observer(() => {
                         const { me, other } = scheduleCountInfo;
                         return (
                             <div key={FormatUtil.calendarDateToString(calendarDate)} className={cx('bar')}>
-                                <div style={{ height: `${NumberUtil.getPercentage(me, maxScheduleCount)}%` }}>
-                                    <div style={{ backgroundColor: '#a34dff' }}></div>
-                                </div>
-                                <div style={{ height: `${NumberUtil.getPercentage(other, maxScheduleCount)}%` }}>
-                                    <div style={{ backgroundColor: '#c482ff' }}></div>
-                                </div>
+                                <ChartBar width={'4vw'} percentage={NumberUtil.getPercentage(me, maxScheduleCount)} color="#a34dff"></ChartBar>
+                                <ChartBar width={'4vw'} percentage={NumberUtil.getPercentage(other, maxScheduleCount)} color="#c482ff"></ChartBar>
                             </div>
                         );
                     })}
@@ -52,7 +51,7 @@ const WeeklyStatistics = observer(() => {
                     const { year, month, date } = calendarDate;
                     return (
                         <span key={FormatUtil.calendarDateToString(calendarDate)}>
-                            {FormatUtil.monthAndDateToString(month, date)}({dayList[new Date(year, month, date).getDay()]})
+                            {FormatUtil.calendarDateToStringExceptYear(calendarDate)}({dayList[new Date(year, month, date).getDay()]})
                         </span>
                     );
                 })}

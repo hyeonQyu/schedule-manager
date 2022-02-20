@@ -5,16 +5,17 @@ import style from './ChartBar.scss';
 const cx = classNames.bind(style);
 
 export interface ChartBarProps {
-    width: number;
+    width: number | string;
     percentage: number;
     color: string;
 }
 
 const ChartBar = (props: ChartBarProps) => {
     const { width, percentage, color } = props;
+    const widthValue = typeof(width) === 'number' ? `${width}px` : width;
 
     const chartBarOutsideStyle = {
-        width: `${width}vw`,
+        width: widthValue,
         height: `${percentage}%`,
     };
 

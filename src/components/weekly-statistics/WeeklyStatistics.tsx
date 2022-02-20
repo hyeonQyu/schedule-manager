@@ -39,8 +39,8 @@ const WeeklyStatistics = observer(() => {
                         const { me, other } = scheduleCountInfo;
                         return (
                             <div key={FormatUtil.calendarDateToString(calendarDate)} className={cx('bar')}>
-                                <ChartBar width={4} percentage={NumberUtil.getPercentage(me, maxScheduleCount)} color="#a34dff"></ChartBar>
-                                <ChartBar width={4} percentage={NumberUtil.getPercentage(other, maxScheduleCount)} color="#c482ff"></ChartBar>
+                                <ChartBar width={'4vw'} percentage={NumberUtil.getPercentage(me, maxScheduleCount)} color="#a34dff"></ChartBar>
+                                <ChartBar width={'4vw'} percentage={NumberUtil.getPercentage(other, maxScheduleCount)} color="#c482ff"></ChartBar>
                             </div>
                         );
                     })}

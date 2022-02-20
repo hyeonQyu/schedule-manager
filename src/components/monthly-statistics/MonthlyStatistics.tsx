@@ -59,21 +59,23 @@ const MonthlyStatistics = observer(() => {
             <PeriodSelector toPrev={toPrevMonth} toNext={toNextMonth} isNextDisabled={isThisMonth}>
                 {isThisMonth ? '이번 달' : `${year}년 ${month}월`}
             </PeriodSelector>
-            <PieChart
-                sectorList={[
-                    { color: '#6e19d0', percentage },
-                    { color: '#e7e1e7', percentage: 100 - percentage },
-                ]}
-                size={'90vw'}
-                isDonut
-                donutSizePercentage={90}
-                gradientValue={3}
-                onChangeDonutSize={(size) => {
-                    setCanvasSize(Math.sqrt((size * size) / 2));
-                }}
-            >
-                <canvas ref={canvasRef} style={canvasStyle} />
-            </PieChart>
+            <div className={cx('chart')}>
+                <PieChart
+                    sectorList={[
+                        { color: '#6e19d0', percentage },
+                        { color: '#e7e1e7', percentage: 100 - percentage },
+                    ]}
+                    size={'70vw'}
+                    isDonut
+                    donutSizePercentage={90}
+                    gradientValue={3}
+                    onChangeDonutSize={(size) => {
+                        setCanvasSize(Math.sqrt((size * size) / 2));
+                    }}
+                >
+                    <canvas ref={canvasRef} style={canvasStyle} />
+                </PieChart>
+            </div>
         </div>
     );
 });

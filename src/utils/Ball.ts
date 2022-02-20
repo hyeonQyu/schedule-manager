@@ -34,7 +34,7 @@ export default class Ball {
         this._x = canvas.width * 0.5;
         this._y = canvas.height * 0.5;
         this._color = `rgba(${Math.random() * 100 + 100}, 99, 255)`;
-        this._size = 40;
+        this._size = 24;
         this._angle = Math.random() * (Math.PI * 2);
         this._power = Math.random() + 0.5;
         this._directionX = this._power * Math.cos(this._angle);
@@ -74,7 +74,7 @@ export default class Ball {
         this._context.closePath();
         this._context.fill();
 
-        this._context.font = '43px 돋움 bold';
+        this._context.font = `${this._size}px 돋움 bold`;
         this._context.fillStyle = 'white';
         let textX = this._x - this._size / 2;
         if (this._text.length === 1) textX += this._size / 5;

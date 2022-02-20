@@ -26,13 +26,8 @@ const MonthlyStatistics = observer(() => {
         height: canvasSize,
     };
 
-    const cancelAnimate = (canvas: HTMLCanvasElement, context: CanvasRenderingContext2D) => {
-        cancelAnimationFrame(requestedAnim);
-        context.clearRect(0, 0, canvas.width, canvas.height);
-    };
-
     const animate = (canvas: HTMLCanvasElement, context: CanvasRenderingContext2D, balls: Ball[]) => {
-        context.fillStyle = 'rgba(255,255,255,0.5)';
+        context.fillStyle = 'rgba(255,255,255)';
         context.fillRect(0, 0, canvas.width, canvas.height);
         balls.forEach((ball) => ball.update());
         setRequestedAnim(requestAnimationFrame(() => animate(canvas, context, balls)));
@@ -43,19 +38,19 @@ const MonthlyStatistics = observer(() => {
         const canvas = canvasRef.current;
         if (!canvas) return;
 
-        const context = canvas.getContext('2d');
-        cancelAnimate(canvas, context);
+        cancelAnimationFrame(requestedAnim);
 
+        const context = canvas.getContext('2d');
         const balls = calendarDateWithDateList.map(({ date }) => new Ball(canvas, date.toString()));
         animate(canvas, context, balls);
-    }, [canvasRef, calendarDateWithDateList]);
+    }, [calendarDateWithDateList]);
 
     useEffect(() => {
         return () => {
             setCanvasSize(0);
             setRequestedAnim(-1);
         };
-    }, [canvasRef]);
+    }, []);
 
     const { year, month } = selectedMonthDate;
 

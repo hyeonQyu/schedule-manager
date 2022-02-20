@@ -1,3 +1,7 @@
 .wrapper {
     padding: 5vw;
+
+    & > div:first-child {
+        margin-bottom: 6vh;
+    }
 }

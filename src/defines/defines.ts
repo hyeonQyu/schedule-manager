@@ -58,6 +58,13 @@ export interface WeeklyStatisticsInfo {
 }
 
 /**
+ * 월간 통계 정보
+ */
+export interface MonthlyStatisticsInfo {
+    ourDateList: CalendarDate[];
+}
+
+/**
  * 날짜별 주간 통계 정보
  */
 export interface WeeklyStatisticsDateInfo {

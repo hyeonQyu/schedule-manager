@@ -14,6 +14,7 @@ export namespace ScheduleCalendarRequest {
      */
     export async function getSchedulesOfMonth(lastCalendarDateOfMonth: CalendarDate): Promise<Schedule[]> {
         const { year, month, date: lastDate } = lastCalendarDateOfMonth;
+
         loading.show();
         const { docs } = await Collections.schedule.getOrderBy({ fieldPath: 'scheduleDate' }, [
             {
@@ -106,7 +107,7 @@ export namespace ScheduleCalendarRequest {
      * @param docs
      * @private
      */
-    function getScheduleListFromScheduleVODocs(docs: firebase.firestore.QueryDocumentSnapshot<DocumentData>[]): Schedule[] {
+    export function getScheduleListFromScheduleVODocs(docs: firebase.firestore.QueryDocumentSnapshot<DocumentData>[]): Schedule[] {
         return docs.map((doc) => {
             const vo = doc.data() as ScheduleVO;
             const { owner, scheduleDate, name, startTime, endTime, location, isDate, unableToMeet, createdDatetime } = vo;

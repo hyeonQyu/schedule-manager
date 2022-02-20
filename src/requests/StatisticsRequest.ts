@@ -1,6 +1,9 @@
-import { CalendarDate, WeeklyStatisticsInfo } from '@defines/defines';
+import { CalendarDate, MonthlyStatisticsInfo, WeeklyStatisticsInfo } from '@defines/defines';
 import { ScheduleCalendarRequest } from '@requests/ScheduleCalendarRequest';
 import UserStore from '@stores/UserStore';
+import { loading } from '@components/common/loading/Loading';
+import { Collections } from '@collections/Collections';
+import { FormatUtil } from '@utils/FormatUtil';
 
 export namespace StatisticsRequest {
     const userStore = UserStore.instance;
@@ -36,6 +39,47 @@ export namespace StatisticsRequest {
         return {
             weeklyStatisticsDateInfoList,
             maxScheduleCount,
+        };
+    }
+
+    /**
+     * 월간 통계 정보 조회
+     * @param calendarDate
+     */
+    export async function getMonthlyStatisticsInfo(calendarDate: CalendarDate): Promise<MonthlyStatisticsInfo> {
+        const { year, month } = calendarDate;
+        loading.show();
+
+        const { docs } = await Collections.schedule.getOrderBy({ fieldPath: 'scheduleDate' }, [
+            {
+                fieldPath: 'scheduleDate',
+                opStr: '>=',
+                value: FormatUtil.calendarDateToString({ year, month, date: 1 }),
+            },
+            {
+                fieldPath: 'scheduleDate',
+                opStr: '<',
+                value: FormatUtil.calendarDateToString({ year, month: month + 1, date: 0 }),
+            },
+        ]);
+
+        const scheduleList = ScheduleCalendarRequest.getScheduleListFromScheduleVODocs(docs);
+        const datedDateSet = new Set<string>();
+
+        scheduleList.forEach(({ scheduleDate, isDate }) => {
+            if (isDate) {
+                datedDateSet.add(FormatUtil.calendarDateToString(scheduleDate));
+            }
+        });
+
+        const calendarDateWithDateList = [];
+        for (const dateString of datedDateSet) {
+            calendarDateWithDateList.push(FormatUtil.stringToCalendarDate(dateString));
+        }
+
+        loading.hide();
+        return {
+            ourDateList: calendarDateWithDateList,
         };
     }
 }

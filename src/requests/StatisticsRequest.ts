@@ -79,7 +79,7 @@ export namespace StatisticsRequest {
 
         loading.hide();
         return {
-            calendarDateWithDateList,
+            ourDateList: calendarDateWithDateList,
         };
     }
 }

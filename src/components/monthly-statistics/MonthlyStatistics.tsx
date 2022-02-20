@@ -12,7 +12,7 @@ const cx = classNames.bind(style);
 const store = StatisticsStore.instance;
 
 const MonthlyStatistics = observer(() => {
-    const { calendarDateWithDateList, getPercentageOfDate, toNextMonth, toPrevMonth, selectedMonthDate, isThisMonth } = store;
+    const { ourDateList, getPercentageOfDate, toNextMonth, toPrevMonth, selectedMonthDate, isThisMonth } = store;
 
     const [canvasSize, setCanvasSize] = useState(0);
     const [requestedAnim, setRequestedAnim] = useState(-1);
@@ -41,9 +41,9 @@ const MonthlyStatistics = observer(() => {
         cancelAnimationFrame(requestedAnim);
 
         const context = canvas.getContext('2d');
-        const balls = calendarDateWithDateList.map(({ date }) => new Ball(canvas, date.toString()));
+        const balls = ourDateList.map(({ date }) => new Ball(canvas, date.toString()));
         animate(canvas, context, balls);
-    }, [calendarDateWithDateList]);
+    }, [ourDateList]);
 
     useEffect(() => {
         return () => {

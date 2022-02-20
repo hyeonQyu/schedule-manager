@@ -69,8 +69,8 @@ export default class StatisticsStore {
         return this._weeklyStatisticsInfo.weeklyStatisticsDateInfoList;
     }
 
-    get calendarDateWithDateList(): CalendarDate[] {
-        return this._monthlyStatisticsInfo.calendarDateWithDateList;
+    get ourDateList(): CalendarDate[] {
+        return this._monthlyStatisticsInfo.ourDateList;
     }
 
     get selectedMonthDate(): CalendarDate {
@@ -123,7 +123,7 @@ export default class StatisticsStore {
     getPercentageOfDate(): number {
         const { year, month } = this._selectedMonthDate;
         const totalDates = DateUtil.getLastDate(year, month);
-        const dateWithDateCount = this.calendarDateWithDateList.length;
+        const dateWithDateCount = this.ourDateList.length;
         return NumberUtil.getPercentage(dateWithDateCount, totalDates);
     }
 
@@ -138,7 +138,7 @@ export default class StatisticsStore {
     }
 
     @action
-    private async changeMonth(year, nextMonth: number) {
+    private async changeMonth(year: number, nextMonth: number) {
         this.setSelectedMonth(DateUtil.dateToCalendarDate(new Date(year, nextMonth - 1, 1)));
         await this.loadMonthlyStatisticsInfo(this._selectedMonthDate);
     }

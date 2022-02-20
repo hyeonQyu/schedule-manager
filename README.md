@@ -6,7 +6,8 @@
 1. [**프로젝트 소개**](#1)
 1. [**주요 기능**](#2)
 1. [**기술 스택**](#3)
-1. [**팀 소개**](#4)
+1. [**개발자 소개**](#4)
+1. [**협업 방식**](#5)
 
 <div id="1"></div>
 
@@ -27,6 +28,24 @@
 
 <div id="4"></div>
 
-## 💑 팀 소개
-> 이름과 역할  
-> 협업 규칙
+## 💑 개발자 소개
+|김현규|백지연|
+|-|-|
+|<img width=300 /><ul><li>일정 달력</li><li>일정 등록 모달</li><li>월간 통계</li><li>파이어베이스 연동</li><li>파이어스토어 데이터베이스 쿼리</li></ul>|<img width=300 /><ul><li>주간 일정</li><li>주간 통계</li></ul>|
+|<div align='center'>[@Hyeongyu Kim](https://github.com/hyeonQyu)<div/>|<div align='center'>[@Jiyeon Baek](https://github.com/100Gyeon)<div/>|
+
+<div id="5"></div>
+
+## 🤝🏼 협업 방식
+### Commit message convention
+- feat: 새로운 기능 추가
+- fix: 버그 수정
+- docs: 문서 수정
+- style: 코드 형식, 정렬, 주석 수정
+- refactor: 코드 리팩토링
+- chore: 그 외 자잘한 변경
+
+### Git branch strategy
+- **develop - feature**
+- develop : 배포 및 개발된 기능(feature)을 통합하는 브랜치
+- feat/[name] : 담당자별 기능 개발을 진행하는 브랜치

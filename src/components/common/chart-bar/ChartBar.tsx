@@ -12,10 +12,9 @@ export interface ChartBarProps {
 
 const ChartBar = (props: ChartBarProps) => {
     const { width, percentage, color } = props;
-    const widthValue = typeof(width) === 'number' ? `${width}px` : width;
 
     const chartBarOutsideStyle = {
-        width: widthValue,
+        width: typeof(width) === 'number' ? `${width}px` : width,
         height: `${percentage}%`,
     };
 

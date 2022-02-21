@@ -27,7 +27,7 @@
 - 달력에 날짜별로 스케줄이 간략하게 표시된다.
 - 달력에서 날짜를 선택하고 우측 하단에 있는 ➕ 버튼을 누르면 일정 추가 모달이 열린다.
 
-<img src="https://user-images.githubusercontent.com/58380158/154858424-07c6206e-1567-4657-bcf4-ca449fa2f50e.jpg" width=200> <img src="https://user-images.githubusercontent.com/58380158/154855790-c4b139df-0ad1-4526-aa63-ed712c4de69e.jpg" width=200>
+<img src="https://user-images.githubusercontent.com/58380158/154858424-07c6206e-1567-4657-bcf4-ca449fa2f50e.jpg" width=200> <img src="https://user-images.githubusercontent.com/58380158/154855790-c4b139df-0ad1-4526-aa63-ed712c4de69e.jpg" width=200> <img src="https://user-images.githubusercontent.com/58380158/154938231-ea7bd431-38d1-44a1-ad78-28bcc971903e.gif" width=200>
 
 ### 2. 일정 추가 모달
 - 일정 이름, 시작 시간, 종료 시간, 장소를 입력하고 일정 상태를 선택한다.

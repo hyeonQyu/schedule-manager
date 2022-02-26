@@ -63,5 +63,6 @@
   "ios": {
     "apple-mobile-web-app-status-bar-style": "#ffffff"
   },
+  "scope": "/",
   "inject": true
 }

@@ -4,8 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "webpack serve --config webpack.dev.config.ts --env mode=dev",
-    "build": "webpack --config webpack.production.config.ts --env mode=prod"
+    "start": "webpack serve --env mode=dev",
+    "build": "webpack --env mode=prod"
   },
   "dependencies": {
     "@types/react-beautiful-dnd": "^13.1.1",
@@ -27,6 +27,7 @@
     "tsconfig-paths": "^3.11.0",
     "tsconfig-paths-webpack-plugin": "^3.5.1",
     "web-vitals": "^2.1.4",
+    "webpack-merge": "^5.8.0",
     "workbox-background-sync": "^5.1.4",
     "workbox-broadcast-update": "^5.1.4",
     "workbox-cacheable-response": "^5.1.4",

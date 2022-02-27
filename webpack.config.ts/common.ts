@@ -1,26 +1,18 @@
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const path = require('path');
-const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
-const dotenv = require('dotenv');
-const loadEnv = require('./env/loadEnv');
+const { TsconfigPathsPlugin } = require('tsconfig-paths-webpack-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
 const { InjectManifest } = require('workbox-webpack-plugin');
-const manifest = require('./public/manifest.json');
+const manifest = require('../public/manifest.json');
+const dotenv = require('dotenv');
+const loadEnv = require('./env/loadEnv');
 
-export default (env) => {
+module.exports = (mode) => {
     dotenv.config({
-        path: path.resolve(__dirname, `./env/${env.mode}.env`),
+        path: path.resolve(__dirname, `./env/${mode}.env`),
     });
 
     return {
-        mode: 'production',
-        output: {
-            publicPath: './',
-            filename: 'bundle.[hash].js',
-            sourceMapFilename: 'bundle.[hash].js.map',
-        },
         entry: './src/index.tsx',
         module: {
             rules: [
@@ -76,26 +68,16 @@ export default (env) => {
             extensions: ['.tsx', '.ts', '.js'],
             plugins: [
                 new TsconfigPathsPlugin({
-                    configFile: path.resolve(__dirname, './tsconfig.json'),
+                    configFile: path.resolve(__dirname, '../tsconfig.json'),
                 }),
             ],
         },
         plugins: [
-            new HtmlWebpackPlugin({
-                template: 'public/index.html',
-                minify: {
-                    collapseWhitespace: true,
-                    removeComments: true,
-                },
-            }),
             new webpack.ProvidePlugin({
                 process: 'process/browser',
             }),
             new webpack.DefinePlugin({
                 'process.env': loadEnv(process.env),
-            }),
-            new CleanWebpackPlugin({
-                cleanAfterEveryBuildPatterns: [path.resolve(__dirname, './dist')],
             }),
             /** PWA 관련 플러그인 */
             new WebpackPwaManifest(manifest),

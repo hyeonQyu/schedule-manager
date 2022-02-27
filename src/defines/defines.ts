@@ -6,6 +6,8 @@ export enum EDialogType {
     CONFIRM,
 }
 
+export type ToastType = 'success' | 'info' | 'warning' | 'error';
+
 export enum ENavigationType {
     ENTIRE = 'entire',
     WEEKLY = 'weekly',

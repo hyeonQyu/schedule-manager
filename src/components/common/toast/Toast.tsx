@@ -1,10 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { observer } from 'mobx-react';
 import classNames from 'classnames/bind';
 import style from './Toast.scss';
 import OverlayPortal from '@components/common/overlay-portal/OverlayPortal';
 import ToastStore from '@components/common/toast/store/ToastStore';
 import { ToastType } from '@defines/defines';
+import { ComponentUtil } from '@utils/ComponentUtil';
 
 const cx = classNames.bind(style);
 
@@ -23,28 +24,19 @@ export const toast = {
 };
 
 const Toast = observer(() => {
-    const { isOpened, message, type } = store;
-    const [mounted, setMounted] = useState(isOpened);
+    const { isOpened, message, type, mounted, setMounted } = store;
 
     const toastRef = useRef<HTMLDivElement>();
 
     useEffect(() => {
-        if (isOpened) {
-            setMounted(true);
-            return;
-        }
+        const element = toastRef.current;
+        if (isOpened || !element) return;
 
-        const interval = setInterval(() => {
-            const element = toastRef.current;
-            if (!element) {
-                clearInterval(interval);
-                return;
-            }
-            if (window.getComputedStyle(element).getPropertyValue('opacity') === '0') {
-                clearInterval(interval);
-                setMounted(false);
-            }
-        }, 100);
+        ComponentUtil.unmountComponent<HTMLDivElement>(
+            element,
+            () => window.getComputedStyle(element).getPropertyValue('opacity') === '0',
+            () => setMounted(false),
+        );
     }, [isOpened]);
 
     if (!mounted) return null;

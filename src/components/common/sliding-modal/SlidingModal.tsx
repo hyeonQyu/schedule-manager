@@ -2,6 +2,7 @@ import React, { HTMLAttributes, ReactNode, useEffect, useRef, useState } from 'r
 import classNames from 'classnames/bind';
 import style from './SlidingModal.scss';
 import OverlayPortal from '@components/common/overlay-portal/OverlayPortal';
+import { ComponentUtil } from '@utils/ComponentUtil';
 
 const cx = classNames.bind(style);
 
@@ -38,17 +39,14 @@ const SlidingModal = (props: SlidingModalProps) => {
             return;
         }
 
-        const interval = setInterval(() => {
-            const element = slidingModalRef.current;
-            if (!element) {
-                clearInterval(interval);
-                return;
-            }
-            if (element.getBoundingClientRect().y >= window.innerHeight) {
-                clearInterval(interval);
-                setMounted(false);
-            }
-        }, 100);
+        const element = slidingModalRef.current;
+        if (!element) return;
+
+        ComponentUtil.unmountComponent<HTMLDivElement>(
+            element,
+            () => element.getBoundingClientRect().y >= window.innerHeight,
+            () => setMounted(false),
+        );
     }, [isOpened]);
 
     if (!mounted) {

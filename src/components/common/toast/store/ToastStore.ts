@@ -9,6 +9,7 @@ export default class ToastStore {
     @observable private _isOpened: boolean;
     @observable private _message: string;
     @observable private _type: ToastType;
+    @observable private _mounted: boolean;
 
     private _id: number;
 
@@ -35,12 +36,17 @@ export default class ToastStore {
         return this._type;
     }
 
+    get mounted(): boolean {
+        return this._mounted;
+    }
+
     @action
     open(duration: number) {
         const id = Math.random();
         this._id = id;
 
         this._isOpened = true;
+        this.setMounted(true);
         setTimeout(() => {
             this.close(false, id);
         }, duration * 1000);
@@ -68,5 +74,10 @@ export default class ToastStore {
     @action
     setType(value: ToastType) {
         this._type = value;
+    }
+
+    @action
+    setMounted(isMounted: boolean) {
+        this._mounted = isMounted;
     }
 }

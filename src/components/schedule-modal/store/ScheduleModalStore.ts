@@ -1,8 +1,8 @@
 import { autobind } from 'core-decorators';
 import { action, observable } from 'mobx';
 import ModalStore from '@stores/ModalStore';
-import { dialog } from '@components/common/dialog/Dialog';
 import { CalendarDate, StarSchedule, Time } from '@defines/defines';
+import { toast } from '@components/common/toast/Toast';
 
 @autobind
 export default class ScheduleModalStore extends ModalStore {
@@ -156,12 +156,12 @@ export default class ScheduleModalStore extends ModalStore {
     @action
     protected isValid(): boolean {
         if (!this.name) {
-            dialog.alert('일정 정보를 입력하세요.');
+            toast.show('일정 정보를 입력하세요.', 'warning');
             return false;
         }
 
         if (this.isDate && this.unableToMeet) {
-            dialog.alert('데이트 일정이면서 못 만나는 날일 수 없습니다.');
+            toast.show('데이트 일정은 못 만나는 날이 될 수 없어요.', 'warning');
             return false;
         }
 
@@ -202,7 +202,7 @@ export default class ScheduleModalStore extends ModalStore {
 
     private static isOutOfRange(value: number, min: number, max: number) {
         if (value < min || value > max) {
-            dialog.alert('허용된 범위 밖입니다.');
+            toast.show('허용된 범위 밖입니다.', 'warning');
             return true;
         }
         return false;

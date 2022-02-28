@@ -6,6 +6,7 @@ import { dialog } from '@components/common/dialog/Dialog';
 import { ScheduleModalRequest } from '@requests/ScheduleModalRequest';
 import ScheduleCalendarStore from '@components/schedule-calendar/store/ScheduleCalendarStore';
 import { StarSchedule } from '@defines/defines';
+import { toast } from '@components/common/toast/Toast';
 
 @autobind
 export default class ScheduleAddModalStore extends ScheduleModalStore {
@@ -80,13 +81,12 @@ export default class ScheduleAddModalStore extends ScheduleModalStore {
             unableToMeet,
         });
 
-        dialog.alert('새로운 일정이 저장되었습니다.', () => {
-            (async () => {
-                await this._scheduleCalendarStore.loadDateList();
-                this._scheduleCalendarStore.selectCalendarDate(null);
-                this.close();
-            })();
-        });
+        toast.show('새로운 일정이 저장되었습니다.', 'success');
+        await this._scheduleCalendarStore.loadDateList();
+        action(() => {
+            this._scheduleCalendarStore.selectCalendarDate(null);
+            this.close();
+        })();
     }
 
     /**
@@ -94,7 +94,7 @@ export default class ScheduleAddModalStore extends ScheduleModalStore {
      */
     saveStarSchedule() {
         if (!this.name) {
-            dialog.alert('자주 쓰는 일정으로 등록하기 위해 일정 이름을 입력해야 합니다.');
+            toast.show('자주 쓰는 일정으로 등록하기 위해 일정 이름을 입력해야 합니다.', 'warning');
             return;
         }
 
@@ -107,7 +107,7 @@ export default class ScheduleAddModalStore extends ScheduleModalStore {
                     endTime,
                     location,
                 });
-                dialog.alert('자주 사용하는 일정이 등록되었습니다.');
+                toast.show('자주 사용하는 일정이 등록되었습니다.', 'success');
             })();
         });
     }

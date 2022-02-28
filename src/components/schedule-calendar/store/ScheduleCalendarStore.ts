@@ -2,8 +2,8 @@ import { autobind } from 'core-decorators';
 import { action, observable } from 'mobx';
 import { CalendarDate, DateInfo, EDay, EWeek, EYear, Schedule } from '@defines/defines';
 import { DateUtil } from '@utils/DateUtil';
-import { dialog } from '@components/common/dialog/Dialog';
 import { ScheduleCalendarRequest } from '@requests/ScheduleCalendarRequest';
+import { toast } from '@components/common/toast/Toast';
 
 @autobind
 export default class ScheduleCalendarStore {
@@ -163,7 +163,7 @@ export default class ScheduleCalendarStore {
             const prevYear = this._curYear - 1;
 
             if (prevYear < EYear.MIN_YEAR) {
-                dialog.alert(`${EYear.MIN_YEAR}년 이전은 조회할 수 없습니다.`);
+                toast.show(`${EYear.MIN_YEAR}년 이전은 조회할 수 없습니다.`, 'error');
                 return;
             }
 
@@ -181,7 +181,7 @@ export default class ScheduleCalendarStore {
             const nextYear = this._curYear + 1;
 
             if (nextYear > EYear.MAX_YEAR) {
-                dialog.alert(`${EYear.MAX_YEAR}년 이후는 조회할 수 없습니다.`);
+                toast.show(`${EYear.MAX_YEAR}년 이후는 조회할 수 없습니다.`, 'error');
                 return;
             }
 

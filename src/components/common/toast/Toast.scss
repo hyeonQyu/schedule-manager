@@ -1,0 +1,100 @@
+@import "src/presets";
+
+@keyframes shake {
+  0% {opacity:0;transform:rotateX(0deg);}
+  30% {opacity:1;transform:rotateX(-50deg);}
+  60% {transform:rotateX(0deg);}
+  80% {transform:rotateX(-25deg);}
+  100% {transform:rotateX(0deg);}
+}
+
+@keyframes rise {
+  0% {opacity:0;top:0;}
+}
+
+@mixin toastType($backgroundColor, $img) {
+  background-color: $backgroundColor;
+
+  .icon:after {
+    background: url('/public/assets/png/toast/#{$img}');
+    background-size: contain;
+  }
+}
+
+.wrapper {
+  @include screenMask($toast-z-index);
+  top: unset;
+  bottom: 25vh;
+  background: transparent;
+
+  .toast {
+    position: absolute;
+    top: -4vh;
+    min-height: 7vh;
+    height: fit-content;
+    max-height: 20vh;
+    overflow-y: hidden;
+    width: 80vw;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    font-size: 80%;
+    transition: opacity .2s ease, top .2s ease;
+
+    &.success {
+      @include toastType(rgb(87, 187, 156), 'success.png');
+      animation: rise .4s ease-in-out;
+    }
+
+    &.info {
+      @include toastType(rgb(107, 170, 191), 'info.png');
+      animation: rise .4s ease-in-out;
+    }
+
+    &.warning {
+      @include toastType(rgb(227, 184, 85), 'warning.png');
+      animation: shake .5s ease-in-out;
+    }
+
+    &.error {
+      @include toastType(rgb(208, 71, 70), 'warning.png');
+      animation: shake .5s ease-in-out;
+    }
+
+    &.close {
+      opacity: 0;
+      top: 5vh;
+    }
+
+    .icon {
+      width: 17%;
+      height: 7vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:after {
+        content: '';
+        width: 3vh;
+        height: 3vh;
+      }
+    }
+
+    .message {
+      width: 75%;
+      padding: 1vh 1.5vw 1vh 0;
+      line-height: 1.4;
+    }
+
+    .close {
+      width: 8%;
+
+      &:after {
+        content: '\00d7';
+        font-size: 150%;
+      }
+    }
+  }
+}

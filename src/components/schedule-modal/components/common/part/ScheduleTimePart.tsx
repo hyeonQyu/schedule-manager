@@ -1,12 +1,21 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import ScheduleAddModalStore from '@components/schedule-modal/store/ScheduleAddModalStore';
 import TimeSelectPart from '@components/schedule-modal/components/common/date-time/TimeSelectPart';
+import { Time } from '@defines/defines';
 
-const store = ScheduleAddModalStore.instance;
+export interface ScheduleTimePartProps {
+    startTime: Time;
+    endTime: Time;
+    startHourList: number[];
+    endHourList: number[];
+    startMinuteList: number[];
+    endMinuteList: number[];
+    setStartTime: (time: Time) => void;
+    setEndTime: (time: Time) => void;
+}
 
-const ScheduleTimePart = observer(() => {
-    const { startTime, endTime, startHourList, endHourList, startMinuteList, endMinuteList, setStartTime, setEndTime } = store;
+const ScheduleTimePart = observer((props: ScheduleTimePartProps) => {
+    const { startTime, endTime, startHourList, endHourList, startMinuteList, endMinuteList, setStartTime, setEndTime } = props;
     return (
         <>
             <TimeSelectPart

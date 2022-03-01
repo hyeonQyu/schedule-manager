@@ -19,7 +19,31 @@ const cx = classNames.bind(style);
 const store = ScheduleAddModalStore.instance;
 
 const ScheduleAddModal = observer(() => {
-    const { isOpened, close, confirm, selectedDate, isStarScheduleOpened } = store;
+    const {
+        isOpened,
+        close,
+        confirm,
+        selectedDate,
+        isStarScheduleOpened,
+        name,
+        setName,
+        startTime,
+        endTime,
+        startHourList,
+        endHourList,
+        startMinuteList,
+        endMinuteList,
+        setStartTime,
+        setEndTime,
+        location,
+        setLocation,
+        isDate,
+        unableToMeet,
+        toggleIsDate,
+        toggleUnableToMeet,
+        saveStarSchedule,
+        openLoadStarSchedule,
+    } = store;
 
     if (!selectedDate) return null;
 
@@ -38,22 +62,36 @@ const ScheduleAddModal = observer(() => {
             <div className={cx('wrapper')}>
                 <div className={cx('new-schedule')}>
                     {/*선택한 날짜*/}
-                    <ScheduleSelectedDatePart />
+                    <ScheduleSelectedDatePart selectedDate={selectedDate} />
 
                     {/*일정 이름*/}
-                    <ScheduleNamePart />
+                    <ScheduleNamePart name={name} setName={setName} />
 
                     {/*시작 및 종료 시간*/}
-                    <ScheduleTimePart />
+                    <ScheduleTimePart
+                        startTime={startTime}
+                        endTime={endTime}
+                        startHourList={startHourList}
+                        endHourList={endHourList}
+                        startMinuteList={startMinuteList}
+                        endMinuteList={endMinuteList}
+                        setStartTime={setStartTime}
+                        setEndTime={setEndTime}
+                    />
 
                     {/*장소*/}
-                    <ScheduleLocationPart />
+                    <ScheduleLocationPart location={location} setLocation={setLocation} />
 
                     {/*일정 상태*/}
-                    <ScheduleStatusPart />
+                    <ScheduleStatusPart
+                        isDate={isDate}
+                        unableToMeet={unableToMeet}
+                        toggleIsDate={toggleIsDate}
+                        toggleUnableToMeet={toggleUnableToMeet}
+                    />
 
                     {/*자주 사용하는 일정으로 등록*/}
-                    <ScheduleAddStarSchedulePart />
+                    <ScheduleAddStarSchedulePart saveStarSchedule={saveStarSchedule} openLoadStarSchedule={openLoadStarSchedule} />
                 </div>
 
                 {/*자주 사용하는 일정 불러오기*/}

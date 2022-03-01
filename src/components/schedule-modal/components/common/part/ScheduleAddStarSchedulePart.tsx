@@ -2,14 +2,16 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import classNames from 'classnames/bind';
 import style from '../../../ScheduleModal.scss';
-import ScheduleAddModalStore from '@components/schedule-modal/store/ScheduleAddModalStore';
 
 const cx = classNames.bind(style);
 
-const store = ScheduleAddModalStore.instance;
+export interface ScheduleAddStarSchedulePartProps {
+    saveStarSchedule: () => void;
+    openLoadStarSchedule: () => void;
+}
 
-const ScheduleAddStarSchedulePart = observer(() => {
-    const { saveStarSchedule, openLoadStarSchedule } = store;
+const ScheduleAddStarSchedulePart = observer((props: ScheduleAddStarSchedulePartProps) => {
+    const { saveStarSchedule, openLoadStarSchedule } = props;
 
     return (
         <div className={cx('part')}>

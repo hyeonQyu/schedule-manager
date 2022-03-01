@@ -2,15 +2,19 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import classNames from 'classnames/bind';
 import style from '../../../ScheduleModal.scss';
-import ScheduleAddModalStore from '@components/schedule-modal/store/ScheduleAddModalStore';
 import Checkbox from '@components/common/checkbox/Checkbox';
 
 const cx = classNames.bind(style);
 
-const store = ScheduleAddModalStore.instance;
+export interface ScheduleStatusPartProps {
+    isDate: boolean;
+    unableToMeet: boolean;
+    toggleIsDate: () => void;
+    toggleUnableToMeet: () => void;
+}
 
-const ScheduleStatusPart = observer(() => {
-    const { isDate, unableToMeet, toggleIsDate, toggleUnableToMeet } = store;
+const ScheduleStatusPart = observer((props: ScheduleStatusPartProps) => {
+    const { isDate, unableToMeet, toggleIsDate, toggleUnableToMeet } = props;
 
     return (
         <div className={cx('part')}>

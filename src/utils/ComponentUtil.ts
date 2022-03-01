@@ -23,4 +23,13 @@ export namespace ComponentUtil {
             }
         }, pollingInterval);
     }
+
+    /**
+     * element 에 적용되어 있는 css 스타일 중 특정 property 값을 조회
+     * @param element
+     * @param propertyName
+     */
+    export function getCssStylePropertyValueFromElement(element: HTMLElement, propertyName: string): string {
+        return window.getComputedStyle(element).getPropertyValue(propertyName);
+    }
 }

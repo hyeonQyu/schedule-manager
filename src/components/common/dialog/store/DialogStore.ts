@@ -14,6 +14,7 @@ export default class DialogStore {
     @observable private _type: EDialogType;
     @observable private _onConfirm: () => void = () => {};
     @observable private _onCancel: () => void = () => {};
+    @observable private _mounted: boolean;
 
     private constructor() {
         DialogStore._instance = this;
@@ -54,9 +55,14 @@ export default class DialogStore {
         return this._onCancel;
     }
 
+    get mounted(): boolean {
+        return this._mounted;
+    }
+
     @action
     open() {
         this._isOpened = true;
+        this.setMounted(true);
     }
 
     @action
@@ -96,5 +102,10 @@ export default class DialogStore {
     @action
     setOnCancel(value: () => void) {
         this._onCancel = value;
+    }
+
+    @action
+    setMounted(isMounted: boolean) {
+        this._mounted = isMounted;
     }
 }

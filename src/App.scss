@@ -12,6 +12,7 @@
 
     body {
         line-height: 1;
+        overflow-y: hidden;
     }
 
     ol,
@@ -28,6 +29,7 @@
         outline: none;
         cursor: pointer;
         background-color: Transparent;
+        color: #2d2d2d;
     }
 
     blockquote:before,
@@ -44,6 +46,7 @@
         height: 100%;
         font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
         font-size: 5vw;
+        color: #2d2d2d;
     }
 
     .main {

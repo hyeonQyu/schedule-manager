@@ -2,16 +2,30 @@
 
 .wrapper {
   @include screenMask($dialog-z-index);
+  transition: opacity .1s ease;
+
+  &.close {
+    opacity: 0;
+  }
 
   .dialog {
+    position: absolute;
     width: 74vw;
     height: 24vh;
+    top: calc(50% - 12vh);
     background-color: white;
     border-radius: 8px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     line-height: 1.6;
+    transition: opacity .2s ease, top .2s ease;
+    animation: shake .2s ease-in-out;
+
+    &.close {
+      opacity: 0;
+      top: 50%;
+    }
 
     .message {
       height: 100%;
@@ -32,11 +46,11 @@
         font-size: 4vw;
 
         &.confirm {
-          color: #3998f6;
+          color: #7620ff;
         }
 
         &.cancel {
-          color: #f57171;
+          color: #505050;
         }
       }
     }

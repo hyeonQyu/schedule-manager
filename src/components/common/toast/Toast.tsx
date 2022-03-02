@@ -34,7 +34,7 @@ const Toast = observer(() => {
 
         ComponentUtil.unmountComponent<HTMLDivElement>(
             element,
-            () => window.getComputedStyle(element).getPropertyValue('opacity') === '0',
+            () => ComponentUtil.getCssStylePropertyValueFromElement(element, 'opacity') === '0',
             () => setMounted(false),
         );
     }, [isOpened]);

@@ -2,15 +2,19 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import classNames from 'classnames/bind';
 import style from '../../../ScheduleModal.scss';
-import ScheduleAddModalStore from '@components/schedule-modal/store/ScheduleAddModalStore';
 import StarScheduleCard from '@components/schedule-modal/components/common/star-schedule/components/StarScheduleCard';
+import { StarSchedule } from '@defines/defines';
 
 const cx = classNames.bind(style);
 
-const store = ScheduleAddModalStore.instance;
+export interface StarScheduleSelectPartProps {
+    isStarScheduleOpened: boolean;
+    starScheduleList: StarSchedule[];
+    selectStarSchedule: (starSchedule: StarSchedule) => void;
+}
 
-const StarScheduleSelectPart = observer(() => {
-    const { isStarScheduleOpened, starScheduleList, selectStarSchedule } = store;
+const StarScheduleSelectPart = observer((props: StarScheduleSelectPartProps) => {
+    const { isStarScheduleOpened, starScheduleList, selectStarSchedule } = props;
 
     return (
         <div className={cx('star-schedule-select', isStarScheduleOpened && 'opened')}>

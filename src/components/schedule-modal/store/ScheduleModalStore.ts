@@ -3,9 +3,14 @@ import { action, observable } from 'mobx';
 import ModalStore from '@stores/ModalStore';
 import { CalendarDate, StarSchedule, Time } from '@defines/defines';
 import { toast } from '@components/common/toast/Toast';
+import { ScheduleModalRequest } from '@requests/ScheduleModalRequest';
+import { dialog } from '@components/common/dialog/Dialog';
+import ScheduleCalendarStore from '@components/schedule-calendar/store/ScheduleCalendarStore';
 
 @autobind
 export default class ScheduleModalStore extends ModalStore {
+    private _scheduleCalendarStore = ScheduleCalendarStore.instance;
+
     // 일정을 추가, 수정하려는 날짜
     @observable private _selectedDate: CalendarDate;
 
@@ -145,8 +150,8 @@ export default class ScheduleModalStore extends ModalStore {
     }
 
     @action
-    protected init(selectedDate: CalendarDate) {
-        this._selectedDate = selectedDate;
+    setSelectedDate(date: CalendarDate) {
+        this._selectedDate = date;
     }
 
     /**
@@ -169,11 +174,76 @@ export default class ScheduleModalStore extends ModalStore {
     }
 
     /**
+     * 자주 사용하는 일정 저장 버튼 클릭
+     */
+    saveStarSchedule() {
+        if (!this.name) {
+            toast.show('자주 쓰는 일정으로 등록하기 위해 일정 이름을 입력해야 합니다.', 'warning');
+            return;
+        }
+
+        dialog.confirm('현재 작성한 일정과 같은 내용을 자주 사용하는 일정으로 등록하시겠습니까?', () => {
+            (async () => {
+                const { name, startTime, endTime, location } = this;
+                await ScheduleModalRequest.registerStarSchedule({
+                    name,
+                    startTime,
+                    endTime,
+                    location,
+                });
+                toast.show('자주 사용하는 일정이 등록되었습니다.', 'success');
+            })();
+        });
+    }
+
+    /**
+     * 자주 사용하는 일정 불러오기 버튼 클릭
+     */
+    openLoadStarSchedule() {
+        (async () => {
+            this.setStarScheduleList(await ScheduleModalRequest.getStarSchedules());
+            this.setIsStarScheduleOpened(true);
+        })();
+    }
+
+    /**
+     * 자주 사용하는 일정 선택하여 불러오기
+     */
+    selectStarSchedule(starSchedule: StarSchedule) {
+        const { name, startTime, endTime, location } = starSchedule;
+        this.setName(name);
+        this.setStartTime(startTime);
+        this.setEndTime(endTime);
+        this.setLocation(location);
+        this.setIsStarScheduleOpened(false);
+    }
+
+    @action
+    close() {
+        if (this.isStarScheduleOpened) {
+            this.setIsStarScheduleOpened(false);
+            return;
+        }
+        super.close();
+    }
+
+    /**
      * 완료 (저장)
      * @protected
      */
     @action
-    async confirm() {}
+    async confirm() {
+        await this.finishConfirm();
+    }
+
+    @action
+    protected async finishConfirm() {
+        await this._scheduleCalendarStore.loadDateList();
+        action(() => {
+            this._scheduleCalendarStore.selectCalendarDate(null);
+            this.close();
+        })();
+    }
 
     private getStartHourList() {
         return ScheduleModalStore.getValueList(0, 23, 1);

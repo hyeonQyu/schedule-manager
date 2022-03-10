@@ -88,6 +88,7 @@ const ScheduleModifyModal = observer(() => {
                         unableToMeet={unableToMeet}
                         toggleIsDate={toggleIsDate}
                         toggleUnableToMeet={toggleUnableToMeet}
+                        isDateDisabled
                     />
 
                     {/*자주 사용하는 일정으로 등록*/}

@@ -43,6 +43,8 @@ const ScheduleAddModal = observer(() => {
         toggleUnableToMeet,
         saveStarSchedule,
         openLoadStarSchedule,
+        selectStarSchedule,
+        starScheduleList,
     } = store;
 
     if (!selectedDate) return null;
@@ -95,7 +97,11 @@ const ScheduleAddModal = observer(() => {
                 </div>
 
                 {/*자주 사용하는 일정 불러오기*/}
-                <StarScheduleSelectPart />
+                <StarScheduleSelectPart
+                    isStarScheduleOpened={isStarScheduleOpened}
+                    starScheduleList={starScheduleList}
+                    selectStarSchedule={selectStarSchedule}
+                />
             </div>
         </SlidingModal>
     );

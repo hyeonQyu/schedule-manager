@@ -27,8 +27,8 @@ const Checkbox = (props: CheckboxProps) => {
     };
 
     return (
-        <div className={classNames(className, cx('wrapper', disabled && 'disabled'))} onClick={changeChecked}>
-            <div className={cx('checkbox', checked && 'checked')} style={checkboxSizeStyle} />
+        <div className={classNames(className, cx('wrapper'))} onClick={changeChecked}>
+            <div className={cx('checkbox', checked && 'checked', disabled && 'disabled')} style={checkboxSizeStyle} />
             {children && <div>{children}</div>}
         </div>
     );

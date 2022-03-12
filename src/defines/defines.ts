@@ -109,4 +109,9 @@ export interface OrderByParams {
     directionStr?: OrderByDirection;
 }
 
+export interface Position {
+    x: number;
+    y: number;
+}
+
 export const dayList = ['일', '월', '화', '수', '목', '금', '토'];

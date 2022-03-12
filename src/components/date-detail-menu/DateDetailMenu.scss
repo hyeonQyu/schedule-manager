@@ -28,6 +28,25 @@
       > *:not(:first-child) {
         margin-top: 2vh;
       }
+
+      .card {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        > button {
+          position: absolute;
+        }
+
+        .delete {
+          position: initial;
+          width: 8vw;
+          height: 8vw;
+          background: url(/public/assets/png/delete.png);
+          background-size: contain;
+        }
+      }
     }
 
     .button--add {

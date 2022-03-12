@@ -5,14 +5,12 @@ import style from './DateDetailMenu.scss';
 import ScheduleCalendarStore from '@components/schedule-calendar/store/ScheduleCalendarStore';
 import ArrowIcon from '@icons/arrow/ArrowIcon';
 import { EArrowDirection } from '@defines/defines';
-import Card from '@components/common/card/Card';
 import ScheduleAddButton from '@components/date-detail-menu/components/ScheduleAddButton';
-import ScheduleModifyModalStore from '@components/schedule-modal/store/ScheduleModifyModalStore';
+import DateDetailMenuCard from '@components/date-detail-menu/components/DateDetailMenuCard';
 
 const cx = classNames.bind(style);
 
 const calendarStore = ScheduleCalendarStore.instance;
-const scheduleModifyModalStore = ScheduleModifyModalStore.instance;
 
 const DateDetailMenu = observer(() => {
     const { selectCalendarDate, selectedCalendarDate, selectedDateScheduleList } = calendarStore;
@@ -31,13 +29,7 @@ const DateDetailMenu = observer(() => {
                         <div className={cx('card-wrapper')}>
                             {selectedDateScheduleList.map((schedule) => {
                                 const { owner, name, createdDatetime } = schedule;
-                                return (
-                                    <Card
-                                        key={`${owner}_${name}_${createdDatetime?.toLocaleString()}`}
-                                        schedule={schedule}
-                                        onClick={() => scheduleModifyModalStore.open(schedule)}
-                                    />
-                                );
+                                return <DateDetailMenuCard schedule={schedule} key={`${owner}_${name}_${createdDatetime?.toLocaleString()}`} />;
                             })}
                         </div>
 

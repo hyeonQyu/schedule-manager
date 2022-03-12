@@ -11,10 +11,11 @@ const cx = classNames.bind(style);
 export interface CardProps {
     schedule: Schedule;
     className?: string;
+    onClick?: () => void;
 }
 
 const Card = observer((props: CardProps) => {
-    const { schedule, className = '' } = props;
+    const { schedule, className = '', onClick = () => {} } = props;
     const { scheduleDate, startTime, endTime, name, location = '' } = schedule;
 
     const { year } = scheduleDate;
@@ -28,7 +29,7 @@ const Card = observer((props: CardProps) => {
     const endMinute = NumberFormatUtil.withDigitLength(endTime.minute, 2);
 
     return (
-        <button className={classNames(cx('wrapper'), className)}>
+        <button className={classNames(cx('wrapper'), className)} onClick={onClick}>
             <h3>{name}</h3>
             <div className={cx('detail')}>
                 <div className={cx('period')}>

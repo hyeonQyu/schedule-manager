@@ -10,19 +10,25 @@ export interface CheckboxProps {
     onChange?: (checked: boolean) => void;
     children?: ReactNode;
     className?: string;
+    disabled?: boolean;
 }
 
 const Checkbox = (props: CheckboxProps) => {
-    const { checked = false, children, className, size = 1, onChange = () => {} } = props;
+    const { checked = false, children, className, size = 1, onChange = () => {}, disabled = false } = props;
 
     const checkboxSizeStyle = {
         width: `${size}rem`,
         height: `${size}rem`,
     };
 
+    const changeChecked = () => {
+        if (disabled) return;
+        onChange(!checked);
+    };
+
     return (
-        <div className={classNames(className, cx('wrapper'))} onClick={() => onChange(!checked)}>
-            <div className={cx('checkbox', checked && 'checked')} style={checkboxSizeStyle} />
+        <div className={classNames(className, cx('wrapper'))} onClick={changeChecked}>
+            <div className={cx('checkbox', checked && 'checked', disabled && 'disabled')} style={checkboxSizeStyle} />
             {children && <div>{children}</div>}
         </div>
     );

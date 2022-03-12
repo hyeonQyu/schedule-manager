@@ -2,15 +2,16 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import classNames from 'classnames/bind';
 import style from '../../../ScheduleModal.scss';
-import ScheduleAddModalStore from '@components/schedule-modal/store/ScheduleAddModalStore';
-import { dayList } from '@defines/defines';
+import { CalendarDate, dayList } from '@defines/defines';
 
 const cx = classNames.bind(style);
 
-const store = ScheduleAddModalStore.instance;
+export interface SelectedDatePartProps {
+    selectedDate: CalendarDate;
+}
 
-const SelectedDatePart = observer(() => {
-    const { selectedDate } = store;
+const SelectedDatePart = observer((props: SelectedDatePartProps) => {
+    const { selectedDate } = props;
     const { year, month, date } = selectedDate;
     const day = new Date(year, month - 1, date).getDay();
 

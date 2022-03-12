@@ -17,21 +17,11 @@ export namespace ScheduleModalRequest {
      */
     export async function addSchedule(schedule: Schedule) {
         loading.show();
-        const scheduleVO = (() => {
-            const { owner, scheduleDate, name, startTime, endTime, location, isDate, unableToMeet } = schedule;
-            return {
-                owner,
-                scheduleDate: FormatUtil.calendarDateToString(scheduleDate),
-                name,
-                startTime: FormatUtil.timeToString(startTime),
-                endTime: FormatUtil.timeToString(endTime),
-                location,
-                isDate,
-                unableToMeet,
-                createdDatetime: new Date(),
-            };
-        })();
 
+        const scheduleVO = createScheduleVO({
+            ...schedule,
+            createdDatetime: new Date(),
+        });
         const { isDate } = scheduleVO;
 
         await syncUnableToMeet(scheduleVO);
@@ -39,6 +29,28 @@ export namespace ScheduleModalRequest {
         if (isDate) {
             await Collections.schedule.add(getClonedDateSchedule(scheduleVO));
         }
+
+        loading.hide();
+    }
+
+    export async function modifySchedule(modifiedSchedule: Schedule, initialSchedule: Schedule) {
+        loading.show();
+
+        const { createdDatetime } = modifiedSchedule;
+        const scheduleVO = createScheduleVO(modifiedSchedule);
+        delete scheduleVO.owner;
+
+        if (initialSchedule.unableToMeet !== modifiedSchedule.unableToMeet) {
+            await syncUnableToMeet(scheduleVO);
+        }
+
+        await Collections.schedule.updateByWhereConditions(scheduleVO, [
+            {
+                fieldPath: 'createdDatetime',
+                opStr: '==',
+                value: createdDatetime,
+            },
+        ]);
 
         loading.hide();
     }
@@ -166,5 +178,20 @@ export namespace ScheduleModalRequest {
                 createdDatetime,
             };
         });
+    }
+
+    function createScheduleVO(schedule: Schedule): ScheduleVO {
+        const { owner, scheduleDate, name, startTime, endTime, location, isDate, unableToMeet, createdDatetime } = schedule;
+        return {
+            owner,
+            scheduleDate: FormatUtil.calendarDateToString(scheduleDate),
+            name,
+            startTime: FormatUtil.timeToString(startTime),
+            endTime: FormatUtil.timeToString(endTime),
+            location,
+            isDate,
+            unableToMeet,
+            createdDatetime,
+        };
     }
 }

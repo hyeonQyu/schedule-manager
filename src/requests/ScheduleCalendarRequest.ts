@@ -1,4 +1,4 @@
-import { CalendarDate, DateInfo, Schedule } from '@defines/defines';
+import { CalendarDate, DateInfo, Schedule, WhereCondition } from '@defines/defines';
 import { Collections } from '@collections/Collections';
 import { FormatUtil } from '@utils/FormatUtil';
 import { ScheduleVO } from '@models/ScheduleVO';
@@ -103,6 +103,37 @@ export namespace ScheduleCalendarRequest {
     }
 
     /**
+     * 일정 삭제
+     * @param schedule
+     */
+    export async function deleteSchedule(schedule: Schedule) {
+        loading.show();
+
+        const { isDate, owner, createdDatetime, scheduleDate } = schedule;
+
+        const conditionList: WhereCondition[] = [
+            {
+                fieldPath: 'createdDatetime',
+                opStr: '==',
+                value: createdDatetime,
+            },
+        ];
+
+        if (!isDate) {
+            conditionList.push({
+                fieldPath: 'owner',
+                opStr: '==',
+                value: owner,
+            });
+        }
+
+        await Collections.schedule.deleteByWhereConditions(conditionList);
+        await deleteDateInfoWhenNoSchedule(scheduleDate);
+
+        loading.hide();
+    }
+
+    /**
      * ScheduleVO를 가진 docs 에서 Schedule 목록을 반환
      * @param docs
      * @private
@@ -123,5 +154,32 @@ export namespace ScheduleCalendarRequest {
                 createdDatetime,
             };
         });
+    }
+
+    /**
+     * 특정 날짜에 일정이 없는 경우 date info 삭제
+     * @param scheduleDate
+     * @private
+     */
+    async function deleteDateInfoWhenNoSchedule(scheduleDate: CalendarDate) {
+        const date = FormatUtil.calendarDateToString(scheduleDate);
+
+        const { docs } = await Collections.schedule.get([
+            {
+                fieldPath: 'scheduleDate',
+                opStr: '==',
+                value: date,
+            },
+        ]);
+
+        if (docs.length === 0) {
+            await Collections.dateInfo.deleteByWhereConditions([
+                {
+                    fieldPath: 'date',
+                    opStr: '==',
+                    value: date,
+                },
+            ]);
+        }
     }
 }

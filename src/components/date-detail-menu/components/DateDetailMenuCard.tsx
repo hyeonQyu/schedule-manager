@@ -5,6 +5,7 @@ import style from '../DateDetailMenu.scss';
 import Card from '@components/common/card/Card';
 import { Position, Schedule } from '@defines/defines';
 import ScheduleModifyModalStore from '@components/schedule-modal/store/ScheduleModifyModalStore';
+import ScheduleCalendarStore from '@components/schedule-calendar/store/ScheduleCalendarStore';
 
 const cx = classNames.bind(style);
 
@@ -15,6 +16,7 @@ export interface DateDetailMenuCardProps {
 const DateDetailMenuCard = observer((props: DateDetailMenuCardProps) => {
     const { schedule } = props;
     const scheduleModifyModalStore = ScheduleModifyModalStore.instance;
+    const scheduleCalendarStore = ScheduleCalendarStore.instance;
 
     const ref = useRef<HTMLDivElement>();
     const [touchStartPosition, setTouchStartPosition] = useState<Position>(null);
@@ -82,6 +84,8 @@ const DateDetailMenuCard = observer((props: DateDetailMenuCardProps) => {
         }
     };
 
+    const deleteSchedule = () => scheduleCalendarStore.deleteSchedule(schedule);
+
     useEffect(() => {
         if (!cardRef.current) return;
         setStyle({ height: cardRef.current.offsetHeight });
@@ -97,7 +101,7 @@ const DateDetailMenuCard = observer((props: DateDetailMenuCardProps) => {
     return (
         <div onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd} className={cx('card')} style={style} ref={ref}>
             <Card schedule={schedule} onClick={() => scheduleModifyModalStore.open(schedule)} cardRef={cardRef} style={cardStyle} />
-            <button className={cx('delete')} />
+            <button className={cx('delete')} onClick={deleteSchedule} />
         </div>
     );
 });

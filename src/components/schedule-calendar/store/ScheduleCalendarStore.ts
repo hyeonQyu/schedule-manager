@@ -4,6 +4,7 @@ import { CalendarDate, DateInfo, EDay, EWeek, EYear, Schedule } from '@defines/d
 import { DateUtil } from '@utils/DateUtil';
 import { ScheduleCalendarRequest } from '@requests/ScheduleCalendarRequest';
 import { toast } from '@components/common/toast/Toast';
+import { dialog } from '@components/common/dialog/Dialog';
 
 @autobind
 export default class ScheduleCalendarStore {
@@ -207,5 +208,18 @@ export default class ScheduleCalendarStore {
                 this._selectedCalendarDate = calendarDate;
             })();
         })();
+    }
+
+    @action
+    deleteSchedule(schedule: Schedule) {
+        dialog.confirm('일정을 삭제하시겠어요?', () => {
+            (async () => {
+                await ScheduleCalendarRequest.deleteSchedule(schedule);
+                toast.show('일정이 삭제되었습니다.', 'success');
+
+                this.selectCalendarDate(null);
+                await this.loadDateList();
+            })();
+        });
     }
 }

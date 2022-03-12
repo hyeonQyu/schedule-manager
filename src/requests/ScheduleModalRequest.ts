@@ -33,12 +33,16 @@ export namespace ScheduleModalRequest {
         loading.hide();
     }
 
-    export async function modifySchedule(schedule: Schedule) {
+    export async function modifySchedule(modifiedSchedule: Schedule, initialSchedule: Schedule) {
         loading.show();
 
-        const { createdDatetime } = schedule;
-        const scheduleVO = createScheduleVO(schedule);
+        const { createdDatetime } = modifiedSchedule;
+        const scheduleVO = createScheduleVO(modifiedSchedule);
         delete scheduleVO.owner;
+
+        if (initialSchedule.unableToMeet !== modifiedSchedule.unableToMeet) {
+            await syncUnableToMeet(scheduleVO);
+        }
 
         await Collections.schedule.updateByWhereConditions(scheduleVO, [
             {

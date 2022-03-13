@@ -4,9 +4,10 @@ import classNames from 'classnames/bind';
 import style from './DateDetailMenu.scss';
 import ScheduleCalendarStore from '@components/schedule-calendar/store/ScheduleCalendarStore';
 import ArrowIcon from '@icons/arrow/ArrowIcon';
-import { EArrowDirection } from '@defines/defines';
+import { EArrowDirection, Position, SWIPE_MIN_RANGE } from '@defines/defines';
 import ScheduleAddButton from '@components/date-detail-menu/components/ScheduleAddButton';
 import DateDetailMenuCard from '@components/date-detail-menu/components/DateDetailMenuCard';
+import Swipeable from '@components/swipeable/Swipeable';
 
 const cx = classNames.bind(style);
 
@@ -17,8 +18,14 @@ const DateDetailMenu = observer(() => {
 
     const close = () => selectCalendarDate(null);
 
+    const onSwipeDown = (diff: Position) => {
+        if (Math.abs(diff.y) > SWIPE_MIN_RANGE && diff.y < 0) {
+            close();
+        }
+    };
+
     return (
-        <div className={cx('wrapper', selectedCalendarDate && 'open')}>
+        <Swipeable onTouchEnd={onSwipeDown} className={cx('wrapper', selectedCalendarDate && 'open')}>
             {selectedCalendarDate && (
                 <>
                     <div className={cx('header')} onClick={close}>
@@ -37,7 +44,7 @@ const DateDetailMenu = observer(() => {
                     </div>
                 </>
             )}
-        </div>
+        </Swipeable>
     );
 });
 

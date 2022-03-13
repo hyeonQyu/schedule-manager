@@ -114,4 +114,6 @@ export interface Position {
     y: number;
 }
 
+export const SWIPE_MIN_RANGE = 80;
+
 export const dayList = ['일', '월', '화', '수', '목', '금', '토'];

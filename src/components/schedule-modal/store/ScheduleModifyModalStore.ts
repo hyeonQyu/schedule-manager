@@ -66,28 +66,35 @@ export default class ScheduleModifyModalStore extends ScheduleModalStore {
         if (this.unableToMeet !== this._initialSchedule.unableToMeet) {
             dialog.confirm('못 만나는 날 여부를 수정하면 해당 날짜의 모든 일정이 못 만나는 날로 수정됩니다. 계속하시겠어요?', () => {
                 (async () => {
-                    const { owner, createdDatetime } = this._initialSchedule;
-                    const { selectedDate, name, startTime, endTime, location, isDate, unableToMeet } = this;
-                    await ScheduleModalRequest.modifySchedule(
-                        {
-                            owner,
-                            scheduleDate: selectedDate,
-                            name,
-                            startTime,
-                            endTime,
-                            location,
-                            isDate,
-                            unableToMeet,
-                            createdDatetime,
-                        },
-                        this._initialSchedule,
-                    );
-
-                    toast.show('수정되었습니다.', 'success');
-                    await this.finishConfirm();
+                    await this.modify();
                 })();
             });
+            return;
         }
+
+        await this.modify();
+    }
+
+    private async modify() {
+        const { owner, createdDatetime } = this._initialSchedule;
+        const { selectedDate, name, startTime, endTime, location, isDate, unableToMeet } = this;
+        await ScheduleModalRequest.modifySchedule(
+            {
+                owner,
+                scheduleDate: selectedDate,
+                name,
+                startTime,
+                endTime,
+                location,
+                isDate,
+                unableToMeet,
+                createdDatetime,
+            },
+            this._initialSchedule,
+        );
+
+        toast.show('수정되었습니다.', 'success');
+        await this.finishConfirm();
     }
 
     private setInitialSchedule(schedule: Schedule) {

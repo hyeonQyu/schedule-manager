@@ -21,13 +21,7 @@ const ScheduleCalendarDates = observer(() => {
     const changeMonth = (diff: Position) => {
         const isChange = Math.abs(diff.x) > SWIPE_MIN_RANGE;
         if (isChange) {
-            // 이전 달
-            if (diff.x < 0) {
-                toPrevMonth();
-                return;
-            }
-            // 다음 달
-            toNextMonth();
+            diff.x < 0 ? toPrevMonth() : toNextMonth();
         }
     };
 

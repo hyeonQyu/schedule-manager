@@ -10,14 +10,16 @@ const cx = classNames.bind(style);
 export interface NavigationTabProps {
     href: string;
     type: ENavigationType;
+    onNavigate?: () => void;
 }
 
 const NavigationTab = observer((props: NavigationTabProps) => {
-    const { href, type } = props;
+    const { href, type, onNavigate = () => {} } = props;
     const navigate = useNavigate();
 
     const onClickTab = () => {
         navigate(href);
+        onNavigate();
     };
 
     const isActive = () => location.hash.replace('#', '') === href;

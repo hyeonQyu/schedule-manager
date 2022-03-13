@@ -17,19 +17,7 @@ export default class StatisticsStore {
     @observable private _monthlyStatisticsInfo: MonthlyStatisticsInfo;
 
     private constructor() {
-        const today = new Date();
-        const todayDate = {
-            year: today.getFullYear(),
-            month: today.getMonth() + 1,
-            date: today.getDate(),
-        };
-
-        this.setSelectedMonth(todayDate);
-
-        (async () => {
-            this.setWeeklyStatisticsInfo(await StatisticsRequest.getWeeklyStatisticsInfo(todayDate));
-            await this.loadMonthlyStatisticsInfo(todayDate);
-        })();
+        this.init();
         StatisticsStore._instance = this;
     }
 
@@ -125,6 +113,28 @@ export default class StatisticsStore {
         const totalDates = DateUtil.getLastDate(year, month);
         const dateWithDateCount = this.ourDateList.length;
         return NumberUtil.getPercentage(dateWithDateCount, totalDates);
+    }
+
+    @action
+    init() {
+        const today = new Date();
+        const todayDate = {
+            year: today.getFullYear(),
+            month: today.getMonth() + 1,
+            date: today.getDate(),
+        };
+
+        this.setSelectedMonth(todayDate);
+
+        (async () => {
+            await this.loadWeeklyStatisticsInfo(todayDate);
+            await this.loadMonthlyStatisticsInfo(todayDate);
+        })();
+    }
+
+    @action
+    private async loadWeeklyStatisticsInfo(calendarDate: CalendarDate) {
+        this.setWeeklyStatisticsInfo(await StatisticsRequest.getWeeklyStatisticsInfo(calendarDate));
     }
 
     @action

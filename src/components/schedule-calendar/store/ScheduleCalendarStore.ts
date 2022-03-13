@@ -12,7 +12,7 @@ export default class ScheduleCalendarStore {
     private static _instance: ScheduleCalendarStore;
     private _userStore = UserStore.instance;
 
-    @observable private readonly _todayCalendarDate: CalendarDate;
+    @observable private _todayCalendarDate: CalendarDate;
 
     @observable private _curYear: number = new Date().getFullYear();
     @observable private _curMonth: number = new Date().getMonth() + 1;
@@ -21,15 +21,7 @@ export default class ScheduleCalendarStore {
     @observable private _selectedDateScheduleList: Schedule[] = [];
 
     private constructor() {
-        const today = new Date();
-        this._todayCalendarDate = {
-            year: today.getFullYear(),
-            month: today.getMonth() + 1,
-            date: today.getDate(),
-        };
-
-        (async () => await this.loadDateList())();
-
+        this.init();
         ScheduleCalendarStore._instance = this;
     }
 
@@ -74,6 +66,24 @@ export default class ScheduleCalendarStore {
     setCurMonth(month) {
         this._curMonth = month;
         (async () => await this.loadDateList())();
+    }
+
+    @action
+    init() {
+        const today = new Date();
+        this._todayCalendarDate = {
+            year: today.getFullYear(),
+            month: today.getMonth() + 1,
+            date: today.getDate(),
+        };
+        const { year, month } = this.todayCalendarDate;
+
+        this._curYear = year;
+        this._curMonth = month;
+        (async () => {
+            await this.selectCalendarDate(null);
+            await this.loadDateList();
+        })();
     }
 
     @action

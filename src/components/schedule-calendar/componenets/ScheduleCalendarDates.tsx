@@ -3,8 +3,9 @@ import { observer } from 'mobx-react';
 import classNames from 'classnames/bind';
 import style from '../ScheduleCalendar.scss';
 import ScheduleCalendarStore from '@components/schedule-calendar/store/ScheduleCalendarStore';
-import { EWeek } from '@defines/defines';
+import { EWeek, Position } from '@defines/defines';
 import ScheduleCalendarDateCell from '@components/schedule-calendar/componenets/ScheduleCalendarDateCell';
+import Swipeable from '@components/swipeable/Swipeable';
 
 const cx = classNames.bind(style);
 
@@ -14,8 +15,24 @@ const ScheduleCalendarDates = observer(() => {
     const { dateList } = store;
     if (dateList?.length === 0) return null;
 
+    const SWIPE_MIN_RANGE = 80;
+    const { toPrevMonth, toNextMonth } = store;
+
+    const changeMonth = (diff: Position) => {
+        const isChange = Math.abs(diff.x) > SWIPE_MIN_RANGE;
+        if (isChange) {
+            // 이전 달
+            if (diff.x < 0) {
+                toPrevMonth();
+                return;
+            }
+            // 다음 달
+            toNextMonth();
+        }
+    };
+
     return (
-        <div className={cx('dates')}>
+        <Swipeable onTouchEnd={changeMonth} className={cx('dates')}>
             {(() => {
                 const dateRowList = [];
 
@@ -38,7 +55,7 @@ const ScheduleCalendarDates = observer(() => {
 
                 return dateRowList;
             })()}
-        </div>
+        </Swipeable>
     );
 });
 

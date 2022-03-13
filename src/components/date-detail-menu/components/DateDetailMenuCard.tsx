@@ -6,6 +6,7 @@ import Card from '@components/common/card/Card';
 import { Position, Schedule } from '@defines/defines';
 import ScheduleModifyModalStore from '@components/schedule-modal/store/ScheduleModifyModalStore';
 import ScheduleCalendarStore from '@components/schedule-calendar/store/ScheduleCalendarStore';
+import UserStore from '@stores/UserStore';
 
 const cx = classNames.bind(style);
 
@@ -17,6 +18,7 @@ const DateDetailMenuCard = observer((props: DateDetailMenuCardProps) => {
     const { schedule } = props;
     const scheduleModifyModalStore = ScheduleModifyModalStore.instance;
     const scheduleCalendarStore = ScheduleCalendarStore.instance;
+    const userStore = UserStore.instance;
 
     const ref = useRef<HTMLDivElement>();
     const [touchStartPosition, setTouchStartPosition] = useState<Position>(null);
@@ -24,7 +26,7 @@ const DateDetailMenuCard = observer((props: DateDetailMenuCardProps) => {
 
     // 카드 관련 상태
     const cardRef = useRef<HTMLButtonElement>();
-    const [cardStyle, setCardStyle] = useState<CSSProperties>({});
+    const [cardStyle, setCardStyle] = useState<CSSProperties>(userStore.isMe(schedule.owner) ? { background: '#bc80fc', color: 'white' } : {});
     const [cardMoveRange, setCardMoveRange] = useState(0);
 
     const getTouchPosition = (touch: Touch): Position => {
@@ -38,7 +40,7 @@ const DateDetailMenuCard = observer((props: DateDetailMenuCardProps) => {
         return pos1.x - pos2.x;
     };
 
-    const initCardPosition = () => setCardStyle({ right: 0 });
+    const initCardPosition = () => setCardStyle({ ...cardStyle, right: 0 });
 
     const initCardPositionWhenTouchOther = (e) => {
         if (!ref.current || !ref.current.contains(e.target)) {
@@ -67,6 +69,7 @@ const DateDetailMenuCard = observer((props: DateDetailMenuCardProps) => {
 
         // 터치로 이동한 거리만큼 카드 이동, 최대 이동 거리: 카드 너비 / 10
         setCardStyle({
+            ...cardStyle,
             right: Math.min(diffX, cardMoveRange),
         });
     };

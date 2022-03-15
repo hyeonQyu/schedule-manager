@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { CSSProperties, MutableRefObject } from 'react';
 import { observer } from 'mobx-react';
 import classNames from 'classnames/bind';
 import style from './Card.scss';
@@ -12,10 +12,12 @@ export interface CardProps {
     schedule: Schedule;
     className?: string;
     onClick?: () => void;
+    cardRef?: MutableRefObject<HTMLButtonElement>;
+    style?: CSSProperties;
 }
 
 const Card = observer((props: CardProps) => {
-    const { schedule, className = '', onClick = () => {} } = props;
+    const { schedule, className = '', onClick = () => {}, cardRef, style } = props;
     const { scheduleDate, startTime, endTime, name, location = '' } = schedule;
 
     const { year } = scheduleDate;
@@ -29,7 +31,7 @@ const Card = observer((props: CardProps) => {
     const endMinute = NumberFormatUtil.withDigitLength(endTime.minute, 2);
 
     return (
-        <button className={classNames(cx('wrapper'), className)} onClick={onClick}>
+        <button className={classNames(cx('wrapper'), className)} onClick={onClick} ref={cardRef} style={style}>
             <h3>{name}</h3>
             <div className={cx('detail')}>
                 <div className={cx('period')}>

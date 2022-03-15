@@ -4,10 +4,13 @@ import { CalendarDate, DateInfo, EDay, EWeek, EYear, Schedule } from '@defines/d
 import { DateUtil } from '@utils/DateUtil';
 import { ScheduleCalendarRequest } from '@requests/ScheduleCalendarRequest';
 import { toast } from '@components/common/toast/Toast';
+import { dialog } from '@components/common/dialog/Dialog';
+import UserStore from '@stores/UserStore';
 
 @autobind
 export default class ScheduleCalendarStore {
     private static _instance: ScheduleCalendarStore;
+    private _userStore = UserStore.instance;
 
     @observable private readonly _todayCalendarDate: CalendarDate;
 
@@ -207,5 +210,23 @@ export default class ScheduleCalendarStore {
                 this._selectedCalendarDate = calendarDate;
             })();
         })();
+    }
+
+    @action
+    deleteSchedule(schedule: Schedule) {
+        if (!this._userStore.isMe(schedule.owner)) {
+            toast.show('상대방의 일정은 삭제할 수 없어요.', 'error');
+            return;
+        }
+
+        dialog.confirm('일정을 삭제하시겠어요?', () => {
+            (async () => {
+                await ScheduleCalendarRequest.deleteSchedule(schedule);
+                toast.show('일정이 삭제되었습니다.', 'success');
+
+                this.selectCalendarDate(null);
+                await this.loadDateList();
+            })();
+        });
     }
 }

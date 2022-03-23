@@ -11,13 +11,7 @@ export default class WeeklyScheduleStore {
     @observable private _thisWeekDateInfoList: DateInfo[];
 
     private constructor() {
-        const today = new Date();
-        const date = today.getDate();
-        const month = today.getMonth() + 1;
-        const year = today.getFullYear();
-        (async () => {
-            this.setThisWeekDateInfoList(await ScheduleCalendarRequest.getDateInfosOfWeek({ year, month, date }));
-        })();
+        this.init();
         WeeklyScheduleStore._instance = this;
     }
 
@@ -43,6 +37,17 @@ export default class WeeklyScheduleStore {
     @action
     setThisWeekDateInfoList(thisWeekDateInfoList: DateInfo[]) {
         this._thisWeekDateInfoList = thisWeekDateInfoList;
+    }
+
+    @action
+    init() {
+        const today = new Date();
+        const date = today.getDate();
+        const month = today.getMonth() + 1;
+        const year = today.getFullYear();
+        (async () => {
+            this.setThisWeekDateInfoList(await ScheduleCalendarRequest.getDateInfosOfWeek({ year, month, date }));
+        })();
     }
 
     @action

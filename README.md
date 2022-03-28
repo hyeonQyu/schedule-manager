@@ -27,14 +27,14 @@
 - 달력에 날짜별로 스케줄이 간략하게 표시된다.
 - 달력에서 날짜를 선택하고 우측 하단에 있는 ➕ 버튼을 누르면 일정 추가 모달이 열린다.
 
-<img src="https://user-images.githubusercontent.com/58380158/154858424-07c6206e-1567-4657-bcf4-ca449fa2f50e.jpg" width=200> <img src="https://user-images.githubusercontent.com/58380158/154855790-c4b139df-0ad1-4526-aa63-ed712c4de69e.jpg" width=200> <img src="https://user-images.githubusercontent.com/58380158/154938231-ea7bd431-38d1-44a1-ad78-28bcc971903e.gif" width=200>
+<img src="https://user-images.githubusercontent.com/58380158/154858424-07c6206e-1567-4657-bcf4-ca449fa2f50e.jpg" width=200> <img src="https://user-images.githubusercontent.com/44297538/158047384-8030a229-96ff-4968-996f-2099238e0376.gif" width=200> <img src="https://user-images.githubusercontent.com/58380158/154938231-ea7bd431-38d1-44a1-ad78-28bcc971903e.gif" width=200>
 
 ### 2. 일정 추가 모달
 - 일정 이름, 시작 시간, 종료 시간, 장소를 입력하고 일정 상태를 선택한다.
 - 일정 내용을 작성하고 완료 버튼을 누르면 일정이 저장된다.
 - 자주 사용하는 일정으로 등록하면 기존 내용을 불러와 일정을 간편하게 추가할 수 있다.
 
-<img src="https://user-images.githubusercontent.com/58380158/154856001-17cb4c47-4ad9-4f54-bda3-d2f877ee6180.jpg" width=200> <img src="https://user-images.githubusercontent.com/58380158/154859532-04e9200e-382e-40d2-9537-986a6b9678d8.jpg" width=200> <img src="https://user-images.githubusercontent.com/58380158/154858466-276ef34c-fb83-4439-b6fb-4d922b8f3e84.jpg" width=200> <img src="https://user-images.githubusercontent.com/58380158/154856062-6db55efd-9164-48cd-b75a-122cd78c9d68.jpg" width=200>
+<img src="https://user-images.githubusercontent.com/58380158/154856001-17cb4c47-4ad9-4f54-bda3-d2f877ee6180.jpg" width=200> <img src="https://user-images.githubusercontent.com/44297538/155890122-95e3fbc2-0211-4a52-9231-66af2ada3c7d.gif" width=200> <img src="https://user-images.githubusercontent.com/44297538/155890121-3a3c463d-68b0-4cbb-88e7-f987d0bbcb99.gif" width=200> <img src="https://user-images.githubusercontent.com/58380158/154856062-6db55efd-9164-48cd-b75a-122cd78c9d68.jpg" width=200>
 
 
 ### 3. 주간 일정
